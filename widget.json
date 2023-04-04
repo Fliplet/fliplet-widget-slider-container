@@ -1,0 +1,1450 @@
+{
+  "name": "Slider",
+  "package": "com.fliplet.slider",
+  "version": "1.0.0",
+  "icon": "img/icon.png",
+  "tags": [
+    "type:component",
+    "category:general"
+  ],
+  "provider_only": false,
+  "references": [
+    "slides:richContent",
+    "redirectEndScreen:page",
+    "redirectEndScreen:page"
+  ],
+  "settings": {
+    "interfaceWidgetPackage": "com.fliplet.helper-configuration"
+  },
+  "html_tag": "div",
+  "interface": {
+    "dependencies": [
+      "fliplet-core",
+      "fliplet-studio-ui"
+    ],
+    "assets": [
+      "js/interface.js"
+    ]
+  },
+  "build": {
+    "dependencies": [
+      "jquery",
+      "bootstrap",
+      "fliplet-core",
+      "fliplet-helper"
+    ],
+    "assets": [
+      "css/build.css",
+      "css/swiper.min.css",
+      "js/build.js",
+      "js/swiper.min.js",
+      "css/index.scss"
+    ],
+    "appAssets": []
+  },
+  "themeSettings": {
+    "variablePrefix": "slider",
+    "variables": [
+      {
+        "description": "Background color",
+        "fields": [
+          {
+            "name": "background",
+            "default": "#FFFFFF",
+            "label": "Background color",
+            "type": "color"
+          }
+        ]
+      },
+      {
+        "description": "Width",
+        "fields": [
+          {
+            "name": "sliderWidth",
+            "default": "100%",
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderWidthTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderWidthDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "width",
+            "label": "Width"
+          },
+          {
+            "name": "sliderMinWidth",
+            "default": "auto",
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderMinWidthTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderMinWidthDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "width",
+            "label": "Min"
+          },
+          {
+            "name": "sliderMaxWidth",
+            "default": "none",
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderMaxWidthTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderMaxWidthDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "max-width",
+            "label": "Max"
+          }
+        ]
+      },
+      {
+        "description": "Margin",
+        "fields": [
+          {
+            "name": "sliderMarginAlign",
+            "default": "center",
+            "columns": 12,
+            "logic": {
+              "left": {
+                "sliderMarginRight": "auto",
+                "sliderMarginLeft": "0px"
+              },
+              "center": {
+                "sliderMarginRight": "auto",
+                "sliderMarginLeft": "auto"
+              },
+              "right": {
+                "sliderMarginRight": "0px",
+                "sliderMarginLeft": "auto"
+              },
+              "custom": [
+                "sliderMarginTop",
+                "sliderMarginRight",
+                "sliderMarginBottom",
+                "sliderMarginLeft"
+              ]
+            },
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "properties": [
+                  "margin"
+                ],
+                "type": "margin"
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderMarginAlignTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderMarginAlignDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "margin-align"
+          },
+          {
+            "name": "sliderMarginTop",
+            "default": "0px",
+            "columns": 6,
+            "logic": "sliderMarginAlign",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "properties": [
+                  "margin-top"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderMarginTopTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderMarginTopDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "margin",
+            "label": "Top",
+            "allowNegative": true
+          },
+          {
+            "name": "sliderMarginRight",
+            "default": "auto",
+            "columns": 6,
+            "logic": "sliderMarginAlign",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "properties": [
+                  "margin-right"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderMarginRightTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderMarginRightDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "margin",
+            "label": "Right",
+            "allowNegative": true
+          },
+          {
+            "name": "sliderMarginBottom",
+            "default": "0px",
+            "columns": 6,
+            "logic": "sliderMarginAlign",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "properties": [
+                  "margin-bottom"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderMarginBottomTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderMarginBottomDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "margin",
+            "label": "Bottom",
+            "allowNegative": true
+          },
+          {
+            "name": "sliderMarginLeft",
+            "default": "auto",
+            "columns": 6,
+            "logic": "sliderMarginAlign",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "properties": [
+                  "margin-left"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderMarginLeftTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderMarginLeftDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "margin",
+            "label": "Left",
+            "allowNegative": true
+          }
+        ]
+      },
+      {
+        "description": "Padding",
+        "fields": [
+          {
+            "name": "sliderPaddingTop",
+            "default": "0px",
+            "columns": 6,
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".onboarding-holder",
+                "properties": [
+                  "padding-top"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderPaddingTopTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderPaddingTopDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "padding",
+            "label": "Top"
+          },
+          {
+            "name": "sliderPaddingRight",
+            "default": "0px",
+            "columns": 6,
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".onboarding-holder",
+                "properties": [
+                  "padding-right"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderPaddingRightTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderPaddingRightDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "padding",
+            "label": "Right"
+          },
+          {
+            "name": "sliderPaddingBottom",
+            "default": "0px",
+            "columns": 6,
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".onboarding-holder",
+                "properties": [
+                  "padding-bottom"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderPaddingBottomTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderPaddingBottomDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "padding",
+            "label": "Bottom"
+          },
+          {
+            "name": "sliderPaddingLeft",
+            "default": "0px",
+            "columns": 6,
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".onboarding-holder",
+                "properties": [
+                  "padding-left"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderPaddingLeftTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderPaddingLeftDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "padding",
+            "label": "Left"
+          }
+        ]
+      },
+      {
+        "description": "Progress bar padding",
+        "fields": [
+          {
+            "name": "sliderProgresbarPaddingTop",
+            "default": "0px",
+            "columns": 6,
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination",
+                "properties": [
+                  "padding-top"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderProgresbarPaddingTopTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderProgresbarPaddingTopDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "padding",
+            "label": "Top"
+          },
+          {
+            "name": "sliderProgresbarPaddingRight",
+            "default": "0px",
+            "columns": 6,
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination",
+                "properties": [
+                  "padding-right"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderProgresbarPaddingRightTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderProgresbarPaddingRightDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "padding",
+            "label": "Right"
+          },
+          {
+            "name": "sliderProgresbarPaddingBottom",
+            "default": "0px",
+            "columns": 6,
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination",
+                "properties": [
+                  "padding-bottom"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderProgresbarPaddingBottomTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderProgresbarPaddingBottomDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "padding",
+            "label": "Bottom"
+          },
+          {
+            "name": "sliderProgresbarPaddingLeft",
+            "default": "0px",
+            "columns": 6,
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination",
+                "properties": [
+                  "padding-left"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "sliderProgresbarPaddingLeft",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "sliderProgresbarPaddingLeft",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "padding",
+            "label": "Left"
+          }
+        ]
+      },
+      {
+        "description": "Colors",
+        "fields": [
+          {
+            "name": "paginationBulletColor",
+            "default": "rgba(0,0,0,0.1)",
+            "columns": 12,
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination-bullet",
+                "properties": [
+                  "background-color"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationBulletColorTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationBulletColorDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "label": "Pagination dots",
+            "type": "color"
+          },
+          {
+            "name": "paginationBulletColorActive",
+            "default": "$highlightColor",
+            "columns": 12,
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination-bullet-active",
+                "properties": [
+                  "background-color"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationBulletColorActiveTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationBulletColorActiveDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "label": "Active pagination dots",
+            "type": "color"
+          },
+          {
+            "name": "paginationChevronsColor",
+            "default": "#999999",
+            "columns": 12,
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": [
+                  ".swiper-button-next",
+                  ".swiper-button-prev"
+                ],
+                "properties": [
+                  "color"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationChevronsColorTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationChevronsColorDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "label": "Navigation arrows",
+            "type": "color"
+          },
+          {
+            "name": "navigationArrowsBackground",
+            "default": "#ccc",
+            "columns": 12,
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationChevronsColorTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationChevronsColorDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "label": "Navigation arrows background",
+            "type": "color"
+          },
+          {
+            "name": "progresBarBackground",
+            "default": "#FA8B8B",
+            "columns": 12,
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationChevronsColorTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationChevronsColorDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "label": "Progress bar",
+            "type": "color"
+          },
+          {
+            "name": "activeProgresBarBackground",
+            "default": "#FA8B8B",
+            "columns": 12,
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationChevronsColorTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationChevronsColorDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "label": "Active Progress bar",
+            "type": "color"
+          }
+        ]
+      },
+      {
+        "description": "Arrow size",
+        "fields": [
+          {
+            "name": "arrowSize",
+            "default": "12px",
+            "label": "",
+            "type": "select",
+            "properties": {
+              "12px": "Small",
+              "16px": "Medium",
+              "22px": "Large"
+            }
+          }
+        ]
+      },
+      {
+        "description": "Pagination dots sizes",
+        "fields": [
+          {
+            "name": "paginationBulletWidth",
+            "default": "8px",
+            "columns": 6,
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination-bullet",
+                "properties": [
+                  "width"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationBulletWidthTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationBulletWidthDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "label": "Width",
+            "subtype": "width",
+            "type": "size"
+          },
+          {
+            "name": "paginationBulletHeight",
+            "default": "8px",
+            "columns": 6,
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination-bullet",
+                "properties": [
+                  "height"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationBulletHeightTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationBulletHeightDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "label": "Height",
+            "subtype": "height",
+            "type": "size"
+          }
+        ]
+      },
+      {
+        "description": "Pagination dots border",
+        "fields": [
+          {
+            "name": "paginationBulletBorderSides",
+            "default": "none",
+            "logic": {
+              "none": {
+                "hide": [
+                  "paginationBulletBorderWidth",
+                  "paginationBulletBorderStyle",
+                  "paginationBulletBorder"
+                ]
+              },
+              "all": {
+                "show": [
+                  "paginationBulletBorderWidth",
+                  "paginationBulletBorderStyle",
+                  "paginationBulletBorder"
+                ]
+              },
+              "top": {
+                "show": [
+                  "paginationBulletBorderWidth",
+                  "paginationBulletBorderStyle",
+                  "paginationBulletBorder"
+                ]
+              },
+              "right": {
+                "show": [
+                  "paginationBulletBorderWidth",
+                  "paginationBulletBorderStyle",
+                  "paginationBulletBorder"
+                ]
+              },
+              "bottom": {
+                "show": [
+                  "paginationBulletBorderWidth",
+                  "paginationBulletBorderStyle",
+                  "paginationBulletBorder"
+                ]
+              },
+              "left": {
+                "show": [
+                  "paginationBulletBorderWidth",
+                  "paginationBulletBorderStyle",
+                  "paginationBulletBorder"
+                ]
+              }
+            },
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination-bullet",
+                "properties": [
+                  "border"
+                ],
+                "type": "border",
+                "siblings": {
+                  "sides": "paginationBulletBorderSides",
+                  "width": "paginationBulletBorderWidth",
+                  "style": "paginationBulletBorderStyle",
+                  "color": "paginationBulletBorder"
+                }
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationBulletBorderSidesTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationBulletBorderSidesDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "select",
+            "subtype": "border-sides"
+          },
+          {
+            "name": "paginationBulletBorder",
+            "default": "transparent",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination-bullet",
+                "properties": [
+                  "border"
+                ],
+                "type": "border",
+                "siblings": {
+                  "sides": "paginationBulletBorderSides",
+                  "width": "paginationBulletBorderWidth",
+                  "style": "paginationBulletBorderStyle",
+                  "color": "paginationBulletBorder"
+                }
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationBulletBorderTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationBulletBorderDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "color"
+          },
+          {
+            "name": "paginationBulletBorderWidth",
+            "default": "1px",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination-bullet",
+                "properties": [
+                  "border"
+                ],
+                "type": "border",
+                "siblings": {
+                  "sides": "paginationBulletBorderSides",
+                  "width": "paginationBulletBorderWidth",
+                  "style": "paginationBulletBorderStyle",
+                  "color": "paginationBulletBorder"
+                }
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationBulletBorderWidthTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationBulletBorderWidthDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "border"
+          },
+          {
+            "name": "paginationBulletBorderStyle",
+            "default": "solid",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination-bullet",
+                "properties": [
+                  "border"
+                ],
+                "type": "border",
+                "siblings": {
+                  "sides": "paginationBulletBorderSides",
+                  "width": "paginationBulletBorderWidth",
+                  "style": "paginationBulletBorderStyle",
+                  "color": "paginationBulletBorder"
+                }
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationBulletBorderStyleTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationBulletBorderStyleDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "border-style"
+          }
+        ]
+      },
+      {
+        "description": "Active pagination dots border",
+        "fields": [
+          {
+            "name": "paginationBulletBorderActiveSides",
+            "default": "none",
+            "logic": {
+              "none": {
+                "hide": [
+                  "paginationBulletBorderActiveWidth",
+                  "paginationBulletBorderActiveStyle",
+                  "paginationBulletBorderActive"
+                ]
+              },
+              "all": {
+                "show": [
+                  "paginationBulletBorderActiveWidth",
+                  "paginationBulletBorderActiveStyle",
+                  "paginationBulletBorderActive"
+                ]
+              },
+              "top": {
+                "show": [
+                  "paginationBulletBorderActiveWidth",
+                  "paginationBulletBorderActiveStyle",
+                  "paginationBulletBorderActive"
+                ]
+              },
+              "right": {
+                "show": [
+                  "paginationBulletBorderActiveWidth",
+                  "paginationBulletBorderActiveStyle",
+                  "paginationBulletBorderActive"
+                ]
+              },
+              "bottom": {
+                "show": [
+                  "paginationBulletBorderActiveWidth",
+                  "paginationBulletBorderActiveStyle",
+                  "paginationBulletBorderActive"
+                ]
+              },
+              "left": {
+                "show": [
+                  "paginationBulletBorderActiveWidth",
+                  "paginationBulletBorderActiveStyle",
+                  "paginationBulletBorderActive"
+                ]
+              }
+            },
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination-bullet-active",
+                "properties": [
+                  "border"
+                ],
+                "type": "border",
+                "siblings": {
+                  "sides": "paginationBulletBorderActiveSides",
+                  "width": "paginationBulletBorderActiveWidth",
+                  "style": "paginationBulletBorderActiveStyle",
+                  "color": "paginationBulletBorderActive"
+                }
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationBulletBorderActiveSidesTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationBulletBorderActiveSidesDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "select",
+            "subtype": "border-sides"
+          },
+          {
+            "name": "paginationBulletBorderActive",
+            "default": "transparent",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination-bullet-active",
+                "properties": [
+                  "border"
+                ],
+                "type": "border",
+                "siblings": {
+                  "sides": "paginationBulletBorderActiveSides",
+                  "width": "paginationBulletBorderActiveWidth",
+                  "style": "paginationBulletBorderActiveStyle",
+                  "color": "paginationBulletBorderActive"
+                }
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationBulletBorderActiveTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationBulletBorderActiveDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "color"
+          },
+          {
+            "name": "paginationBulletBorderActiveWidth",
+            "default": "1px",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination-bullet-active",
+                "properties": [
+                  "border"
+                ],
+                "type": "border",
+                "siblings": {
+                  "sides": "paginationBulletBorderActiveSides",
+                  "width": "paginationBulletBorderActiveWidth",
+                  "style": "paginationBulletBorderActiveStyle",
+                  "color": "paginationBulletBorderActive"
+                }
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationBulletBorderActiveWidthTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationBulletBorderActiveWidthDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "border"
+          },
+          {
+            "name": "paginationBulletBorderActiveStyle",
+            "default": "solid",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".swiper-pagination-bullet-active",
+                "properties": [
+                  "border"
+                ],
+                "type": "border",
+                "siblings": {
+                  "sides": "paginationBulletBorderActiveSides",
+                  "width": "paginationBulletBorderActiveWidth",
+                  "style": "paginationBulletBorderActiveStyle",
+                  "color": "paginationBulletBorderActive"
+                }
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationBulletBorderActiveStyleTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationBulletBorderActiveStyleDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "border-style"
+          }
+        ]
+      },
+      {
+        "description": "Skip button",
+        "fields": [
+          {
+            "name": "skipFont",
+            "default": "'Times New Roman', Times, serif",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".skip-btn",
+                "properties": [
+                  "font-family"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "skipFontTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "skipFontDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "font"
+          },
+          {
+            "name": "skipSize",
+            "default": "12px",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".skip-btn",
+                "properties": [
+                  "font-size"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "skipSizeTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "skipSizeDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "font"
+          },
+          {
+            "name": "skipColor",
+            "default": "#fff",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".skip-btn",
+                "properties": [
+                  "color"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "skipColorTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "skipColorDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "color"
+          },
+          {
+            "name": "skipWeight",
+            "default": "bold",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".skip-btn",
+                "properties": [
+                  "font-weight"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "skipWeightTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "skipWeightDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "font-style",
+            "properties": "weight"
+          },
+          {
+            "name": "skipStyle",
+            "default": "italic",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".skip-btn",
+                "properties": [
+                  "font-style"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "skipStyleTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "skipStyleDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "font-style",
+            "properties": "italic"
+          },
+          {
+            "name": "skipDecoration",
+            "default": "underline",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".skip-btn",
+                "properties": [
+                  "text-decoration"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "skipDecorationTalet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "skipDecorationDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "font-style",
+            "subType": "decoration",
+            "properties": "underline"
+          },
+          {
+            "name": "skipHeight",
+            "default": "15px",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".skip-btn",
+                "properties": [
+                  "line-height"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "skipHeightTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "skipHeightDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "label": "Line height",
+            "type": "size",
+            "subtype": "line-height"
+          }
+        ]
+      },
+      {
+        "description": "Pagination",
+        "fields": [
+          {
+            "name": "paginationFont",
+            "default": "'Times New Roman', Times, serif",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".pagination-btn",
+                "properties": [
+                  "font-family"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationFontTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationFontDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "font"
+          },
+          {
+            "name": "paginationSize",
+            "default": "12px",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".pagination-btn",
+                "properties": [
+                  "font-size"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationSizeTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationSizeDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "font"
+          },
+          {
+            "name": "paginationColor",
+            "default": "#fff",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".pagination-btn",
+                "properties": [
+                  "color"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationColorTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationColorDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "color"
+          },
+          {
+            "name": "paginationWeight",
+            "default": "bold",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".pagination-btn",
+                "properties": [
+                  "font-weight"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationWeightTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationWeightDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "font-style",
+            "properties": "weight"
+          },
+          {
+            "name": "paginationStyle",
+            "default": "italic",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".pagination-btn",
+                "properties": [
+                  "font-style"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationStyleTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationStyleDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "font-style",
+            "properties": "italic"
+          },
+          {
+            "name": "paginationDecoration",
+            "default": "underline",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".pagination-btn",
+                "properties": [
+                  "text-decoration"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationDecorationTalet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationDecorationDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "font-style",
+            "subType": "decoration",
+            "properties": "underline"
+          },
+          {
+            "name": "paginationHeight",
+            "default": "15px",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".pagination-btn",
+                "properties": [
+                  "line-height"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "paginationHeightTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "paginationHeightDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "label": "Line height",
+            "type": "size",
+            "subtype": "line-height"
+          }
+        ]
+      },
+      {
+        "description": "Visibility",
+        "appSupportsContainers": true,
+        "fields": [
+          {
+            "name": "slideVisibility",
+            "default": "visible",
+            "columns": 12,
+            "breakpoints": {
+              "tablet": {
+                "name": "slideVisibilityTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "slideVisibilityDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "toggle",
+            "subtype": "visibility"
+          }
+        ]
+      }
+    ]
+  }
+}

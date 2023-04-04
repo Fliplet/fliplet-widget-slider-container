@@ -1,0 +1,88 @@
+fl-helper[name="slider"] {
+  display: block!important;
+  min-height: 150px;
+}
+[name="slide"] {
+  padding-bottom: 70px;
+  padding-top: 70px;
+}
+.skip-container {
+  top: 25px;
+  right: 10px;
+  z-index: 9999;
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+}
+.skip-container .skip-btn {
+  color: #fff;
+  text-shadow: 0 0px 2px #878787;
+  text-decoration: underline;
+  background: transparent;
+  border: none;
+}
+.swiper-button-next {
+  position: fixed;
+  top: 49%!important;
+  z-index: 9999;
+}
+.swiper-button-prev {
+  position: fixed;
+  top: 49%!important;
+  z-index: 9999;
+}
+.swiper-pagination-progressbar {
+  position: fixed!important;
+  top: 15px!important;
+  left: 0!important;
+  right: 0!important;
+  z-index: 9999;
+  width: 100%!important;
+}
+.swiper-container-initialized .swiper-wrapper {
+  padding-bottom: 40px;
+  min-height: calc(100vh - 40px)!important;
+}
+.swiper-container-horizontal.swiper-container-initialized > .swiper-pagination-progressbar {
+  background: rgba(125, 125, 125,0.25);
+  position: absolute;
+  width: calc(100% - 100px);
+  left: 50px;
+  top: 25px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.swiper-container-initialized .swiper-button-next,
+.swiper-container-initialized .swiper-button-prev {
+  height: 40px;
+  width: 40px;
+  top: 29px;
+  border-radius: 22px;
+}
+.swiper-container-initialized .swiper-button-prev {
+  left: 0;
+}
+.swiper-container-initialized .swiper-button-next {
+  right: 0;
+}
+.swiper-container-initialized .swiper-button-next:after,
+.swiper-container-initialized .swiper-button-prev:after {
+  font-size: 16px;
+  position: relative;
+}
+.swiper-container-initialized .swiper-button-next:after {
+  left: 1px;
+}
+.swiper-container-initialized .swiper-button-prev:after {
+  right: 1px;
+}
+.swiper-nav-next-disabled .swiper-container-initialized .swiper-button-next,
+.swiper-nav-prev-disabled .swiper-container-initialized .swiper-button-prev {
+  opacity: 0.35;
+  cursor: auto;
+  pointer-events: none;
+}
+.swiper-slide {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
