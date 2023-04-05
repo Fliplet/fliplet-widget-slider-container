@@ -5,7 +5,7 @@
 //   });
   Fliplet.Widget.instance({
     name: 'slider',
-    displayName: 'Slider',
+    displayName: 'slider',
     icon: 'fa-exchange',
     data: {
       formName: null,
