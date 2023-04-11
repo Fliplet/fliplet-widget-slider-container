@@ -86,3 +86,36 @@ fl-helper[name="slider"] {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
+
+.mode-interact .skip-container,
+.mode-interact .swiper-pagination, 
+.mode-interact .swiper-button-prev, 
+.mode-interact .swiper-button-next {
+  display: none!important;
+}
+.mode-interact .swiper-wrapper {
+  display: block;
+}
+.mode-interact .swiper-wrapper > div {
+  margin-top: 15px;
+}
+.mode-interact .fl-widget-instance[data-name="slider"] {
+  padding-top: 20px!important;
+}
+
+.mode-interact fl-helper[name='slider']::before {
+  content: 'Slider';
+}
+
+.mode-interact fl-helper[name='slider']:before {
+  /* border-top-left-radius: 10px; */
+  border-bottom-right-radius: 10px;
+  cursor: grab;
+  position: relative;
+  padding: 5px;
+  font-size: 12px;
+  color: white;
+  background: darkorange;
+  top: -25px;
+  left: 0px;
+}
