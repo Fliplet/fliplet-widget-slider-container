@@ -42,21 +42,21 @@ $variablePrefix: "slider";
         slider-sliderPaddingLeft: $slider-sliderPaddingLeft,
         slider-sliderPaddingLeftTablet: $slider-sliderPaddingLeftTablet,
         slider-sliderPaddingLeftDesktop: $slider-sliderPaddingLeftDesktop,
-        // slider-sliderMarginAlign: $slider-sliderMarginAlign,
-        // slider-sliderMarginAlignTablet: $slider-sliderMarginAlignTablet,
-        // slider-sliderMarginAlignDesktop: $slider-sliderMarginAlignDesktop,
-        // slider-sliderMarginTop: $slider-sliderMarginTop,
-        // slider-sliderMarginTopTablet: $slider-sliderMarginTopTablet,
-        // slider-sliderMarginTopDesktop: $slider-sliderMarginTopDesktop,
-        // slider-sliderMarginBottom: $slider-sliderMarginBottom,
-        // slider-sliderMarginBottomTablet: $slider-sliderMarginBottomTablet,
-        // slider-sliderMarginBottomDesktop: $slider-sliderMarginBottomDesktop,
-        // slider-sliderMarginLeft: $slider-sliderMarginLeft,
-        // slider-sliderMarginLeftTablet: $slider-sliderMarginLeftTablet,
-        // slider-sliderMarginLeftDesktop: $slider-sliderMarginLeftDesktop,
-        // slider-sliderMarginRight: $slider-sliderMarginRight,
-        // slider-sliderMarginRightTablet: $slider-sliderMarginRightTablet,
-        // slider-sliderMarginRightDesktop: $slider-sliderMarginRightDesktop,
+        slider-sliderMarginAlign: $slider-sliderMarginAlign,
+        slider-sliderMarginAlignTablet: $slider-sliderMarginAlignTablet,
+        slider-sliderMarginAlignDesktop: $slider-sliderMarginAlignDesktop,
+        slider-sliderMarginTop: $slider-sliderMarginTop,
+        slider-sliderMarginTopTablet: $slider-sliderMarginTopTablet,
+        slider-sliderMarginTopDesktop: $slider-sliderMarginTopDesktop,
+        slider-sliderMarginBottom: $slider-sliderMarginBottom,
+        slider-sliderMarginBottomTablet: $slider-sliderMarginBottomTablet,
+        slider-sliderMarginBottomDesktop: $slider-sliderMarginBottomDesktop,
+        slider-sliderMarginLeft: $slider-sliderMarginLeft,
+        slider-sliderMarginLeftTablet: $slider-sliderMarginLeftTablet,
+        slider-sliderMarginLeftDesktop: $slider-sliderMarginLeftDesktop,
+        slider-sliderMarginRight: $slider-sliderMarginRight,
+        slider-sliderMarginRightTablet: $slider-sliderMarginRightTablet,
+        slider-sliderMarginRightDesktop: $slider-sliderMarginRightDesktop,
         slider-sliderProgresbarPaddingTop: $slider-sliderProgresbarPaddingTop,
         slider-sliderProgresbarPaddingTopTablet: $slider-sliderProgresbarPaddingTopTablet,
         slider-sliderProgresbarPaddingTopDesktop: $slider-sliderProgresbarPaddingTopDesktop,
@@ -69,12 +69,12 @@ $variablePrefix: "slider";
         slider-sliderProgresbarPaddingLeft: $slider-sliderProgresbarPaddingLeft,
         slider-sliderProgresbarPaddingLeftTablet: $slider-sliderProgresbarPaddingLeftTablet,
         slider-sliderProgresbarPaddingLeftDesktop: $slider-sliderProgresbarPaddingLeftDesktop,
-        // slider-paginationBulletWidth: $slider-paginationBulletWidth,
-        // slider-paginationBulletWidthTablet: $slider-paginationBulletWidthTablet,
-        // slider-paginationBulletWidthDesktop: $slider-paginationBulletWidthDesktop,
-        // slider-paginationBulletHeight: $slider-paginationBulletHeight,
-        // slider-paginationBulletHeightTablet: $slider-paginationBulletHeightTablet,
-        // slider-paginationBulletHeightDesktop: $slider-paginationBulletHeightDesktop,
+        slider-paginationBulletWidth: $slider-paginationBulletWidth,
+        slider-paginationBulletWidthTablet: $slider-paginationBulletWidthTablet,
+        slider-paginationBulletWidthDesktop: $slider-paginationBulletWidthDesktop,
+        slider-paginationBulletHeight: $slider-paginationBulletHeight,
+        slider-paginationBulletHeightTablet: $slider-paginationBulletHeightTablet,
+        slider-paginationBulletHeightDesktop: $slider-paginationBulletHeightDesktop,
         slider-slideVisibility: $slider-slideVisibility,
         slider-slideVisibilityTablet: $slider-slideVisibilityTablet,
         slider-slideVisibilityDesktop: $slider-slideVisibilityDesktop,
@@ -407,92 +407,92 @@ $variablePrefix: "slider";
     // end of padding left
 
     // slider margin
-    // margin: map-get($configuration, slider-sliderMarginAlign) !important;
+    margin: map-get($configuration, slider-sliderMarginAlign) !important;
 
-    // @include above($tabletBreakpoint) {
-    //   margin: map-get($configuration, slider-sliderMarginAlignTablet) !important;
-    // }
+    @include above($tabletBreakpoint) {
+      margin: map-get($configuration, slider-sliderMarginAlignTablet) !important;
+    }
 
-    // @include above($desktopBreakpoint) {
-    //   margin: map-get($configuration, slider-sliderMarginAlignDesktop) !important;
-    // }
+    @include above($desktopBreakpoint) {
+      margin: map-get($configuration, slider-sliderMarginAlignDesktop) !important;
+    }
 
     // // end of margin
 
     // // slider margin top
-    // margin-top: map-get($configuration, slider-sliderMarginTop) !important;
+    margin-top: map-get($configuration, slider-sliderMarginTop) !important;
 
-    // @include above($tabletBreakpoint) {
-    //   margin-top: map-get($configuration, slider-sliderMarginTopTablet) !important;
-    // }
+    @include above($tabletBreakpoint) {
+      margin-top: map-get($configuration, slider-sliderMarginTopTablet) !important;
+    }
 
-    // @include above($desktopBreakpoint) {
-    //   margin-top: map-get($configuration, slider-sliderMarginTopDesktop) !important;
-    // }
+    @include above($desktopBreakpoint) {
+      margin-top: map-get($configuration, slider-sliderMarginTopDesktop) !important;
+    }
 
-    // // end of margin top
+    // end of margin top
 
-    // // slider margin bottom
-    // margin-bottom: map-get($configuration, slider-sliderMarginBottom) !important;
+    // slider margin bottom
+    margin-bottom: map-get($configuration, slider-sliderMarginBottom) !important;
 
-    // @include above($tabletBreakpoint) {
-    //   margin-bottom: map-get($configuration, slider-sliderMarginBottomTablet) !important;
-    // }
+    @include above($tabletBreakpoint) {
+      margin-bottom: map-get($configuration, slider-sliderMarginBottomTablet) !important;
+    }
 
-    // @include above($desktopBreakpoint) {
-    //   margin-bottom: map-get($configuration, slider-sliderMarginBottomDesktop) !important;
-    // }
+    @include above($desktopBreakpoint) {
+      margin-bottom: map-get($configuration, slider-sliderMarginBottomDesktop) !important;
+    }
 
-    // // end of margin bottom
+    // end of margin bottom
 
-    // // slider margin left
-    // margin-left: map-get($configuration, slider-sliderMarginLeft) !important;
+    // slider margin left
+    margin-left: map-get($configuration, slider-sliderMarginLeft) !important;
 
-    // @include above($tabletBreakpoint) {
-    //   margin-left: map-get($configuration, slider-sliderMarginLeftTablet) !important;
-    // }
+    @include above($tabletBreakpoint) {
+      margin-left: map-get($configuration, slider-sliderMarginLeftTablet) !important;
+    }
 
-    // @include above($desktopBreakpoint) {
-    //   margin-left: map-get($configuration, slider-sliderMarginLeftDesktop) !important;
-    // }
+    @include above($desktopBreakpoint) {
+      margin-left: map-get($configuration, slider-sliderMarginLeftDesktop) !important;
+    }
 
-    // // end of margin left
+    // end of margin left
 
-    // // slider margin right
-    // margin-right: map-get($configuration, slider-sliderMarginRight) !important;
+    // slider margin right
+    margin-right: map-get($configuration, slider-sliderMarginRight) !important;
 
-    // @include above($tabletBreakpoint) {
-    //   margin-right: map-get($configuration, slider-sliderMarginRightTablet) !important;
-    // }
+    @include above($tabletBreakpoint) {
+      margin-right: map-get($configuration, slider-sliderMarginRightTablet) !important;
+    }
 
-    // @include above($desktopBreakpoint) {
-    //   margin-right: map-get($configuration, slider-sliderMarginRightDesktop) !important;
-    // }
+    @include above($desktopBreakpoint) {
+      margin-right: map-get($configuration, slider-sliderMarginRightDesktop) !important;
+    }
 
     // end of margin right
 
     // pagination dots width
-    // .swiper-pagination-bullet {
-    //   width: map-get($configuration, slider-paginationBulletWidth) !important;
+    .swiper-pagination-bullet {
+      width: map-get($configuration, slider-paginationBulletWidth) !important;
 
-    //   @include above($tabletBreakpoint) {
-    //     width: map-get($configuration, slider-paginationBulletWidthTablet) !important;
-    //   }
+      @include above($tabletBreakpoint) {
+        width: map-get($configuration, slider-paginationBulletWidthTablet) !important;
+      }
 
-    //   @include above($desktopBreakpoint) {
-    //     width: map-get($configuration, slider-paginationBulletWidthDesktop) !important;
-    //   }
+      @include above($desktopBreakpoint) {
+        width: map-get($configuration, slider-paginationBulletWidthDesktop) !important;
+      }
 
-    //   height: map-get($configuration, slider-paginationBulletHeight) !important;
+      height: map-get($configuration, slider-paginationBulletHeight) !important;
 
-    //   @include above($tabletBreakpoint) {
-    //     height: map-get($configuration, slider-paginationBulletHeightTablet) !important;
-    //   }
+      @include above($tabletBreakpoint) {
+        height: map-get($configuration, slider-paginationBulletHeightTablet) !important;
+      }
 
-    //   @include above($desktopBreakpoint) {
-    //     height: map-get($configuration, slider-paginationBulletHeightDesktop) !important;
-    //   }
-    // }
+      @include above($desktopBreakpoint) {
+        height: map-get($configuration, slider-paginationBulletHeightDesktop) !important;
+      }
+    }
     // end of pagination dots width
 
 
