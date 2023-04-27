@@ -151,7 +151,7 @@ Fliplet.Widget.instance({
       if (Fliplet.FormBuilder) {
         Fliplet.FormBuilder.getAll()
           .then(function (forms) {
-            var formId = $($('[name="slide"].swiper-slide-active').find('[data-name="Form"]')).attr(
+            var formId = $($('[data-name="slide"].swiper-slide-active').find('[data-name="Form"]')).attr(
               'data-id'
             );
             if (formId) {
@@ -184,7 +184,7 @@ Fliplet.Widget.instance({
           Fliplet.FormBuilder.getAll()
             .then(function (forms) {
               var formId = $(
-                $('[name="slide"].swiper-slide-active').find('[data-name="Form"]')
+                $('[data-name="slide"].swiper-slide-active').find('[data-name="Form"]')
               ).attr('data-id');
               if (formId) {
                 thisSlider.data.formName = forms.find(el => el.instance.id == formId).name;
@@ -272,6 +272,19 @@ Fliplet.Widget.instance({
       };
 
       Fliplet.Hooks.run('sliderInitialized');
+
+      Fliplet.Hooks.on('beforeFormSubmit', function (formData) {
+        return Fliplet.App.Storage.get(thisSlider.data.formName).then(function (value) {
+          if (value) {
+            return Fliplet.DataSources.connect(value.dataSourceId).then(function (connection) {
+              return connection.update(value.entryId, formData).then(() => {
+                swiper.slideNext();
+                return Promise.reject('')
+              })
+            });
+          }
+        })
+      });
 
       Fliplet.Hooks.on('afterFormSubmit', function (response) {
         swiper.allowSlideNext = true;
