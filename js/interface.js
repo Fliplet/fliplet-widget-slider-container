@@ -55,31 +55,31 @@ Fliplet.Pages.get().then(pages => {
         ],
         default: 'fade'
       },
-      {
-        name: 'skipEnabled',
-        type: 'checkbox',
-        label: 'Skip button',
-        options: [{ value: false, label: 'Hide skip button' }],
-        default: [false],
-        change: function (value) {
-          Fliplet.Helper.field('redirectSkipScreen').toggle(!value.includes(false));
-        }
-      },
+      // {
+      //   name: 'skipEnabled',
+      //   type: 'checkbox',
+      //   label: 'Skip button',
+      //   options: [{ value: false, label: 'Hide skip button' }],
+      //   default: [false],
+      //   change: function (value) {
+      //     Fliplet.Helper.field('redirectSkipScreen').toggle(!value.includes(false));
+      //   }
+      // },
       // IF YES skipEnabled
-      {
-        name: 'redirectSkipScreen',
-        type: 'dropdown',
-        label: 'Display this screen when user taps skip',
-        options: appPages, // Fliplet.Env.get('appPages'),
-        default: '',
-        ready: function (el) {
-          Fliplet.Helper.field('redirectSkipScreen').toggle(
-            !Fliplet.Helper.field('skipEnabled')
-              .get()
-              .includes(false)
-          );
-        }
-      },
+      // {
+      //   name: 'redirectSkipScreen',
+      //   type: 'dropdown',
+      //   label: 'Display this screen when user taps skip',
+      //   options: appPages, // Fliplet.Env.get('appPages'),
+      //   default: '',
+      //   ready: function (el) {
+      //     Fliplet.Helper.field('redirectSkipScreen').toggle(
+      //       !Fliplet.Helper.field('skipEnabled')
+      //         .get()
+      //         .includes(false)
+      //     );
+      //   }
+      // },
       {
         name: 'loopSlides',
         type: 'checkbox',

@@ -1064,6 +1064,186 @@
         ]
       },
       {
+        "description": "Skip button",
+        "fields": [
+          {
+            "name": "skipFont",
+            "default": "'Times New Roman', Times, serif",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".skip-btn",
+                "properties": [
+                  "font-family"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "skipFontTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "skipFontDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "font"
+          },
+          {
+            "name": "skipSize",
+            "default": "12px",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".skip-btn",
+                "properties": [
+                  "font-size"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "skipSizeTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "skipSizeDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "size",
+            "subtype": "font"
+          },
+          {
+            "name": "skipColor",
+            "default": "#fff",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".skip-btn",
+                "properties": [
+                  "color"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "skipColorTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "skipColorDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "color"
+          },
+          {
+            "name": "skipWeight",
+            "default": "bold",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".skip-btn",
+                "properties": [
+                  "font-weight"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "skipWeightTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "skipWeightDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "font-style",
+            "properties": "weight"
+          },
+          {
+            "name": "skipStyle",
+            "default": "italic",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".skip-btn",
+                "properties": [
+                  "font-style"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "skipStyleTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "skipStyleDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "font-style",
+            "properties": "italic"
+          },
+          {
+            "name": "skipDecoration",
+            "default": "underline",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".skip-btn",
+                "properties": [
+                  "text-decoration"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "skipDecorationTalet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "skipDecorationDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "type": "font-style",
+            "subType": "decoration",
+            "properties": "underline"
+          },
+          {
+            "name": "skipHeight",
+            "default": "15px",
+            "styles": [
+              {
+                "parentSelector": "[data-widget-package='com.fliplet.slider']",
+                "selectors": ".skip-btn",
+                "properties": [
+                  "line-height"
+                ]
+              }
+            ],
+            "breakpoints": {
+              "tablet": {
+                "name": "skipHeightTablet",
+                "default": "inherit-mobile"
+              },
+              "desktop": {
+                "name": "skipHeightDesktop",
+                "default": "inherit-tablet"
+              }
+            },
+            "label": "Line height",
+            "type": "size",
+            "subtype": "line-height"
+          }
+        ]
+      },
+      {
         "description": "Pagination",
         "fields": [
           {

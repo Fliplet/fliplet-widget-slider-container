@@ -23,9 +23,9 @@ Fliplet.Widget.instance({
       }
     ],
     template: [
-      '<div class="skip-container">',
-      '<input class="skip-btn" value="Skip" type="button" />',
-      '</div>',
+      // '<div class="skip-container">',
+      // '<input class="skip-btn" value="Skip" type="button" />',
+      // '</div>',
       '<div class="swiper-container">',
       '<div class="swiper-wrapper" data-view="slides"></div>',
       '<div class="swiper-pagination"></div>',
@@ -38,7 +38,7 @@ Fliplet.Widget.instance({
 
       var thisSlider = this;
       this.fields = _.assign({
-        skipEnabled: [false],
+        // skipEnabled: [false],
         Progress: 'progressbar',
         loopSlides: [],
         AnimationStyle: 'fade',
@@ -64,11 +64,11 @@ Fliplet.Widget.instance({
         });
       }
 
-      $(document)
-        .find('.skip-btn')
-        .click(function () {
-          Fliplet.Navigate.screen(thisSlider.fields.redirectSkipScreen);
-        });
+      // $(document)
+      //   .find('.skip-btn')
+      //   .click(function () {
+      //     Fliplet.Navigate.screen(thisSlider.fields.redirectSkipScreen);
+      //   });
 
       var vm = this;
       var container = vm.$el.findUntil('.swiper-container', 'fl-helper').get(0);
@@ -77,7 +77,7 @@ Fliplet.Widget.instance({
         return;
       }
       $(container).find('[data-name="slide"]').addClass('swiper-slide')
-      $('.skip-container').toggle(!thisSlider.fields.skipEnabled.includes(false));
+      // $('.skip-container').toggle(!thisSlider.fields.skipEnabled.includes(false));
 
       var slides = vm.children({ name: 'slide' });
 
@@ -118,7 +118,7 @@ Fliplet.Widget.instance({
         };
       }
 
-      if (!this.fields.Arrows && Fliplet.Env.get('platform') == 'native') {
+      if (!this.fields.Arrows && (Fliplet.Env.get('platform') == 'native' || $('.fl-page-content-wrapper').innerWidth() < 600)) {
         $('.swiper-button-next').hide();
         $('.swiper-button-prev').hide();
         swiperOptions.allowTouchMove = true;
@@ -164,17 +164,32 @@ Fliplet.Widget.instance({
             // Load form
             return Fliplet.App.Storage.get(thisSlider.data.formName).then(function (value) {
               if (value) {
-                return Fliplet.FormBuilder.get().then(function (form) {
-                  form.load(function () {
-                    return Fliplet.DataSources.connect(value.dataSourceId).then(function (
-                      connection
-                    ) {
-                      return connection.findById(value.entryId);
-                    });
+                return Fliplet.DataSources.connect(value.dataSourceId).then(function (
+                  connection
+                ) {
+                  return connection.findById(value.entryId).then(function (record) {
+                    if (record) {
+                      return Fliplet.FormBuilder.get().then(function (form) {
+                        form.load(record)
+                      });
+                    }
                   });
                 });
               }
             });
+            // return Fliplet.App.Storage.get(thisSlider.data.formName).then(function (value) {
+            //   if (value) {
+            //     return Fliplet.FormBuilder.get().then(function (form) {
+            //       form.load(function () {
+            //         return Fliplet.DataSources.connect(value.dataSourceId).then(function (
+            //           connection
+            //         ) {
+            //           return connection.findById(value.entryId)
+            //         });
+            //       });
+            //     });
+            //   }
+            // });
           });
       }
       vm.swiper = swiper;
@@ -194,15 +209,30 @@ Fliplet.Widget.instance({
             })
             .then(function () {
               // Load form
+              // return Fliplet.App.Storage.get(thisSlider.data.formName).then(function (value) {
+              //   if (value) {
+              //     return Fliplet.FormBuilder.get().then(function (form) {
+              //       form.load(function () {
+              //         return Fliplet.DataSources.connect(value.dataSourceId).then(function (
+              //           connection
+              //         ) {
+              //           return connection.findById(value.entryId);
+              //         });
+              //       });
+              //     });
+              //   }
+              // });
               return Fliplet.App.Storage.get(thisSlider.data.formName).then(function (value) {
                 if (value) {
-                  return Fliplet.FormBuilder.get().then(function (form) {
-                    form.load(function () {
-                      return Fliplet.DataSources.connect(value.dataSourceId).then(function (
-                        connection
-                      ) {
-                        return connection.findById(value.entryId);
-                      });
+                  return Fliplet.DataSources.connect(value.dataSourceId).then(function (
+                    connection
+                  ) {
+                    return connection.findById(value.entryId).then(function (record) {
+                      if (record) {
+                        return Fliplet.FormBuilder.get().then(function (form) {
+                          form.load(record)
+                        });
+                      }
                     });
                   });
                 }

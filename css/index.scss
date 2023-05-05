@@ -78,27 +78,27 @@ $variablePrefix: "slider";
         slider-slideVisibility: $slider-slideVisibility,
         slider-slideVisibilityTablet: $slider-slideVisibilityTablet,
         slider-slideVisibilityDesktop: $slider-slideVisibilityDesktop,
-        slider-skipSize: $slider-skipSize,
-        slider-skipSizeTablet: $slider-skipSizeTablet,
-        slider-skipSizeDesktop: $slider-skipSizeDesktop,
-        slider-skipFont: $slider-skipFont,
-        slider-skipFontTablet: $slider-skipFontTablet,
-        slider-skipFontDesktop: $slider-skipFontDesktop,
-        slider-skipColor: $slider-skipColor,
-        slider-skipColorTablet: $slider-skipColorTablet,
-        slider-skipColorDesktop: $slider-skipColorDesktop,
-        slider-skipWeight: $slider-skipWeight,
-        slider-skipWeightTablet: $slider-skipWeightTablet,
-        slider-skipWeightDesktop: $slider-skipWeightDesktop,
-        slider-skipStyle: $slider-skipStyle,
-        slider-skipStyleTablet: $slider-skipStyleTablet,
-        slider-skipStyleDesktop: $slider-skipStyleDesktop,
-        slider-skipDecoration: $slider-skipDecoration,
-        slider-skipDecorationTablet: $slider-skipDecorationTablet,
-        slider-skipDecorationDesktop: $slider-skipDecorationDesktop,
-        slider-skipHeight: $slider-skipHeight,
-        slider-skipHeightTablet: $slider-skipHeightTablet,
-        slider-skipHeightDesktop: $slider-skipHeightDesktop,
+        // slider-skipSize: $slider-skipSize,
+        // slider-skipSizeTablet: $slider-skipSizeTablet,
+        // slider-skipSizeDesktop: $slider-skipSizeDesktop,
+        // slider-skipFont: $slider-skipFont,
+        // slider-skipFontTablet: $slider-skipFontTablet,
+        // slider-skipFontDesktop: $slider-skipFontDesktop,
+        // slider-skipColor: $slider-skipColor,
+        // slider-skipColorTablet: $slider-skipColorTablet,
+        // slider-skipColorDesktop: $slider-skipColorDesktop,
+        // slider-skipWeight: $slider-skipWeight,
+        // slider-skipWeightTablet: $slider-skipWeightTablet,
+        // slider-skipWeightDesktop: $slider-skipWeightDesktop,
+        // slider-skipStyle: $slider-skipStyle,
+        // slider-skipStyleTablet: $slider-skipStyleTablet,
+        // slider-skipStyleDesktop: $slider-skipStyleDesktop,
+        // slider-skipDecoration: $slider-skipDecoration,
+        // slider-skipDecorationTablet: $slider-skipDecorationTablet,
+        // slider-skipDecorationDesktop: $slider-skipDecorationDesktop,
+        // slider-skipHeight: $slider-skipHeight,
+        // slider-skipHeightTablet: $slider-skipHeightTablet,
+        // slider-skipHeightDesktop: $slider-skipHeightDesktop,
         slider-paginationSize: $slider-paginationSize,
         slider-paginationSizeTablet: $slider-paginationSizeTablet,
         slider-paginationSizeDesktop: $slider-paginationSizeDesktop,
@@ -137,77 +137,77 @@ $variablePrefix: "slider";
   }
 
   #{$instanceSelector} {
-    .skip-btn {
-      font-size: map-get($configuration, slider-skipSize)!important;
+    // .skip-btn {
+    //   font-size: map-get($configuration, slider-skipSize)!important;
 
-      @include above($tabletBreakpoint) {
-        font-size: map-get($configuration, slider-skipSizeTablet)!important;
-      }
+    //   @include above($tabletBreakpoint) {
+    //     font-size: map-get($configuration, slider-skipSizeTablet)!important;
+    //   }
   
-      @include above($desktopBreakpoint) {
-        font-size: map-get($configuration, slider-skipSizeDesktop)!important;
-      }
+    //   @include above($desktopBreakpoint) {
+    //     font-size: map-get($configuration, slider-skipSizeDesktop)!important;
+    //   }
 
-      font-family: map-get($configuration, slider-skipFont)!important;
+    //   font-family: map-get($configuration, slider-skipFont)!important;
       
-      @include above($tabletBreakpoint) {
-        font-family: map-get($configuration, slider-skipFontTablet)!important;
-      }
+    //   @include above($tabletBreakpoint) {
+    //     font-family: map-get($configuration, slider-skipFontTablet)!important;
+    //   }
   
-      @include above($desktopBreakpoint) {
-        font-family: map-get($configuration, slider-skipFontDesktop)!important;
-      }
+    //   @include above($desktopBreakpoint) {
+    //     font-family: map-get($configuration, slider-skipFontDesktop)!important;
+    //   }
 
-      color: map-get($configuration, slider-skipColor)!important;
+    //   color: map-get($configuration, slider-skipColor)!important;
       
-      @include above($tabletBreakpoint) {
-        color: map-get($configuration, slider-skipColorTablet)!important;
-      }
+    //   @include above($tabletBreakpoint) {
+    //     color: map-get($configuration, slider-skipColorTablet)!important;
+    //   }
   
-      @include above($desktopBreakpoint) {
-        color: map-get($configuration, slider-skipColorDesktop)!important;
-      }
+    //   @include above($desktopBreakpoint) {
+    //     color: map-get($configuration, slider-skipColorDesktop)!important;
+    //   }
 
-      font-weight: map-get($configuration, slider-skipWeight)!important;
+    //   font-weight: map-get($configuration, slider-skipWeight)!important;
       
-      @include above($tabletBreakpoint) {
-        font-weight: map-get($configuration, slider-skipWeightTablet)!important;
-      }
+    //   @include above($tabletBreakpoint) {
+    //     font-weight: map-get($configuration, slider-skipWeightTablet)!important;
+    //   }
   
-      @include above($desktopBreakpoint) {
-        font-weight: map-get($configuration, slider-skipWeightDesktop)!important;
-      }
+    //   @include above($desktopBreakpoint) {
+    //     font-weight: map-get($configuration, slider-skipWeightDesktop)!important;
+    //   }
 
-      font-style: map-get($configuration, slider-skipStyle)!important;
+    //   font-style: map-get($configuration, slider-skipStyle)!important;
       
-      @include above($tabletBreakpoint) {
-        font-style: map-get($configuration, slider-skipStyleTablet)!important;
-      }
+    //   @include above($tabletBreakpoint) {
+    //     font-style: map-get($configuration, slider-skipStyleTablet)!important;
+    //   }
   
-      @include above($desktopBreakpoint) {
-        font-style: map-get($configuration, slider-skipStyleDesktop)!important;
-      }
+    //   @include above($desktopBreakpoint) {
+    //     font-style: map-get($configuration, slider-skipStyleDesktop)!important;
+    //   }
 
-      text-decoration: map-get($configuration, slider-skipDecoration)!important;
+    //   text-decoration: map-get($configuration, slider-skipDecoration)!important;
       
-      @include above($tabletBreakpoint) {
-        text-decoration: map-get($configuration, slider-skipDecorationTablet)!important;
-      }
+    //   @include above($tabletBreakpoint) {
+    //     text-decoration: map-get($configuration, slider-skipDecorationTablet)!important;
+    //   }
   
-      @include above($desktopBreakpoint) {
-        text-decoration: map-get($configuration, slider-skipDecorationDesktop)!important;
-      }
+    //   @include above($desktopBreakpoint) {
+    //     text-decoration: map-get($configuration, slider-skipDecorationDesktop)!important;
+    //   }
 
-      line-height: map-get($configuration, slider-skipHeight)!important;
+    //   line-height: map-get($configuration, slider-skipHeight)!important;
       
-      @include above($tabletBreakpoint) {
-        line-height: map-get($configuration, slider-skipHeightTablet)!important;
-      }
+    //   @include above($tabletBreakpoint) {
+    //     line-height: map-get($configuration, slider-skipHeightTablet)!important;
+    //   }
   
-      @include above($desktopBreakpoint) {
-        line-height: map-get($configuration, slider-skipHeightDesktop)!important;
-      }
-    }
+    //   @include above($desktopBreakpoint) {
+    //     line-height: map-get($configuration, slider-skipHeightDesktop)!important;
+    //   }
+    // }
 
     .swiper-pagination.swiper-pagination-fraction {
       font-size: map-get($configuration, slider-paginationSize)!important;
@@ -496,9 +496,9 @@ $variablePrefix: "slider";
     // end of pagination dots width
 
 
-    .skip-container {
-      top: calc(25px + map-get($configuration, slider-sliderProgresbarPaddingTop) + map-get($configuration, slider-sliderProgresbarPaddingBottom));
-    }
+    // .skip-container {
+    //   top: calc(25px + map-get($configuration, slider-sliderProgresbarPaddingTop) + map-get($configuration, slider-sliderProgresbarPaddingBottom));
+    // }
 
     .swiper-pagination {
       // slider padding top
