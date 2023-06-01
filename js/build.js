@@ -33,8 +33,9 @@ Fliplet.Widget.instance({
       '<div class="swiper-button-next"></div>',
       '</div>'
     ].join(''),
-    ready: function () {
-      Fliplet.Widget.initializeChildren(this.$el, this);
+    ready: async function () {
+
+      await  Fliplet.Widget.initializeChildren(this.$el, this);
 
       var thisSlider = this;
       this.fields = _.assign({
@@ -80,6 +81,7 @@ Fliplet.Widget.instance({
       // $('.skip-container').toggle(!thisSlider.fields.skipEnabled.includes(false));
 
       var slides = vm.children({ name: 'slide' });
+      // var slides = $(container).find('[data-name="slide"].swiper-slide')
 
       if (!slides.length) {
         vm.$el.hide();
