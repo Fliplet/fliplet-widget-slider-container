@@ -10,7 +10,6 @@
   "provider_only": false,
   "references": [
     "slides:richContent",
-    "redirectEndScreen:page",
     "redirectEndScreen:page"
   ],
   "settings": {
