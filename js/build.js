@@ -34,8 +34,7 @@ Fliplet.Widget.instance({
       '</div>'
     ].join(''),
     ready: async function () {
-
-      await  Fliplet.Widget.initializeChildren(this.$el, this);
+      await Fliplet.Widget.initializeChildren(this.$el, this);
 
       var thisSlider = this;
       this.fields = _.assign({
@@ -161,6 +160,7 @@ Fliplet.Widget.instance({
             } else {
               thisSlider.data.formName = null;
             }
+            return Promise.resolve(true);
           })
           .then(function () {
             // Load form
@@ -169,12 +169,15 @@ Fliplet.Widget.instance({
                 return Fliplet.DataSources.connect(value.dataSourceId).then(function (
                   connection
                 ) {
+                  if (!value.entryId) return Promise.reject('');
                   return connection.findById(value.entryId).then(function (record) {
                     if (record) {
                       return Fliplet.FormBuilder.get().then(function (form) {
-                        form.load(record)
+                        form.load(record);
+                        return Promise.resolve(true);
                       });
                     }
+                    return Promise.resolve(true);
                   });
                 });
               }
@@ -198,7 +201,7 @@ Fliplet.Widget.instance({
       swiper.on('slideChange', function () {
         thisSlider.data.formName = null;
         if (Fliplet.FormBuilder) {
-          Fliplet.FormBuilder.getAll()
+          return Fliplet.FormBuilder.getAll()
             .then(function (forms) {
               var formId = $(
                 $('[data-name="slide"].swiper-slide-active').find('[data-name="Form"]')
@@ -208,6 +211,7 @@ Fliplet.Widget.instance({
               } else {
                 thisSlider.data.formName = null;
               }
+              return Promise.resolve(true);
             })
             .then(function () {
               // Load form
@@ -229,12 +233,15 @@ Fliplet.Widget.instance({
                   return Fliplet.DataSources.connect(value.dataSourceId).then(function (
                     connection
                   ) {
+                    if (!value.entryId) return Promise.reject('');
                     return connection.findById(value.entryId).then(function (record) {
                       if (record) {
                         return Fliplet.FormBuilder.get().then(function (form) {
                           form.load(record)
+                          return Promise.resolve(true);
                         });
                       }
+                      return Promise.resolve(true);
                     });
                   });
                 }
@@ -309,6 +316,7 @@ Fliplet.Widget.instance({
         return Fliplet.App.Storage.get(thisSlider.data.formName).then(function (value) {
           if (value) {
             return Fliplet.DataSources.connect(value.dataSourceId).then(function (connection) {
+              if (!value.entryId) return Promise.reject('');
               return connection.update(value.entryId, formData).then(() => {
                 swiper.slideNext();
                 return Promise.reject('')
