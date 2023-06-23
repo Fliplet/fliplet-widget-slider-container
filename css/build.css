@@ -3,13 +3,18 @@ fl-helper[name="slider"] {
   min-height: 150px;
 }
 
-[name="slide"] {
+[data-name="slide"] {
   padding-bottom: 70px;
   padding-top: 70px;
 }
 
-[name="slide"] .small-card-detail-overlay-panel {
+[data-name="slide"] .small-card-detail-overlay-panel,
+[data-name="slide"] .news-feed-detail-overlay.open {
   min-height: 100vh;
+}
+
+[data-name="slide"] .news-feed-detail-overlay.open .news-feed-list-detail-content-scroll-wrapper {
+  height: 100vh;
 }
 
 .mode-interact .view-is-empty {
@@ -34,13 +39,13 @@ fl-helper[name="slider"] {
 .swiper-button-next {
   position: fixed;
   top: 49% !important;
-  z-index: 9999;
+  z-index: 9998;
 }
 
 .swiper-button-prev {
   position: fixed;
   top: 49% !important;
-  z-index: 9999;
+  z-index: 9998;
 }
 
 .swiper-pagination-progressbar {
@@ -48,7 +53,7 @@ fl-helper[name="slider"] {
   top: 15px !important;
   left: 0 !important;
   right: 0 !important;
-  z-index: 9999;
+  z-index: 9998;
   width: 100% !important;
 }
 

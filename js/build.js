@@ -150,6 +150,22 @@ Fliplet.Widget.instance({
           swiper.allowSlideNext = true;
         }
       }
+
+      Fliplet.Hooks.on('flListDataBeforeGetData', function (options) {
+        options.config.beforeOpen = function() {
+          $('.swiper-button-prev').hide();
+          $('.swiper-button-next').hide();
+        };
+
+        options.config.afterShowDetails = function() {
+          $(document).find('.small-card-detail-overlay-close').click(function () {
+            $('.swiper-button-prev').show();
+            $('.swiper-button-next').show();
+          })
+        };
+      });
+
+
       if (Fliplet.FormBuilder) {
         Fliplet.FormBuilder.getAll()
           .then(function (forms) {
@@ -207,6 +223,11 @@ Fliplet.Widget.instance({
       swiper.on('slideChange', function () {
         var _this = this
         thisSlider.data.formName = null;
+
+        $('video, audio').each(function() {
+          this.pause();
+        });
+
         if (Fliplet.FormBuilder) {
           return Fliplet.FormBuilder.getAll()
             .then(function (forms) {
