@@ -38,6 +38,12 @@ Fliplet.Widget.instance({
       var pageId = Fliplet.Env.get('pageId');
       var masterPageId = Fliplet.Env.get('pageMasterId');
       var thisSlider = this;
+      if ($('[data-name="slide"]').closest('[data-helper="slide"]').length) {
+        return Fliplet.UI.Toast('No slide inside slides is allowed')
+      }
+      if ($('[data-name="slider"]').closest('[data-helper="slide"]').length) {
+        return Fliplet.UI.Toast('No slider inside slides is allowed')
+      }
       this.fields = _.assign({
         // skipEnabled: [false],
         Progress: 'progressbar',
@@ -152,13 +158,13 @@ Fliplet.Widget.instance({
       }
 
       Fliplet.Hooks.on('flListDataBeforeGetData', function (options) {
-        options.config.beforeOpen = function() {
+        options.config.beforeOpen = function () {
           $('.swiper-button-prev').hide();
           $('.swiper-button-next').hide();
         };
 
-        options.config.afterShowDetails = function() {
-          $(document).find('.small-card-detail-overlay-close').click(function () {
+        options.config.afterShowDetails = function () {
+          $(document).find('.small-card-detail-overlay-close, .news-feed-detail-overlay-close').click(function () {
             $('.swiper-button-prev').show();
             $('.swiper-button-next').show();
           })
@@ -224,7 +230,7 @@ Fliplet.Widget.instance({
         var _this = this
         thisSlider.data.formName = null;
 
-        $('video, audio').each(function() {
+        $('video, audio').each(function () {
           this.pause();
         });
 
