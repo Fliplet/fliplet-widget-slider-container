@@ -80,12 +80,12 @@ Fliplet.Pages.get().then(pages => {
       //     );
       //   }
       // },
-      {
-        name: 'loopSlides',
-        type: 'checkbox',
-        label: 'Loop slides?',
-        options: [{ value: true, label: 'yes' }],
-        default: []
+      // {
+      //   name: 'loopSlides',
+      //   type: 'checkbox',
+      //   label: 'Loop slides?',
+      //   options: [{ value: true, label: 'yes' }],
+      //   default: []
       },
       {
         name: 'firstTime',

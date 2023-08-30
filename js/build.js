@@ -47,7 +47,7 @@ Fliplet.Widget.instance({
       this.fields = _.assign({
         // skipEnabled: [false],
         Progress: 'progressbar',
-        loopSlides: [],
+        // loopSlides: [],
         AnimationStyle: 'fade',
         Arrows: true,
         redirectEndScreen: '',
@@ -105,7 +105,7 @@ Fliplet.Widget.instance({
         },
         threshold: 5,
         allowTouchMove: Modernizr.touchevents,
-        loop: Fliplet.Env.get('interact') ? false : this.fields.loopSlides.includes(true),
+        // loop: Fliplet.Env.get('interact') ? false : this.fields.loopSlides.includes(true),
         // direction: this.fields.NavDirection,
         effect: this.fields.AnimationStyle,
         allowSlideNext: true,
