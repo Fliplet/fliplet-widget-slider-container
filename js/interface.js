@@ -1,4 +1,5 @@
 var appPages = [];
+
 Fliplet.Pages.get().then(pages => {
   appPages = pages.map(el => {
     return { value: el.id, label: el.title };
@@ -29,7 +30,7 @@ Fliplet.Pages.get().then(pages => {
         ],
         default: 'progressbar'
       },
-      /*{
+      /* {
         name: 'NavDirection',
         type: 'dropdown',
         label: 'Choose navigation direction',
@@ -62,7 +63,8 @@ Fliplet.Pages.get().then(pages => {
       //   options: [{ value: false, label: 'Hide skip button' }],
       //   default: [false],
       //   change: function (value) {
-      //     Fliplet.Helper.field('redirectSkipScreen').toggle(!value.includes(false));
+      //     Fliplet.Helper
+      // .field('redirectSkipScreen').toggle(!value.includes(false));
       //   }
       // },
       // IF YES skipEnabled
@@ -86,15 +88,16 @@ Fliplet.Pages.get().then(pages => {
       //   label: 'Loop slides?',
       //   options: [{ value: true, label: 'yes' }],
       //   default: []
-      },
+      // },
       {
         name: 'firstTime',
         type: 'checkbox',
         label: 'Show slides only once',
         options: [{ value: true, label: 'yes' }],
         default: [],
-        change: function (value) {
-          Fliplet.Helper.field('redirectEndScreen').toggle(value.includes(true));
+        change: function(value) {
+          Fliplet.Helper.field('redirectEndScreen')
+            .toggle(value.includes(true));
         }
       },
       // IF YES firstTime
@@ -104,7 +107,7 @@ Fliplet.Pages.get().then(pages => {
         label: 'Display this screen to returning users',
         options: appPages, // Fliplet.Env.get('appPages'),
         default: '',
-        ready: function (el) {
+        ready: function(el) {
           Fliplet.Helper.field('redirectEndScreen').toggle(
             Fliplet.Helper.field('firstTime')
               .get()
@@ -114,5 +117,5 @@ Fliplet.Pages.get().then(pages => {
       }
     ]
   });
- });
+});
 
