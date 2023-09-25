@@ -9,7 +9,7 @@
 //   });
 Fliplet.Widget.instance({
   name: 'slider',
-  displayName: 'slider-new',
+  displayName: 'Slider-advanced',
   icon: 'fa-exchange',
   data: {
     formName: null
