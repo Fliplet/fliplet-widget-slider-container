@@ -107,7 +107,7 @@ Fliplet.Pages.get().then(pages => {
         label: 'Display this screen to returning users',
         options: appPages, // Fliplet.Env.get('appPages'),
         default: '',
-        ready: function(el) {
+        ready: function() {
           Fliplet.Helper.field('redirectEndScreen').toggle(
             Fliplet.Helper.field('firstTime')
               .get()
