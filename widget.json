@@ -1,6 +1,6 @@
 {
   "name": "slider",
-  "package": "com.fliplet.slider-new-helper",
+  "package": "com.fliplet.slider-advanced-helper",
   "version": "1.0.0",
   "icon": "img/icon.png",
   "tags": [
@@ -141,7 +141,7 @@
             },
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "properties": [
                   "margin"
                 ],
@@ -167,7 +167,7 @@
             "logic": "sliderMarginAlign",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "properties": [
                   "margin-top"
                 ]
@@ -195,7 +195,7 @@
             "logic": "sliderMarginAlign",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "properties": [
                   "margin-right"
                 ]
@@ -223,7 +223,7 @@
             "logic": "sliderMarginAlign",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "properties": [
                   "margin-bottom"
                 ]
@@ -251,7 +251,7 @@
             "logic": "sliderMarginAlign",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "properties": [
                   "margin-left"
                 ]
@@ -283,7 +283,7 @@
             "columns": 6,
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".onboarding-holder",
                 "properties": [
                   "padding-top"
@@ -310,7 +310,7 @@
             "columns": 6,
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".onboarding-holder",
                 "properties": [
                   "padding-right"
@@ -337,7 +337,7 @@
             "columns": 6,
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".onboarding-holder",
                 "properties": [
                   "padding-bottom"
@@ -364,7 +364,7 @@
             "columns": 6,
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".onboarding-holder",
                 "properties": [
                   "padding-left"
@@ -396,7 +396,7 @@
             "columns": 6,
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination",
                 "properties": [
                   "padding-top"
@@ -423,7 +423,7 @@
             "columns": 6,
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination",
                 "properties": [
                   "padding-right"
@@ -450,7 +450,7 @@
             "columns": 6,
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination",
                 "properties": [
                   "padding-bottom"
@@ -477,7 +477,7 @@
             "columns": 6,
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination",
                 "properties": [
                   "padding-left"
@@ -509,7 +509,7 @@
             "columns": 12,
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination-bullet",
                 "properties": [
                   "background-color"
@@ -535,7 +535,7 @@
             "columns": 12,
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination-bullet-active",
                 "properties": [
                   "background-color"
@@ -561,7 +561,7 @@
             "columns": 12,
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": [
                   ".swiper-button-next",
                   ".swiper-button-prev"
@@ -662,7 +662,7 @@
             "columns": 6,
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination-bullet",
                 "properties": [
                   "width"
@@ -689,7 +689,7 @@
             "columns": 6,
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination-bullet",
                 "properties": [
                   "height"
@@ -764,7 +764,7 @@
             },
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination-bullet",
                 "properties": [
                   "border"
@@ -796,7 +796,7 @@
             "default": "transparent",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination-bullet",
                 "properties": [
                   "border"
@@ -827,7 +827,7 @@
             "default": "1px",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination-bullet",
                 "properties": [
                   "border"
@@ -859,7 +859,7 @@
             "default": "solid",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination-bullet",
                 "properties": [
                   "border"
@@ -939,7 +939,7 @@
             },
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination-bullet-active",
                 "properties": [
                   "border"
@@ -971,7 +971,7 @@
             "default": "transparent",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination-bullet-active",
                 "properties": [
                   "border"
@@ -1002,7 +1002,7 @@
             "default": "1px",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination-bullet-active",
                 "properties": [
                   "border"
@@ -1034,7 +1034,7 @@
             "default": "solid",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".swiper-pagination-bullet-active",
                 "properties": [
                   "border"
@@ -1070,7 +1070,7 @@
             "default": "'Times New Roman', Times, serif",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".pagination-btn",
                 "properties": [
                   "font-family"
@@ -1094,7 +1094,7 @@
             "default": "12px",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".pagination-btn",
                 "properties": [
                   "font-size"
@@ -1119,7 +1119,7 @@
             "default": "#fff",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".pagination-btn",
                 "properties": [
                   "color"
@@ -1143,7 +1143,7 @@
             "default": "bold",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".pagination-btn",
                 "properties": [
                   "font-weight"
@@ -1168,7 +1168,7 @@
             "default": "italic",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".pagination-btn",
                 "properties": [
                   "font-style"
@@ -1193,7 +1193,7 @@
             "default": "underline",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".pagination-btn",
                 "properties": [
                   "text-decoration"
@@ -1219,7 +1219,7 @@
             "default": "15px",
             "styles": [
               {
-                "parentSelector": "[data-widget-package='com.fliplet.slider-new-helper']",
+                "parentSelector": "[data-widget-package='com.fliplet.slider-advanced-helper']",
                 "selectors": ".pagination-btn",
                 "properties": [
                   "line-height"
