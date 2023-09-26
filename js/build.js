@@ -8,8 +8,8 @@
 //     return { value: el.id, label: el.title };
 //   });
 Fliplet.Widget.instance({
-  name: 'slider',
-  displayName: 'Slider-advanced',
+  name: 'slider container',
+  displayName: 'Slider container',
   icon: 'fa-exchange',
   data: {
     formName: null
