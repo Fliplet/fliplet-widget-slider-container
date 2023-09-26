@@ -43,7 +43,7 @@
     "appAssets": []
   },
   "themeSettings": {
-    "variablePrefix": "slider",
+    "variablePrefix": "slider-container",
     "variables": [
       {
         "description": "Background color",
