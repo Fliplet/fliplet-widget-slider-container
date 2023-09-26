@@ -1,5 +1,5 @@
 {
-  "name": "slider container",
+  "name": "slider",
   "package": "com.fliplet.slider-container",
   "version": "1.0.0",
   "icon": "img/icon.png",
@@ -43,7 +43,7 @@
     "appAssets": []
   },
   "themeSettings": {
-    "variablePrefix": "slider-container",
+    "variablePrefix": "slider",
     "variables": [
       {
         "description": "Background color",

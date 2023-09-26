@@ -5,7 +5,7 @@ Fliplet.Pages.get().then(pages => {
     return { value: el.id, label: el.title };
   });
   Fliplet.Widget.generateInterface({
-    title: 'slider container',
+    title: 'slider',
     fields: [
       { name: 'Name', type: 'text', label: 'Name', default: 'MySlider' },
       {

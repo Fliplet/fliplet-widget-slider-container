@@ -1,4 +1,4 @@
-fl-helper[name="slider container"] {
+fl-helper[name="slider"] {
   display: block !important;
   min-height: 150px;
 }
@@ -163,15 +163,15 @@ fl-helper[name="slider container"] {
   left: 0px;
 }
 
-.mode-interact .fl-widget-instance[data-name="slider container"] {
+.mode-interact .fl-widget-instance[data-name="slider"] {
   padding-top: 20px !important;
 }
 
-.mode-interact fl-helper[name='slider container']::before {
+.mode-interact fl-helper[name='slider']::before {
   content: 'Slider';
 }
 
-.mode-interact fl-helper[name='slider container']:before {
+.mode-interact fl-helper[name='slider']:before {
   /* border-top-left-radius: 10px; */
   border-bottom-right-radius: 10px;
   cursor: grab;
