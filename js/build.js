@@ -145,6 +145,10 @@ Fliplet.Widget.instance({
         $('.swiper-button-next').hide();
         $('.swiper-button-prev').hide();
         swiperOptions.allowTouchMove = true;
+      } else {
+        $('.swiper-button-next').show();
+        $('.swiper-button-prev').show();
+        swiperOptions.allowTouchMove = false;
       }
 
       // eslint-disable-next-line no-undef

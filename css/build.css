@@ -57,7 +57,7 @@ fl-helper[name="slider"] {
 
 .swiper-pagination-progressbar {
   position: fixed !important;
-  top: 15px !important;
+  top: 45px !important;
   left: 0 !important;
   right: 0 !important;
   z-index: 9998;
@@ -159,7 +159,7 @@ fl-helper[name="slider"] {
   font-size: 12px;
   color: white;
   background: darkorange;
-  top: -10px;
+  top: -17px;
   left: 0px;
 }
 

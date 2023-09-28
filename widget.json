@@ -620,7 +620,7 @@
           },
           {
             "name": "activeProgresBarBackground",
-            "default": "#FA8B8B",
+            "default": "#f43a3a",
             "columns": 12,
             "breakpoints": {
               "tablet": {
