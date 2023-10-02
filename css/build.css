@@ -13,6 +13,7 @@ fl-helper[name="slider"] {
   border-top: 1px solid darkorange; */
   padding-bottom: 40px;
   padding-top: 40px;
+  position: relative;
 }
 
 [data-name="slide"] .small-card-detail-overlay-panel,
@@ -144,6 +145,7 @@ fl-helper[name="slider"] {
   border: 2px solid darkorange;
   padding-top: 15px;
   padding-bottom: 15px;
+  
 }
 .mode-interact [data-helper="slide"][data-view="content"]::before {
   content: 'Slide content';
@@ -154,13 +156,13 @@ fl-helper[name="slider"] {
 .mode-interact [data-helper="slide"][data-view="content"]:before {
   border-bottom-right-radius: 10px;
   cursor: grab;
-  position: relative;
+  position: absolute;
   padding: 5px;
   font-size: 12px;
   color: white;
   background: darkorange;
-  top: -17px;
-  left: 0px;
+  top: 0;
+  left: 0;
 }
 
 .mode-interact .fl-widget-instance[data-name="slider"] {
