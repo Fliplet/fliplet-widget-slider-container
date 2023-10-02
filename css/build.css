@@ -162,6 +162,7 @@ fl-helper[name="slider"] {
   color: white;
   background: darkorange;
   top: 0;
+  z-index: 1;
   left: 0;
 }
 

@@ -1116,7 +1116,7 @@
           },
           {
             "name": "paginationColor",
-            "default": "#fff",
+            "default": "#ccc",
             "styles": [
               {
                 "parentSelector": "[data-widget-package='com.fliplet.slider-container']",
