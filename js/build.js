@@ -1,19 +1,14 @@
+/* eslint-disable max-len */
 /* eslint-disable new-cap */
 /* eslint-disable no-param-reassign */
 /* eslint-disable eqeqeq */
 /* eslint-disable max-statements */
-// var appPages = [];
-// Fliplet.Pages.get().then(pages => {
-//   appPages = pages.map(el => {
-//     return { value: el.id, label: el.title };
-//   });
 Fliplet.Widget.instance({
   name: 'slider',
   displayName: 'Slider container',
   icon: 'fa-exchange',
   data: {
     formName: null
-    // appPages: Fliplet.Env.get('appPages')
   },
   render: {
     dependencies: [
@@ -45,17 +40,16 @@ Fliplet.Widget.instance({
       var thisSlider = this;
 
       if ($('[data-name="slide"]').closest('[data-helper="slide"]').length) {
-        return Fliplet.UI.Toast('No slide inside slides is allowed');
+        return Fliplet.UI.Toast('Slide inside slide is not allowed');
       }
 
       if ($('[data-name="slider"]').closest('[data-helper="slide"]').length) {
-        return Fliplet.UI.Toast('No slider inside slides is allowed');
+        return Fliplet.UI.Toast('Slider inside slide is not allowed');
       }
 
       this.fields = _.assign({
         // skipEnabled: [false],
         Progress: 'progressbar',
-        // loopSlides: [],
         AnimationStyle: 'fade',
         Arrows: true,
         redirectEndScreen: '',
@@ -97,7 +91,6 @@ Fliplet.Widget.instance({
       // .toggle(!thisSlider.fields.skipEnabled.includes(false));
 
       var slides = vm.children({ name: 'slide' });
-      // var slides = $(container).find('[data-name="slide"].swiper-slide')
 
       if (!slides.length) {
         vm.$el.hide();
@@ -117,9 +110,6 @@ Fliplet.Widget.instance({
         },
         threshold: 5,
         allowTouchMove: Modernizr.touchevents,
-        // loop: Fliplet.Env.get('interact') ?
-        // false : this.fields.loopSlides.includes(true),
-        // direction: this.fields.NavDirection,
         effect: this.fields.AnimationStyle,
         allowSlideNext: true,
         allowSlidePrev: true,
@@ -130,10 +120,6 @@ Fliplet.Widget.instance({
         }
       };
 
-      /* if (this.fields.NavDirection == 'vertical') {
-        swiperOptions.autoHeight = true;
-        swiperOptions.height = Math.round(window.innerHeight) + 150;
-      }*/
       if (this.fields.AnimationStyle == 'fade') {
         swiperOptions.fadeEffect = {
           crossFade: true
@@ -171,23 +157,17 @@ Fliplet.Widget.instance({
       var firstSlide = slides[0];
 
       if (firstSlide.fields.requiredForm) {
-        if (firstSlide.fields.requiredFormBackwardNavigation) {
-          swiper.allowSlidePrev = false;
-        } else {
-          swiper.allowSlidePrev = true;
-        }
-
-        if (firstSlide.fields.requiredFormForwardNavigation) {
-          swiper.allowSlideNext = false;
-        } else {
-          swiper.allowSlideNext = true;
-        }
+        swiper.allowSlidePrev = !firstSlide.fields.requiredFormBackwardNavigation;
+        swiper.allowSlideNext = !firstSlide.fields.requiredFormForwardNavigation;
       }
 
       Fliplet.Hooks.on('flListDataBeforeGetData', function(options) {
+        var $btnPrev = $('.swiper-button-prev');
+        var $btnNext = $('.swiper-button-next');
+
         options.config.beforeOpen = function() {
-          $('.swiper-button-prev').hide();
-          $('.swiper-button-next').hide();
+          $btnPrev.hide();
+          $btnNext.hide();
         };
 
         options.config.afterShowDetails = function() {
@@ -195,83 +175,73 @@ Fliplet.Widget.instance({
             // eslint-disable-next-line max-len
             .find('.small-card-detail-overlay-close, .news-feed-detail-overlay-close')
             .click(function() {
-              $('.swiper-button-prev').show();
-              $('.swiper-button-next').show();
+              $btnPrev.show();
+              $btnNext.show();
             });
         };
       });
 
+      function loadFormData() {
+        var activeSlide = $('[data-name="slide"].swiper-slide-active');
+        var formElement = activeSlide.find('[data-name="Form"]');
+        var formId = formElement.data('id');
 
-      if (Fliplet.FormBuilder) {
-        Fliplet.FormBuilder.getAll()
+        if (!formId) {
+          thisSlider.data.formName = null;
+
+          return Promise.resolve(true);
+        }
+
+        var value;
+
+        return Fliplet.FormBuilder.getAll()
           .then(function(forms) {
-            var formId = $($('[data-name="slide"].swiper-slide-active')
-              .find('[data-name="Form"]')).attr(
-              'data-id'
-            );
+            var form = forms.find(el => el.instance.id == formId);
 
-            if (formId) {
-              // thisSlider.data.formName = forms
-              // .find(el => el.instance.id == formId).name;
-              thisSlider.data.formName = forms
-                .find(el => el.instance.id == formId).data().displayName;
-            } else {
-              thisSlider.data.formName = null;
+            if (form) {
+              thisSlider.data.formName = form.data().displayName;
+
+              return Fliplet.App.Storage.get(`${pageId}_${thisSlider.data.formName}`);
+            }
+
+            thisSlider.data.formName = null;
+
+            return Promise.resolve(false);
+          })
+          .then(function(storageValue) {
+            value = storageValue;
+
+            if (value) {
+              return Fliplet.DataSources.connect(value.dataSourceId);
+            }
+          })
+          .then(function(connection) {
+            if (!connection || !value.entryId) {
+              return Promise.reject('');
+            }
+
+            return connection.findById(value.entryId);
+          })
+          .then(function(record) {
+            if (record) {
+              return Fliplet.FormBuilder.get().then(function(form) {
+                return new Promise(function(resolve) {
+                  form.load(function() {
+                    resolve(record.data);
+                  });
+                });
+              });
             }
 
             return Promise.resolve(true);
           })
-          .then(function() {
-            // Load form
-            return Fliplet.App.Storage
-              .get(`${pageId}_${thisSlider.data.formName}`)
-              .then(function(value) {
-                if (value) {
-                  return Fliplet.DataSources
-                    .connect(value.dataSourceId).then(function(
-                      connection
-                    ) {
-                      if (!value.entryId) return Promise.reject('');
-
-                      return connection.findById(value.entryId)
-                        .then(function(record) {
-                          if (record) {
-                            return Fliplet.FormBuilder.get()
-                              .then(function(form) {
-                                form.load(function() {
-                                  return record.data;
-                                });
-
-                                return Promise.resolve(true);
-                              });
-                          }
-
-                          return Promise.resolve(true);
-                        }).catch(function() {
-                          return Fliplet.App.Storage
-                            .remove(`${pageId}_${thisSlider.data.formName}`);
-                        });
-                    });
-                }
-              });
-            // return Fliplet.App.Storage
-            // .get(`${pageId}_${thisSlider.data.formName}`)
-            // .then(function (value) {
-            //   if (value) {
-            //     return Fliplet.FormBuilder.get()
-            // .then(function (form) {
-            //       form.load(function () {
-            //         return Fliplet.DataSources
-            // .connect(value.dataSourceId).then(function (
-            //           connection
-            //         ) {
-            //           return connection.findById(value.entryId)
-            //         });
-            //       });
-            //     });
-            //   }
-            // });
+          .catch(function() {
+            return Fliplet.App.Storage.remove(`${pageId}_${thisSlider.data.formName}`);
           });
+      }
+
+      if (Fliplet.FormBuilder) {
+        loadFormData();
       }
 
       vm.swiper = swiper;
@@ -285,99 +255,20 @@ Fliplet.Widget.instance({
         });
 
         if (Fliplet.FormBuilder) {
-          return Fliplet.FormBuilder.getAll()
-            .then(function(forms) {
-              var formId = $(
-                $('[data-name="slide"].swiper-slide-active')
-                  .find('[data-name="Form"]')
-              ).attr('data-id');
+          loadFormData().then(async function() {
+            var currentSlide = slides[swiper.realIndex];
+            var hasFormSubmitted = await Fliplet.App.Storage.get(`${pageId}_${thisSlider.data.formName}`);
 
-              if (formId) {
-                // thisSlider.data.formName = forms
-                // .find(el => el.instance.id == formId).name;
-                thisSlider.data.formName = forms
-                  .find(el => el.instance.id == formId).data().displayName;
-              } else {
-                thisSlider.data.formName = null;
-              }
+            _this.allowSlidePrev = true;
+            _this.allowSlideNext = true;
 
-              return Promise.resolve(true);
-            })
-            .then(function() {
-              // Load form
-              // return Fliplet.App.Storage
-              // .get(`${pageId}_${thisSlider.data.formName}`)
-              // .then(function (value) {
-              //   if (value) {
-              //     return Fliplet.FormBuilder.get().then(function (form) {
-              //       form.load(function () {
-              //         return Fliplet.DataSources.connect(value.dataSourceId)
-              //          .then(function (
-              //           connection
-              //         ) {
-              //           return connection.findById(value.entryId);
-              //         });
-              //       });
-              //     });
-              //   }
-              // });
-              return Fliplet.App.Storage
-                .get(`${pageId}_${thisSlider.data.formName}`)
-                .then(function(value) {
-                  if (value) {
-                    return Fliplet.DataSources.connect(value.dataSourceId)
-                      .then(function(
-                        connection
-                      ) {
-                        if (!value.entryId) return Promise.reject('');
+            if (currentSlide && currentSlide.fields.requiredForm && !hasFormSubmitted) {
+              _this.allowSlidePrev = !currentSlide.fields.requiredFormBackwardNavigation;
+              _this.allowSlideNext = !currentSlide.fields.requiredFormForwardNavigation;
+            }
 
-                        return connection.findById(value.entryId)
-                          .then(function(record) {
-                            if (record) {
-                              return Fliplet.FormBuilder.get()
-                                .then(function(form) {
-                                  form.load(function() {
-                                    return record.data;
-                                  });
-
-                                  return Promise.resolve(true);
-                                });
-                            }
-
-                            return Promise.resolve(true);
-                          }).catch(function() {
-                            return Fliplet.App.Storage
-                              .remove(`${pageId}_${thisSlider.data.formName}`);
-                          });
-                      });
-                  }
-                });
-            }).then(async function() {
-              var currentSlide = slides[swiper.realIndex];
-              var hasFormSubmitted = await Fliplet.App.Storage
-                .get(`${pageId}_${thisSlider.data.formName}`);
-
-              if (currentSlide
-                && currentSlide.fields.requiredForm
-                && !hasFormSubmitted) {
-                if (currentSlide.fields.requiredFormBackwardNavigation) {
-                  _this.allowSlidePrev = false;
-                } else {
-                  _this.allowSlidePrev = true;
-                }
-
-                if (currentSlide.fields.requiredFormForwardNavigation) {
-                  _this.allowSlideNext = false;
-                } else {
-                  _this.allowSlideNext = true;
-                }
-              } else {
-                _this.allowSlidePrev = true;
-                _this.allowSlideNext = true;
-              }
-
-              Fliplet.Page.scrollTo(vm.$el);
-            });
+            Fliplet.Page.scrollTo(vm.$el);
+          });
         }
       });
 
@@ -485,4 +376,3 @@ Fliplet.Widget.instance({
     ]
   }
 });
-// });

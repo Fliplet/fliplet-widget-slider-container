@@ -30,16 +30,6 @@ Fliplet.Pages.get().then(pages => {
         ],
         default: 'progressbar'
       },
-      /* {
-        name: 'NavDirection',
-        type: 'dropdown',
-        label: 'Choose navigation direction',
-        options: [
-          { value: 'horizontal', label: 'Horizontal' },
-          { value: 'vertical', label: 'Vertical' }
-        ],
-        default: 'horizontal'
-      },*/
       {
         name: 'AnimationStyle',
         type: 'dropdown',
@@ -81,13 +71,6 @@ Fliplet.Pages.get().then(pages => {
       //         .includes(false)
       //     );
       //   }
-      // },
-      // {
-      //   name: 'loopSlides',
-      //   type: 'checkbox',
-      //   label: 'Loop slides?',
-      //   options: [{ value: true, label: 'yes' }],
-      //   default: []
       // },
       {
         name: 'firstTime',
