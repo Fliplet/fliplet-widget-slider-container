@@ -67,7 +67,7 @@ fl-helper[name="slider"] {
 
 .swiper-container-initialized .swiper-wrapper {
   padding-bottom: 40px;
-  min-height: calc(100vh - 40px) !important;
+  min-height: calc(100vh - 85px) !important;
 }
 
 .swiper-container-horizontal.swiper-container-initialized>.swiper-pagination-progressbar {
@@ -151,7 +151,8 @@ fl-helper[name="slider"] {
   content: 'Slide content';
 }
 .mode-interact .swiper-container-autoheight {
-  height: 500vh!important;
+  height: calc(100vh - 90px)!important;
+  overflow-y: scroll;
 }
 .mode-interact [data-helper="slide"][data-view="content"]:before {
   border-bottom-right-radius: 10px;
