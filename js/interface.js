@@ -7,7 +7,6 @@ Fliplet.Pages.get().then(pages => {
   Fliplet.Widget.generateInterface({
     title: 'slider',
     fields: [
-      { name: 'Name', type: 'text', label: 'Name', default: 'MySlider' },
       {
         name: 'showArrows',
         type: 'radio',
