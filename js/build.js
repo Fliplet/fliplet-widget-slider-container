@@ -11,20 +11,7 @@ Fliplet.Widget.instance({
     formName: null
   },
   render: {
-    dependencies: [
-      {
-        url: 'https://unpkg.com/swiper@6.5.9/swiper-bundle.min.js',
-        type: 'js'
-      },
-      {
-        url: 'https://unpkg.com/swiper@6.5.9/swiper-bundle.min.css',
-        type: 'css'
-      }
-    ],
     template: [
-      // '<div class="skip-container">',
-      // '<input class="skip-btn" value="Skip" type="button" />',
-      // '</div>',
       '<div class="swiper-container">',
       '<div class="swiper-wrapper" data-view="slides"></div>',
       '<div class="swiper-pagination"></div>',
@@ -35,35 +22,35 @@ Fliplet.Widget.instance({
     ready: async function() {
       await Fliplet.Widget.initializeChildren(this.$el, this);
 
-      var pageId = Fliplet.Env.get('pageId');
-      var masterPageId = Fliplet.Env.get('pageMasterId');
-      var thisSlider = this;
+      let pageId = Fliplet.Env.get('pageId');
+      let masterPageId = Fliplet.Env.get('pageMasterId');
+      let vm = this;
+      let $vm = $(this);
 
-      if ($('[data-name="slide"]').closest('[data-helper="slide"]').length) {
+      if ($('[data-helper="slide"] [data-helper="slide"]').length) {
         return Fliplet.UI.Toast('Slide inside slide is not allowed');
       }
 
-      if ($('[data-name="slider"]').closest('[data-helper="slide"]').length) {
+      if ($vm.closest('[data-helper="slide"]').length) {
         return Fliplet.UI.Toast('Slider inside slide is not allowed');
       }
 
       this.fields = _.assign({
-        // skipEnabled: [false],
-        Progress: 'progressbar',
-        AnimationStyle: 'fade',
-        Arrows: true,
+        progress: 'progressbar',
+        animationStyle: 'fade',
+        showArrows: true,
         redirectEndScreen: '',
         firstTime: []
       }, this.fields);
 
-      if (thisSlider.fields.firstTime.includes(true)) {
+      if (vm.fields.firstTime.includes(true)) {
         Fliplet.App.Storage.get('sliderSeen').then(function(value) {
           if (
             value
             && (value.pageId == pageId
               || value.pageMasterId == masterPageId)
           ) {
-            Fliplet.Navigate.screen(thisSlider.fields.redirectEndScreen);
+            Fliplet.Navigate.screen(vm.fields.redirectEndScreen);
           } else {
             Fliplet.App.Storage.set('sliderSeen', {
               pageId: pageId,
@@ -73,13 +60,6 @@ Fliplet.Widget.instance({
         });
       }
 
-      // $(document)
-      //   .find('.skip-btn')
-      //   .click(function () {
-      //     Fliplet.Navigate.screen(thisSlider.fields.redirectSkipScreen);
-      //   });
-
-      var vm = this;
       var container = vm.$el.findUntil('.swiper-container', 'fl-helper').get(0);
 
       if (!container) {
@@ -87,10 +67,8 @@ Fliplet.Widget.instance({
       }
 
       $(container).find('[data-name="slide"]').addClass('swiper-slide');
-      // $('.skip-container')
-      // .toggle(!thisSlider.fields.skipEnabled.includes(false));
 
-      var slides = vm.children({ name: 'slide' });
+      let slides = vm.children({ name: 'slide' });
 
       if (!slides.length) {
         vm.$el.hide();
@@ -98,19 +76,18 @@ Fliplet.Widget.instance({
         return;
       }
 
-      var swiperOptions = {
+      let swiperOptions = {
         pagination: {
           el: '.swiper-pagination',
-          type: this.fields.Progress
+          type: this.fields.progress
         },
-        // this.fields.Arrows,
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
         },
         threshold: 5,
         allowTouchMove: Modernizr.touchevents,
-        effect: this.fields.AnimationStyle,
+        effect: this.fields.animationStyle,
         allowSlideNext: true,
         allowSlidePrev: true,
         autoHeight: true,
@@ -120,29 +97,28 @@ Fliplet.Widget.instance({
         }
       };
 
-      if (this.fields.AnimationStyle == 'fade') {
+      if (this.fields.animationStyle == 'fade') {
         swiperOptions.fadeEffect = {
           crossFade: true
         };
       }
 
-      if (!this.fields.Arrows && (Fliplet.Env.get('platform') == 'native'
-        || $('.fl-page-content-wrapper').innerWidth() < 600)) {
-        $('.swiper-button-next').hide();
-        $('.swiper-button-prev').hide();
+      if (!this.fields.showArrows && (Fliplet.Env.get('platform') == 'native'
+        || $('body').innerWidth() < 600)) {
+        $vm.find('.swiper-button-next').hide();
+        $vm.find('.swiper-button-prev').hide();
         swiperOptions.allowTouchMove = true;
       } else {
-        $('.swiper-button-next').show();
-        $('.swiper-button-prev').show();
+        $vm.find('.swiper-button-next').show();
+        $vm.find('.swiper-button-prev').show();
         swiperOptions.allowTouchMove = false;
       }
 
-      // eslint-disable-next-line no-undef
-      var swiper = new Swiper(container, swiperOptions);
+      let swiper = new Swiper(container, swiperOptions);
 
-      const autoheightIntervalInstance = setInterval(myTimer, 1000);
+      let autoheightIntervalInstance = setInterval(updateAutoHeightTimer, 1000);
 
-      function myTimer() {
+      function updateAutoHeightTimer() {
         swiper.updateAutoHeight(500);
       }
 
@@ -154,7 +130,7 @@ Fliplet.Widget.instance({
         return stopAutoheightInterval();
       });
 
-      var firstSlide = slides[0];
+      let firstSlide = slides[0];
 
       if (firstSlide.fields.requiredForm) {
         swiper.allowSlidePrev = !firstSlide.fields.requiredFormBackwardNavigation;
@@ -162,8 +138,8 @@ Fliplet.Widget.instance({
       }
 
       Fliplet.Hooks.on('flListDataBeforeGetData', function(options) {
-        var $btnPrev = $('.swiper-button-prev');
-        var $btnNext = $('.swiper-button-next');
+        let $btnPrev = $vm.find('.swiper-button-prev');
+        let $btnNext = $vm.find('.swiper-button-next');
 
         options.config.beforeOpen = function() {
           $btnPrev.hide();
@@ -182,29 +158,29 @@ Fliplet.Widget.instance({
       });
 
       function loadFormData() {
-        var activeSlide = $('[data-name="slide"].swiper-slide-active');
-        var formElement = activeSlide.find('[data-name="Form"]');
-        var formId = formElement.data('id');
+        let $activeSlide = $vm.find('[data-name="slide"].swiper-slide-active');
+        let formElement = $activeSlide.find('[data-name="Form"]');
+        let formId = formElement.data('id');
+        let value;
 
         if (!formId) {
-          thisSlider.data.formName = null;
+          vm.data.formName = null;
 
           return Promise.resolve(true);
         }
 
-        var value;
 
         return Fliplet.FormBuilder.getAll()
           .then(function(forms) {
-            var form = forms.find(el => el.instance.id == formId);
+            let form = forms.find(el => el.instance.id == formId);
 
             if (form) {
-              thisSlider.data.formName = form.data().displayName;
+              vm.data.formName = form.data().displayName;
 
-              return Fliplet.App.Storage.get(`${pageId}_${thisSlider.data.formName}`);
+              return Fliplet.App.Storage.get(`${pageId}${vm.data.formName}`);
             }
 
-            thisSlider.data.formName = null;
+            vm.data.formName = null;
 
             return Promise.resolve(false);
           })
@@ -233,10 +209,10 @@ Fliplet.Widget.instance({
               });
             }
 
-            return Promise.resolve(true);
+            return true;
           })
           .catch(function() {
-            return Fliplet.App.Storage.remove(`${pageId}_${thisSlider.data.formName}`);
+            return Fliplet.App.Storage.remove(`${pageId}${vm.data.formName}`);
           });
       }
 
@@ -246,25 +222,25 @@ Fliplet.Widget.instance({
 
       vm.swiper = swiper;
       swiper.on('slideChange', function() {
-        var _this = this;
+        let slideObject = this;
 
-        thisSlider.data.formName = null;
+        vm.data.formName = null;
 
-        $('video, audio').each(function() {
+        $vm.find('video, audio').each(function() {
           this.pause();
         });
 
         if (Fliplet.FormBuilder) {
           loadFormData().then(async function() {
-            var currentSlide = slides[swiper.realIndex];
-            var hasFormSubmitted = await Fliplet.App.Storage.get(`${pageId}_${thisSlider.data.formName}`);
+            let currentSlide = slides[swiper.realIndex];
+            let hasFormSubmitted = await Fliplet.App.Storage.get(`${pageId}${vm.data.formName}`);
 
-            _this.allowSlidePrev = true;
-            _this.allowSlideNext = true;
+            slideObject.allowSlidePrev = true;
+            slideObject.allowSlideNext = true;
 
             if (currentSlide && currentSlide.fields.requiredForm && !hasFormSubmitted) {
-              _this.allowSlidePrev = !currentSlide.fields.requiredFormBackwardNavigation;
-              _this.allowSlideNext = !currentSlide.fields.requiredFormForwardNavigation;
+              slideObject.allowSlidePrev = !currentSlide.fields.requiredFormBackwardNavigation;
+              slideObject.allowSlideNext = !currentSlide.fields.requiredFormForwardNavigation;
             }
 
             Fliplet.Page.scrollTo(vm.$el);
@@ -326,7 +302,7 @@ Fliplet.Widget.instance({
       Fliplet.Hooks.run('sliderInitialized');
 
       Fliplet.Hooks.on('beforeFormSubmit', function(formData) {
-        return Fliplet.App.Storage.get(`${pageId}_${thisSlider.data.formName}`)
+        return Fliplet.App.Storage.get(`${pageId}${vm.data.formName}`)
           .then(function(value) {
             if (value) {
               return Fliplet.DataSources.connect(value.dataSourceId)
@@ -348,9 +324,9 @@ Fliplet.Widget.instance({
         swiper.allowSlideNext = true;
         swiper.allowSlidePrev = true;
 
-        if (thisSlider.data.formName) {
+        if (vm.data.formName) {
           return Fliplet.App.Storage
-            .set(`${pageId}_${thisSlider.data.formName}`, {
+            .set(`${pageId}${vm.data.formName}`, {
               entryId: response.result.id,
               dataSourceId: response.result.dataSourceId
             }).then(function() {

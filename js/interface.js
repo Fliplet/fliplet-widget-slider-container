@@ -1,6 +1,6 @@
-var appPages = [];
-
 Fliplet.Pages.get().then(pages => {
+  var appPages = [];
+
   appPages = pages.map(el => {
     return { value: el.id, label: el.title };
   });
@@ -9,7 +9,7 @@ Fliplet.Pages.get().then(pages => {
     fields: [
       { name: 'Name', type: 'text', label: 'Name', default: 'MySlider' },
       {
-        name: 'Arrows',
+        name: 'showArrows',
         type: 'radio',
         label: 'Show navigation arrows',
         options: [
@@ -19,7 +19,7 @@ Fliplet.Pages.get().then(pages => {
         default: true
       },
       {
-        name: 'Progress',
+        name: 'progress',
         type: 'dropdown',
         label: 'Enable progress interface',
         options: [
@@ -31,47 +31,18 @@ Fliplet.Pages.get().then(pages => {
         default: 'progressbar'
       },
       {
-        name: 'AnimationStyle',
+        name: 'animationStyle',
         type: 'dropdown',
         label: 'Transition animation',
         options: [
           { value: '', label: 'None' },
           { value: 'slide', label: 'Slide' },
-          // { value: 'cube', label: 'Cube' },
           { value: 'flip', label: 'Flip' },
           { value: 'fade', label: 'Fade' },
-          // { value: 'creative', label: 'Creative' },
-          // { value: 'cards', label: 'Cards' },
           { value: 'coverflow', label: 'Coverflow' }
         ],
         default: 'fade'
       },
-      // {
-      //   name: 'skipEnabled',
-      //   type: 'checkbox',
-      //   label: 'Skip button',
-      //   options: [{ value: false, label: 'Hide skip button' }],
-      //   default: [false],
-      //   change: function (value) {
-      //     Fliplet.Helper
-      // .field('redirectSkipScreen').toggle(!value.includes(false));
-      //   }
-      // },
-      // IF YES skipEnabled
-      // {
-      //   name: 'redirectSkipScreen',
-      //   type: 'dropdown',
-      //   label: 'Display this screen when user taps skip',
-      //   options: appPages, // Fliplet.Env.get('appPages'),
-      //   default: '',
-      //   ready: function (el) {
-      //     Fliplet.Helper.field('redirectSkipScreen').toggle(
-      //       !Fliplet.Helper.field('skipEnabled')
-      //         .get()
-      //         .includes(false)
-      //     );
-      //   }
-      // },
       {
         name: 'firstTime',
         type: 'checkbox',
@@ -88,7 +59,7 @@ Fliplet.Pages.get().then(pages => {
         name: 'redirectEndScreen',
         type: 'dropdown',
         label: 'Display this screen to returning users',
-        options: appPages, // Fliplet.Env.get('appPages'),
+        options: appPages,
         default: '',
         ready: function() {
           Fliplet.Helper.field('redirectEndScreen').toggle(
