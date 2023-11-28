@@ -1,5 +1,5 @@
 {
-  "extends": "fliplet",
+  "extends": ["eslint:recommended", "fliplet"],
   "env": {
     "node": true,
     "es6": true,
@@ -10,12 +10,7 @@
   "globals": {
     "_": true,
     "Fliplet": true,
-    "interfaceBrowser": true,
-    "buildBrowser": true,
-    "interfaceUrl": true,
-    "buildUrl": true,
     "widgetInstance": true,
-    "buildSelector": true,
     "Swiper":  true
   },
   "rules": {}
