@@ -22,9 +22,8 @@ Fliplet.Pages.get().then(pages => {
         type: 'dropdown',
         label: 'Enable progress interface',
         options: [
-          { value: '', label: 'No progress' },
           { value: 'bullets', label: 'Pagination dots' },
-          { value: 'fraction', label: 'Progress bar' },
+          { value: 'fraction', label: 'Pagination bar' },
           { value: 'progressbar', label: 'Progress line (steps)' }
         ],
         default: 'progressbar'

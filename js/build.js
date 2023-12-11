@@ -31,7 +31,7 @@ Fliplet.Widget.instance({
         return Fliplet.UI.Toast('Slider inside slide is not allowed');
       }
 
-      this.fields = _.assign(
+      vm.fields = _.assign(
         {
           progress: 'progressbar',
           animationStyle: 'fade',
@@ -39,7 +39,7 @@ Fliplet.Widget.instance({
           redirectEndScreen: '',
           firstTime: []
         },
-        this.fields
+        vm.fields
       );
 
       if (vm.fields.firstTime.includes(true)) {

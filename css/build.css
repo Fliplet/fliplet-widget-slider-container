@@ -29,7 +29,6 @@ fl-helper[name="slider"] .swiper-pagination-progressbar {
 }
 
 fl-helper[name="slider"] .swiper-container-initialized .swiper-wrapper {
-  padding-bottom: 40px;
   min-height: 100px !important;
   transform: none !important;
 }
