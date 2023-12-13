@@ -84,11 +84,11 @@ fl-helper[name="slider"] .swiper-nav-prev-disabled .swiper-container-initialized
   height: auto;
 }
 
-.mode-interact fl-helper[name="slider"] .fl-widget-instance[data-name="slider"] {
+.mode-interact .fl-widget-instance[data-name="slider"] {
   padding-top: 20px !important;
 }
 
-.mode-interact fl-helper[name="slider"] fl-helper[name='slider']::before {
+.mode-interact fl-helper[name="slider"]::before {
   content: 'Slider';
 }
 
