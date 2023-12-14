@@ -6,16 +6,6 @@ Fliplet.Widget.instance({
   data: {
     formName: null
   },
-  dependencies: [
-    {
-      url: 'https://unpkg.com/swiper@6.5.9/swiper-bundle.min.js',
-      type: 'js'
-    },
-    {
-      url: 'https://unpkg.com/swiper@6.5.9/swiper-bundle.min.css',
-      type: 'css'
-    }
-  ],
   render: {
     template: [
       '<div class="swiper-container">',
@@ -142,19 +132,19 @@ Fliplet.Widget.instance({
 
       let swiper = new Swiper(container, swiperOptions);
 
-      let autoheightIntervalInstance = setInterval(updateAutoHeightTimer, 1000);
+      // let autoheightIntervalInstance = setInterval(updateAutoHeightTimer, 1000);
 
-      function updateAutoHeightTimer() {
-        swiper.updateAutoHeight(500);
-      }
+      // function updateAutoHeightTimer() {
+      //   swiper.updateAutoHeight(500);
+      // }
 
-      function stopAutoheightInterval() {
-        clearInterval(autoheightIntervalInstance);
-      }
+      // function stopAutoheightInterval() {
+      //   clearInterval(autoheightIntervalInstance);
+      // }
 
-      $(window).bind('beforeunload', function() {
-        return stopAutoheightInterval();
-      });
+      // $(window).bind('beforeunload', function() {
+      //   return stopAutoheightInterval();
+      // });
 
       let firstSlide = slides[0];
 
