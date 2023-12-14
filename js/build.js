@@ -6,6 +6,16 @@ Fliplet.Widget.instance({
   data: {
     formName: null
   },
+  dependencies: [
+    {
+      url: 'https://unpkg.com/swiper@6.5.9/swiper-bundle.min.js',
+      type: 'js'
+    },
+    {
+      url: 'https://unpkg.com/swiper@6.5.9/swiper-bundle.min.css',
+      type: 'css'
+    }
+  ],
   render: {
     template: [
       '<div class="swiper-container">',
