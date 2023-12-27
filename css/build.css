@@ -3,6 +3,10 @@ fl-helper[name="slider"] {
   min-height: 150px;
 }
 
+fl-helper[name="slider"] .swiper-container {
+  overflow-y: hidden!important;
+}
+
 .mode-interact fl-helper[name="slider"] .view-is-empty {
   box-sizing: border-box;
 }
