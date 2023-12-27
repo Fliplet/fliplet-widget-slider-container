@@ -103,3 +103,8 @@ fl-helper[name="slider"] .swiper-nav-prev-disabled .swiper-container-initialized
   top: -25px;
   left: 0px;
 }
+
+[data-widget-package="com.fliplet.slider-container"] {
+  overflow-y: auto;
+  max-height: 100vh;
+}
