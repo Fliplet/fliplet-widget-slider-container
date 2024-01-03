@@ -88,7 +88,7 @@ Fliplet.Widget.instance({
         effect: this.fields.animationStyle,
         allowSlideNext: true,
         allowSlidePrev: true,
-        autoHeight: true,
+        // autoHeight: true,
         keyboard: {
           enabled: true,
           onlyInViewport: false
