@@ -88,7 +88,7 @@ Fliplet.Widget.instance({
         effect: this.fields.animationStyle,
         allowSlideNext: true,
         allowSlidePrev: true,
-        // autoHeight: true,
+        autoHeight: true,
         keyboard: {
           enabled: true,
           onlyInViewport: false
@@ -132,19 +132,20 @@ Fliplet.Widget.instance({
 
       let swiper = new Swiper(container, swiperOptions);
 
-      let autoheightIntervalInstance = setInterval(updateAutoHeightTimer, 1000);
+      // let autoheightIntervalInstance = setInterval(updateAutoHeightTimer, 1000);
 
-      function updateAutoHeightTimer() {
-        swiper.updateAutoHeight(500);
-      }
+      // function updateAutoHeightTimer() {
+      //   swiper.updateAutoHeight(500);
+      // }
 
-      function stopAutoheightInterval() {
-        clearInterval(autoheightIntervalInstance);
-      }
+      // function stopAutoheightInterval() {
+      //   clearInterval(autoheightIntervalInstance);
+      // }
 
-      $(window).bind('beforeunload', function() {
-        return stopAutoheightInterval();
-      });
+      // $(window).bind('beforeunload', function() {
+      //   return stopAutoheightInterval();
+      // });
+
 
       let firstSlide = slides[0];
 
@@ -318,6 +319,7 @@ Fliplet.Widget.instance({
 
       vm.slideTo = function() {
         swiper.slideTo.apply(swiper, arguments);
+        swiper.updateAutoHeight(500);
       };
 
       vm.getActiveSlide = function() {
