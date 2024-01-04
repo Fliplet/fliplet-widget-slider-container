@@ -24,16 +24,15 @@ Fliplet.Widget.instance({
 
       const $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
       const $sliderInsideSlide = $slider.closest('[data-helper="slide"]');
-      const notAllowedComponents = $slider.find('.swiper-wrapper > :not([data-name="Slide"])');
-      const isInteract = Fliplet.Env.get('interact');
+      const notAllowedComponents = $slider.find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-name="Slide"])');
+      // const isInteract = Fliplet.Env.get('interact');
 
       function addClassToElements($elements, message) {
         if ($elements.length) {
           $elements.each(function() {
             $(this).addClass('custom-before');
+            Fliplet.UI.Toast(message);
           });
-        } else if (!isInteract) {
-          Fliplet.UI.Toast(message);
         }
       }
 
