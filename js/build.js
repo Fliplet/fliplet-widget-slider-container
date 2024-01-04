@@ -36,7 +36,18 @@ Fliplet.Widget.instance({
 
       if (notAllowedComponents) {
         notAllowedComponents.each(function() {
-          $(this).css('position', 'relative').prepend('<div class="custom-before">Incorrect component placement</div>');
+          $(this).css({
+            'content': '"Wrong placement"',
+            'border-bottom-right-radius': '10px',
+            'cursor': 'grab',
+            'position': 'relative',
+            'padding': '5px',
+            'font-size': '12px',
+            'color': 'white',
+            'background': 'darkorange',
+            'top': '-25px',
+            'left': '0px'
+          });
         });
 
         return Fliplet.UI.Toast('Only Slide components are allowed inside the slider');
