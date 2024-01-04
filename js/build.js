@@ -32,7 +32,7 @@ Fliplet.Widget.instance({
         return Fliplet.UI.Toast('Slider inside slide is not allowed');
       }
 
-      let notAllowedComponents = $slider.find$('.swiper-wrapper > :not(.swiper-slide)');
+      let notAllowedComponents = $slider.find('.swiper-wrapper > :not(.swiper-slide)');
 
       if (notAllowedComponents) {
         notAllowedComponents.each(function() {
