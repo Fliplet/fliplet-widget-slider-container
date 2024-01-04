@@ -92,18 +92,6 @@ fl-helper[name="slider"] .swiper-nav-prev-disabled .swiper-container-initialized
   content: 'Slider';
 }
 
-.mode-interact .custom-before {
-  border-bottom-right-radius: 10px;
-  cursor: grab;
-  position: relative;
-  padding: 5px;
-  font-size: 12px;
-  color: white;
-  background: darkorange;
-  top: -25px;
-  left: 0px;
-}
-
 .mode-interact fl-helper[name='slider']:before {
   border-bottom-right-radius: 10px;
   cursor: grab;

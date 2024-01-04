@@ -44,9 +44,9 @@ Fliplet.Widget.instance({
             'padding': '5px',
             'font-size': '12px',
             'color': 'white',
-            'background': 'darkorange',
-            'top': '-25px',
-            'left': '0px'
+            'background': 'red',
+            'top': '0',
+            'left': '0'
           });
         });
 
