@@ -23,44 +23,45 @@ Fliplet.Widget.instance({
       let $slider = $($vm[0].$el[0]);
 
       let $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
+      let $sliderInsideSlide = $slider.closest('[data-helper="slide"]');
+      let notAllowedComponents = $slider.find(
+        '.swiper-wrapper > :not([data-name="Slide"])'
+      );
 
-      if ($slideInsideSlide.length) {
-        if (Fliplet.Env.get('interact')) {
+      if (Fliplet.Env.get('interact')) {
+        if ($slideInsideSlide.length) {
           $slideInsideSlide.each(function() {
             $(this).addClass('custom-before');
           });
         }
 
-        return Fliplet.UI.Toast('Slide inside slide is not allowed');
-      }
-
-      let $sliderInsideSlide = $slider.closest('[data-helper="slide"]');
-
-      if ($sliderInsideSlide.length) {
-        if (Fliplet.Env.get('interact')) {
+        if ($sliderInsideSlide.length) {
           $sliderInsideSlide.each(function() {
             $(this).addClass('custom-before');
           });
         }
 
-        return Fliplet.UI.Toast('Slider inside slide is not allowed');
-      }
-
-      let notAllowedComponents = $slider.find(
-        '.swiper-wrapper > :not([data-name="Slide"])'
-      );
-
-      if (notAllowedComponents.length) {
-        if (Fliplet.Env.get('interact')) {
+        if (notAllowedComponents.length) {
           notAllowedComponents.each(function() {
             $(this).addClass('custom-before');
           });
         }
+      } else {
+        if ($slideInsideSlide.length) {
+          return Fliplet.UI.Toast('Slide inside slide is not allowed');
+        }
 
-        return Fliplet.UI.Toast(
-          'Only Slide components are allowed inside the slider'
-        );
+        if ($sliderInsideSlide.length) {
+          return Fliplet.UI.Toast('Slider inside slide is not allowed');
+        }
+
+        if (notAllowedComponents.length) {
+          return Fliplet.UI.Toast(
+            'Only Slide components are allowed inside the slider'
+          );
+        }
       }
+
 
       vm.fields = _.assign(
         {
