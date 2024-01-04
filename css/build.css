@@ -92,7 +92,7 @@ fl-helper[name="slider"] .swiper-nav-prev-disabled .swiper-container-initialized
   content: 'Slider';
 }
 
-.mode-interact .custom-before::before {
+.custom-before::before {
   content: 'Incorrect component placement';
 }
 
