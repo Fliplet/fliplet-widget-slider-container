@@ -23,23 +23,28 @@ Fliplet.Widget.instance({
       let vm = this;
       let $vm = $(this);
 
+      debugger;
+
       if ($('[data-helper="slide"] [data-helper="slide"]').length) {
         return Fliplet.UI.Toast('Slide inside slide is not allowed');
       }
+
+      debugger;
 
       if ($vm.closest('[data-helper="slide"]').length) {
         return Fliplet.UI.Toast('Slider inside slide is not allowed');
       }
 
-      let notAllowedComponents = $vm.find$('.swiper-wrapper > :not(.swiper-slide)');
+      debugger;
+      // let notAllowedComponents = $($vm[0].$el[0]).find$('.swiper-wrapper > :not(.swiper-slide)');
 
-      if (notAllowedComponents) {
-        notAllowedComponents.each(function() {
-          $(this).css('position', 'relative').prepend('<div class="custom-before">Incorrect component placement</div>');
-        });
+      // if (notAllowedComponents) {
+      //   notAllowedComponents.each(function() {
+      //     $(this).css('position', 'relative').prepend('<div class="custom-before">Incorrect component placement</div>');
+      //   });
 
-        return Fliplet.UI.Toast('Only Slide components are allowed inside the slider');
-      }
+      //   return Fliplet.UI.Toast('Only Slide components are allowed inside the slider');
+      // }
 
       vm.fields = _.assign(
         {
