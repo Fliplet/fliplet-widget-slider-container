@@ -22,10 +22,6 @@ Fliplet.Widget.instance({
       let $vm = $(this);
       let $slider = $($vm[0].$el[0]);
 
-      const $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
-      const $sliderInsideSlide = $slider.closest('[data-helper="slide"]').find('[data-helper="slider"]');
-      const notAllowedComponents = $slider.find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-name="Slide"])');
-
       function addClassToElements($elements, message) {
         if ($elements.length) {
           $elements.each(function() {
@@ -35,10 +31,15 @@ Fliplet.Widget.instance({
         }
       }
 
+      function checkAllowedStructure() {
+        let $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
+        let $sliderInsideSlide = $slider.closest('[data-helper="slide"]').find('[data-helper="slider"]');
+        let notAllowedComponents = $slider.find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-name="Slide"])');
 
-      addClassToElements($slideInsideSlide, 'Slide inside slide is not allowed');
-      addClassToElements($sliderInsideSlide, 'Slider inside slide is not allowed');
-      addClassToElements(notAllowedComponents, 'Only Slide components are allowed inside the slider');
+        addClassToElements($slideInsideSlide, 'Slide inside slide is not allowed');
+        addClassToElements($sliderInsideSlide, 'Slider inside slide is not allowed');
+        addClassToElements(notAllowedComponents, 'Only Slide components are allowed inside the slider');
+      }
 
       if (Fliplet.Env.get('interact')) {
         const $screen = $(document, '#preview').contents().find('.fl-page-content-wrapper');
@@ -47,9 +48,7 @@ Fliplet.Widget.instance({
 
         const previewObserver = new MutationObserver(function() {
           console.log('checked');
-          addClassToElements($slideInsideSlide, 'Slide inside slide is not allowed');
-          addClassToElements($sliderInsideSlide, 'Slider inside slide is not allowed');
-          addClassToElements(notAllowedComponents, 'Only Slide components are allowed inside the slider');
+          checkAllowedStructure();
         });
 
         previewObserver.observe($screen[0], {
@@ -57,6 +56,8 @@ Fliplet.Widget.instance({
           attributes: false,
           childList: true
         });
+      } else {
+        checkAllowedStructure();
       }
 
       vm.fields = _.assign(
