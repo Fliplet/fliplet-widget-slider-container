@@ -35,6 +35,24 @@ Fliplet.Widget.instance({
         }
       }
 
+      if (Fliplet.Env.get('interact')) {
+        $(document, '#preview').contents().find('body').prepend('<div class="helper-alert alert alert-danger text-center hidden"></div>');
+
+        const $screen = $(document, '#preview').contents().find('.fl-page-content-wrapper');
+
+        const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+        const previewObserver = new MutationObserver(function(mutations, observer) {
+          console.log(mutations, observer);
+        });
+
+        previewObserver.observe($screen[0], {
+          subtree: true,
+          attributes: false,
+          childList: true
+        });
+      }
+
       addClassToElements($slideInsideSlide, 'Slide inside slide is not allowed');
       addClassToElements($sliderInsideSlide, 'Slider inside slide is not allowed');
       addClassToElements(notAllowedComponents, 'Only Slide components are allowed inside the slider');
