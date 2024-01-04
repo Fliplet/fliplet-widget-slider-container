@@ -35,20 +35,11 @@ Fliplet.Widget.instance({
       let notAllowedComponents = $slider.find('.swiper-wrapper > :not([data-name="slide"])');
 
       if (notAllowedComponents) {
-        notAllowedComponents.each(function() {
-          $(this).css({
-            'content': '"Wrong placement"',
-            'border-bottom-right-radius': '10px',
-            'cursor': 'grab',
-            'position': 'relative',
-            'padding': '5px',
-            'font-size': '12px',
-            'color': 'white',
-            'background': 'red',
-            'top': '0',
-            'left': '0'
+        if (Fliplet.Env.get('interact')) {
+          notAllowedComponents.each(function() {
+            $(this).addClass('.custom-before');
           });
-        });
+        }
 
         return Fliplet.UI.Toast('Only Slide components are allowed inside the slider');
       }
