@@ -23,9 +23,8 @@ Fliplet.Widget.instance({
       let $slider = $($vm[0].$el[0]);
 
       const $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
-      const $sliderInsideSlide = $slider.closest('[data-helper="slide"]').find('data-helper="slider"');
+      const $sliderInsideSlide = $slider.closest('[data-helper="slide"]').find('[data-helper="slider"]');
       const notAllowedComponents = $slider.find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-name="Slide"])');
-      // const isInteract = Fliplet.Env.get('interact');
 
       function addClassToElements($elements, message) {
         if ($elements.length) {
