@@ -36,14 +36,14 @@ Fliplet.Widget.instance({
       }
 
       if (Fliplet.Env.get('interact')) {
-        $(document, '#preview').contents().find('body').prepend('<div class="helper-alert alert alert-danger text-center hidden"></div>');
-
         const $screen = $(document, '#preview').contents().find('.fl-page-content-wrapper');
 
         const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
-        const previewObserver = new MutationObserver(function(mutations, observer) {
-          console.log(mutations, observer);
+        const previewObserver = new MutationObserver(function() {
+          addClassToElements($slideInsideSlide, 'Slide inside slide is not allowed');
+          addClassToElements($sliderInsideSlide, 'Slider inside slide is not allowed');
+          addClassToElements(notAllowedComponents, 'Only Slide components are allowed inside the slider');
         });
 
         previewObserver.observe($screen[0], {
@@ -51,11 +51,11 @@ Fliplet.Widget.instance({
           attributes: false,
           childList: true
         });
+      } else {
+        addClassToElements($slideInsideSlide, 'Slide inside slide is not allowed');
+        addClassToElements($sliderInsideSlide, 'Slider inside slide is not allowed');
+        addClassToElements(notAllowedComponents, 'Only Slide components are allowed inside the slider');
       }
-
-      addClassToElements($slideInsideSlide, 'Slide inside slide is not allowed');
-      addClassToElements($sliderInsideSlide, 'Slider inside slide is not allowed');
-      addClassToElements(notAllowedComponents, 'Only Slide components are allowed inside the slider');
 
       vm.fields = _.assign(
         {
