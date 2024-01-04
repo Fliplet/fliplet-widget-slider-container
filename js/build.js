@@ -22,7 +22,7 @@ Fliplet.Widget.instance({
       let masterPageId = Fliplet.Env.get('pageMasterId');
       let vm = this;
       let $vm = $(this);
-      let $slider = $vm[0].$el[0];
+      let $slider = $($vm[0].$el[0]);
 
       if ($('[data-helper="slide"] [data-helper="slide"]').length) {
         return Fliplet.UI.Toast('Slide inside slide is not allowed');
