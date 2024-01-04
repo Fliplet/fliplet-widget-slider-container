@@ -27,11 +27,9 @@ Fliplet.Widget.instance({
       let $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
 
       if ($slideInsideSlide.length) {
-        if (Fliplet.Env.get('interact')) {
-          $slideInsideSlide.each(function() {
-            $(this).addClass('custom-before');
-          });
-        }
+        $slideInsideSlide.each(function() {
+          $(this).addClass('custom-before');
+        });
 
         return Fliplet.UI.Toast('Slide inside slide is not allowed');
       }
@@ -39,11 +37,9 @@ Fliplet.Widget.instance({
       let $sliderInsideSlide = $slider.closest('[data-helper="slide"]');
 
       if ($sliderInsideSlide.length) {
-        if (Fliplet.Env.get('interact')) {
-          $sliderInsideSlide.each(function() {
-            $(this).addClass('custom-before');
-          });
-        }
+        $sliderInsideSlide.each(function() {
+          $(this).addClass('custom-before');
+        });
 
         return Fliplet.UI.Toast('Slider inside slide is not allowed');
       }
@@ -53,11 +49,9 @@ Fliplet.Widget.instance({
       );
 
       if (notAllowedComponents) {
-        if (Fliplet.Env.get('interact')) {
-          notAllowedComponents.each(function() {
-            $(this).addClass('custom-before');
-          });
-        }
+        notAllowedComponents.each(function() {
+          $(this).addClass('custom-before');
+        });
 
         return Fliplet.UI.Toast(
           'Only Slide components are allowed inside the slider'
