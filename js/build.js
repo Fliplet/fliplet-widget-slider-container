@@ -31,6 +31,16 @@ Fliplet.Widget.instance({
         return Fliplet.UI.Toast('Slider inside slide is not allowed');
       }
 
+      let notAllowedComponents = $vm.find$('.swiper-wrapper > :not(.swiper-slide)');
+
+      if (notAllowedComponents) {
+        notAllowedComponents.each(function() {
+          $(this).css('position', 'relative').prepend('<div class="custom-before">Incorrect component placement</div>');
+        });
+
+        return Fliplet.UI.Toast('Only Slide components are allowed inside the slider');
+      }
+
       vm.fields = _.assign(
         {
           progress: 'progressbar',
