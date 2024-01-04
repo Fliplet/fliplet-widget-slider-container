@@ -93,18 +93,17 @@ fl-helper[name="slider"] .swiper-nav-prev-disabled .swiper-container-initialized
 }
 
 .custom-before::before {
-  content: 'Incorrect component placement';
+  content: 'Incorrect component placement'!important;
 }
 
 .custom-before:before {
-  border-bottom-right-radius: 10px;
-  cursor: grab;
-  position: relative;
+  border-bottom-right-radius: 10px!important;
+  position: relative!important;
   padding: 5px;
   font-size: 12px;
   color: white;
-  background: red;
-  top: 0;
+  background: red!important;
+  top: 0!important;
   left: 0;
 }
 
