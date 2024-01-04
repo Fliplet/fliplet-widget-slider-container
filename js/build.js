@@ -1,8 +1,6 @@
 /* eslint-disable eqeqeq */
 Fliplet.Widget.instance({
   name: 'slider',
-  displayName: 'Slider container',
-  icon: 'fa-exchange',
   data: {
     formName: null
   },
