@@ -43,7 +43,7 @@ Fliplet.Widget.instance({
       }
 
       let notAllowedComponents = $slider.find(
-        '.swiper-wrapper > :not([data-name="slide"])'
+        '.swiper-wrapper > :not([data-name="Slide"])'
       );
 
       if (notAllowedComponents.length) {
@@ -89,7 +89,7 @@ Fliplet.Widget.instance({
         return;
       }
 
-      $(container).find('[data-name="slide"]').addClass('swiper-slide');
+      $(container).find('[data-name="Slide"]').addClass('swiper-slide');
 
       let slides = vm.children({ name: 'slide' });
 
@@ -202,7 +202,7 @@ Fliplet.Widget.instance({
 
       function loadFormData() {
         let $activeSlide = $slider.find(
-          '[data-name="slide"].swiper-slide-active'
+          '[data-name="Slide"].swiper-slide-active'
         );
         let formElement = $activeSlide.find('[data-name="Form"]');
         let formId = formElement.data('id');
