@@ -22,16 +22,17 @@ Fliplet.Widget.instance({
       let masterPageId = Fliplet.Env.get('pageMasterId');
       let vm = this;
       let $vm = $(this);
+      let $slider = $vm[0].$el[0];
 
       if ($('[data-helper="slide"] [data-helper="slide"]').length) {
         return Fliplet.UI.Toast('Slide inside slide is not allowed');
       }
 
-      if ($vm[0].$el.closest('[data-helper="slide"]').length) {
+      if ($slider.closest('[data-helper="slide"]').length) {
         return Fliplet.UI.Toast('Slider inside slide is not allowed');
       }
 
-      let notAllowedComponents = $vm[0].$el[0].find$('.swiper-wrapper > :not(.swiper-slide)');
+      let notAllowedComponents = $slider.find$('.swiper-wrapper > :not(.swiper-slide)');
 
       if (notAllowedComponents) {
         notAllowedComponents.each(function() {
@@ -131,12 +132,12 @@ Fliplet.Widget.instance({
         && (Fliplet.Env.get('platform') == 'native'
           || $('body').innerWidth() < 600)
       ) {
-        $vm.find('.swiper-button-next').hide();
-        $vm.find('.swiper-button-prev').hide();
+        $slider.find('.swiper-button-next').hide();
+        $slider.find('.swiper-button-prev').hide();
         swiperOptions.allowTouchMove = true;
       } else {
-        $vm.find('.swiper-button-next').show();
-        $vm.find('.swiper-button-prev').show();
+        $slider.find('.swiper-button-next').show();
+        $slider.find('.swiper-button-prev').show();
         swiperOptions.allowTouchMove = false;
       }
 
@@ -167,8 +168,8 @@ Fliplet.Widget.instance({
       }
 
       Fliplet.Hooks.on('flListDataBeforeGetData', function(options) {
-        let $btnPrev = $vm.find('.swiper-button-prev');
-        let $btnNext = $vm.find('.swiper-button-next');
+        let $btnPrev = $slider.find('.swiper-button-prev');
+        let $btnNext = $slider.find('.swiper-button-next');
 
         options.config.beforeOpen = function() {
           $btnPrev.hide();
@@ -188,7 +189,7 @@ Fliplet.Widget.instance({
       });
 
       function loadFormData() {
-        let $activeSlide = $vm.find('[data-name="slide"].swiper-slide-active');
+        let $activeSlide = $slider.find('[data-name="slide"].swiper-slide-active');
         let formElement = $activeSlide.find('[data-name="Form"]');
         let formId = formElement.data('id');
         let value;
@@ -255,7 +256,7 @@ Fliplet.Widget.instance({
 
         vm.data.formName = null;
 
-        $vm.find('video, audio').each(function() {
+        $slider.find('video, audio').each(function() {
           this.pause();
         });
 
