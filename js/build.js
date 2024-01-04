@@ -22,46 +22,24 @@ Fliplet.Widget.instance({
       let $vm = $(this);
       let $slider = $($vm[0].$el[0]);
 
-      let $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
-      let $sliderInsideSlide = $slider.closest('[data-helper="slide"]');
-      let notAllowedComponents = $slider.find(
-        '.swiper-wrapper > :not([data-name="Slide"])'
-      );
+      const $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
+      const $sliderInsideSlide = $slider.closest('[data-helper="slide"]');
+      const notAllowedComponents = $slider.find('.swiper-wrapper > :not([data-name="Slide"])');
+      const isInteract = Fliplet.Env.get('interact');
 
-      if (Fliplet.Env.get('interact')) {
-        if ($slideInsideSlide.length) {
-          $slideInsideSlide.each(function() {
+      function addClassToElements($elements, message) {
+        if ($elements.length) {
+          $elements.each(function() {
             $(this).addClass('custom-before');
           });
-        }
-
-        if ($sliderInsideSlide.length) {
-          $sliderInsideSlide.each(function() {
-            $(this).addClass('custom-before');
-          });
-        }
-
-        if (notAllowedComponents.length) {
-          notAllowedComponents.each(function() {
-            $(this).addClass('custom-before');
-          });
-        }
-      } else {
-        if ($slideInsideSlide.length) {
-          return Fliplet.UI.Toast('Slide inside slide is not allowed');
-        }
-
-        if ($sliderInsideSlide.length) {
-          return Fliplet.UI.Toast('Slider inside slide is not allowed');
-        }
-
-        if (notAllowedComponents.length) {
-          return Fliplet.UI.Toast(
-            'Only Slide components are allowed inside the slider'
-          );
+        } else if (!isInteract) {
+          Fliplet.UI.Toast(message);
         }
       }
 
+      addClassToElements($slideInsideSlide, 'Slide inside slide is not allowed');
+      addClassToElements($sliderInsideSlide, 'Slider inside slide is not allowed');
+      addClassToElements(notAllowedComponents, 'Only Slide components are allowed inside the slider');
 
       vm.fields = _.assign(
         {
