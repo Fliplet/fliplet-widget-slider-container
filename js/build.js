@@ -35,12 +35,18 @@ Fliplet.Widget.instance({
         }
       }
 
+
+      addClassToElements($slideInsideSlide, 'Slide inside slide is not allowed');
+      addClassToElements($sliderInsideSlide, 'Slider inside slide is not allowed');
+      addClassToElements(notAllowedComponents, 'Only Slide components are allowed inside the slider');
+
       if (Fliplet.Env.get('interact')) {
         const $screen = $(document, '#preview').contents().find('.fl-page-content-wrapper');
 
         const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
         const previewObserver = new MutationObserver(function() {
+          console.log('checked');
           addClassToElements($slideInsideSlide, 'Slide inside slide is not allowed');
           addClassToElements($sliderInsideSlide, 'Slider inside slide is not allowed');
           addClassToElements(notAllowedComponents, 'Only Slide components are allowed inside the slider');
@@ -51,10 +57,6 @@ Fliplet.Widget.instance({
           attributes: false,
           childList: true
         });
-      } else {
-        addClassToElements($slideInsideSlide, 'Slide inside slide is not allowed');
-        addClassToElements($sliderInsideSlide, 'Slider inside slide is not allowed');
-        addClassToElements(notAllowedComponents, 'Only Slide components are allowed inside the slider');
       }
 
       vm.fields = _.assign(
