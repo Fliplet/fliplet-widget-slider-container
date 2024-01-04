@@ -48,7 +48,7 @@ Fliplet.Widget.instance({
         '.swiper-wrapper > :not([data-name="slide"])'
       );
 
-      if (notAllowedComponents) {
+      if (notAllowedComponents.length) {
         notAllowedComponents.each(function() {
           $(this).addClass('custom-before');
         });
