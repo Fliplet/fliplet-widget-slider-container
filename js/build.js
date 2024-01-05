@@ -28,7 +28,7 @@ Fliplet.Widget.instance({
           $elements.each(function() {
             $(this).addClass('custom-before');
 
-            if (interactMode) {
+            if (!interactMode) {
               Fliplet.UI.Toast(message);
             }
           });
