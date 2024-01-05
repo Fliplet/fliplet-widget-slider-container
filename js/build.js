@@ -21,12 +21,16 @@ Fliplet.Widget.instance({
       let vm = this;
       let $vm = $(this);
       let $slider = $($vm[0].$el[0]);
+      const interactMode = Fliplet.Env.get('interact');
 
       function addClassToElements($elements, message) {
         if ($elements.length) {
           $elements.each(function() {
             $(this).addClass('custom-before');
-            Fliplet.UI.Toast(message);
+
+            if (interactMode) {
+              Fliplet.UI.Toast(message);
+            }
           });
         }
       }
@@ -41,7 +45,7 @@ Fliplet.Widget.instance({
         addClassToElements(notAllowedComponents, 'Only Slide components are allowed inside the slider');
       }
 
-      if (Fliplet.Env.get('interact')) {
+      if (interactMode) {
         const $screen = $(document, '#preview').contents().find('.fl-page-content-wrapper');
 
         const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
@@ -312,8 +316,7 @@ Fliplet.Widget.instance({
         }
 
         vm.$el
-          .find('.swiper-pagination, .swiper-button-prev, .swiper-button-next')
-          [toggle ? 'show' : 'hide']();
+          .find('.swiper-pagination, .swiper-button-prev, .swiper-button-next')[toggle ? 'show' : 'hide']();
         vm.showNav = !!toggle;
         vm.swiper.allowTouchMove = toggle ? Modernizr.touchevents : false;
         vm.swiper.update();
