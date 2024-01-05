@@ -37,11 +37,11 @@ Fliplet.Widget.instance({
 
       function checkAllowedStructure() {
         let $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
-        let $sliderInsideSlide = $slider.closest('[data-helper="slide"]').find('[name="slider"]');
+        let $sliderInsideSlider = $slider.find('[name="slider"]');
         let notAllowedComponents = $slider.find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-name="Slide"])');
 
         addClassToElements($slideInsideSlide, 'Slide inside slide is not allowed');
-        addClassToElements($sliderInsideSlide, 'Slider inside slide is not allowed');
+        addClassToElements($sliderInsideSlider, 'Slider inside slider is not allowed');
         addClassToElements(notAllowedComponents, 'Only Slide components are allowed inside the slider');
       }
 
