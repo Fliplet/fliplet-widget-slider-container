@@ -18,9 +18,7 @@ Fliplet.Widget.instance({
 
       let pageId = Fliplet.Env.get('pageId');
       let pageMasterId = Fliplet.Env.get('pageMasterId');
-      let vm = this;
-      // let $vm = $(this);
-      // let $slider = $($vm[0].$el[0]);
+      let slider = this;
       let $slider = $(this);
       const interactMode = Fliplet.Env.get('interact');
 
@@ -62,7 +60,7 @@ Fliplet.Widget.instance({
         checkAllowedStructure();
       }
 
-      vm.fields = _.assign(
+      slider.fields = _.assign(
         {
           progress: 'progressbar',
           animationStyle: 'fade',
@@ -70,16 +68,16 @@ Fliplet.Widget.instance({
           redirectEndScreen: '',
           firstTime: []
         },
-        vm.fields
+        slider.fields
       );
 
-      if (vm.fields.firstTime.includes(true)) {
+      if (slider.fields.firstTime.includes(true)) {
         Fliplet.App.Storage.get('sliderSeen').then(function(value) {
           if (
             value
             && (value.pageId === pageId || value.pageMasterId === pageMasterId)
           ) {
-            Fliplet.Navigate.screen(vm.fields.redirectEndScreen);
+            Fliplet.Navigate.screen(slider.fields.redirectEndScreen);
           } else {
             Fliplet.App.Storage.set('sliderSeen', {
               pageId,
@@ -89,7 +87,7 @@ Fliplet.Widget.instance({
         });
       }
 
-      let container = vm.$el.findUntil('.swiper-container', 'fl-helper');
+      let container = slider.$el.findUntil('.swiper-container', 'fl-helper');
 
       if (!container.length) {
         return;
@@ -99,10 +97,10 @@ Fliplet.Widget.instance({
 
       $(firstContainer).find('[data-widget-package="com.fliplet.slide"]').addClass('swiper-slide');
 
-      let slides = vm.children({ name: 'slide' });
+      let slides = slider.children({ name: 'slide' });
 
       if (!slides.length) {
-        vm.$el.hide();
+        slider.$el.hide();
 
         return;
       }
@@ -203,7 +201,7 @@ Fliplet.Widget.instance({
         let value;
 
         if (!formId) {
-          vm.data.formName = null;
+          slider.data.formName = null;
 
           return Promise.resolve(true);
         }
@@ -213,12 +211,12 @@ Fliplet.Widget.instance({
             let form = forms.find((el) => el.instance.id === formId);
 
             if (form) {
-              vm.data.formName = form.data().displayName;
+              slider.data.formName = form.data().displayName;
 
-              return Fliplet.App.Storage.get(`${pageId}${vm.data.formName}`);
+              return Fliplet.App.Storage.get(`${pageId}${slider.data.formName}`);
             }
 
-            vm.data.formName = null;
+            slider.data.formName = null;
 
             return Promise.resolve(false);
           })
@@ -250,7 +248,7 @@ Fliplet.Widget.instance({
             return true;
           })
           .catch(function() {
-            return Fliplet.App.Storage.remove(`${pageId}${vm.data.formName}`);
+            return Fliplet.App.Storage.remove(`${pageId}${slider.data.formName}`);
           });
       }
 
@@ -258,11 +256,11 @@ Fliplet.Widget.instance({
         loadFormData();
       }
 
-      vm.swiper = swiper;
+      slider.swiper = swiper;
       swiper.on('slideChange', function() {
         let slideObject = this;
 
-        vm.data.formName = null;
+        slider.data.formName = null;
 
         $slider.find('video, audio').each(function() {
           this.pause();
@@ -272,7 +270,7 @@ Fliplet.Widget.instance({
           loadFormData().then(async function() {
             let currentSlide = slides[swiper.realIndex];
             let hasFormSubmitted = await Fliplet.App.Storage.get(
-              `${pageId}${vm.data.formName}`
+              `${pageId}${slider.data.formName}`
             );
 
             slideObject.allowSlidePrev = true;
@@ -289,66 +287,66 @@ Fliplet.Widget.instance({
                 = !currentSlide.fields.requiredFormForwardNavigation;
             }
 
-            Fliplet.Page.scrollTo(vm.$el);
+            Fliplet.Page.scrollTo(slider.$el);
           });
         }
       });
 
-      vm.showNav = true;
+      slider.showNav = true;
 
-      vm.toggleNav = function(toggle) {
+      slider.toggleNav = function(toggle) {
         if (typeof toggle === 'undefined') {
-          toggle = !vm.showNav;
+          toggle = !slider.showNav;
         }
 
-        vm.$el
+        slider.$el
           .find('.swiper-pagination, .swiper-button-prev, .swiper-button-next')[toggle ? 'show' : 'hide']();
-        vm.showNav = !!toggle;
-        vm.swiper.allowTouchMove = toggle ? Modernizr.touchevents : false;
-        vm.swiper.update();
+        slider.showNav = !!toggle;
+        slider.swiper.allowTouchMove = toggle ? Modernizr.touchevents : false;
+        slider.swiper.update();
       };
 
-      vm.togglePrevNav = function(toggle) {
+      slider.togglePrevNav = function(toggle) {
         if (typeof toggle === 'undefined') {
-          toggle = vm.$el.hasClass('swiper-nav-prev-disabled');
+          toggle = slider.$el.hasClass('swiper-nav-prev-disabled');
         }
 
-        vm.$el[toggle ? 'removeClass' : 'addClass']('swiper-nav-prev-disabled');
-        vm.swiper.allowSlidePrev = !!toggle;
-        vm.swiper.update();
+        slider.$el[toggle ? 'removeClass' : 'addClass']('swiper-nav-prev-disabled');
+        slider.swiper.allowSlidePrev = !!toggle;
+        slider.swiper.update();
       };
 
-      vm.toggleNextNav = function(toggle) {
+      slider.toggleNextNav = function(toggle) {
         if (typeof toggle === 'undefined') {
-          toggle = vm.$el.hasClass('swiper-nav-next-disabled');
+          toggle = slider.$el.hasClass('swiper-nav-next-disabled');
         }
 
-        vm.$el[toggle ? 'removeClass' : 'addClass']('swiper-nav-next-disabled');
-        vm.swiper.allowSlideNext = !!toggle;
-        vm.swiper.update();
+        slider.$el[toggle ? 'removeClass' : 'addClass']('swiper-nav-next-disabled');
+        slider.swiper.allowSlideNext = !!toggle;
+        slider.swiper.update();
       };
 
-      vm.slidePrev = function() {
+      slider.slidePrev = function() {
         swiper.slidePrev.apply(swiper, arguments);
       };
 
-      vm.slideNext = function() {
+      slider.slideNext = function() {
         swiper.slideNext.apply(swiper, arguments);
       };
 
-      vm.slideTo = function() {
+      slider.slideTo = function() {
         swiper.slideTo.apply(swiper, arguments);
         swiper.updateAutoHeight(500);
       };
 
-      vm.getActiveSlide = function() {
-        return vm.children('slide')[swiper.activeIndex];
+      slider.getActiveSlide = function() {
+        return slider.children('slide')[swiper.activeIndex];
       };
 
       Fliplet.Hooks.run('sliderInitialized');
 
       Fliplet.Hooks.on('beforeFormSubmit', function(formData) {
-        return Fliplet.App.Storage.get(`${pageId}${vm.data.formName}`).then(
+        return Fliplet.App.Storage.get(`${pageId}${slider.data.formName}`).then(
           function(value) {
             if (!value || !value.entryId) {
               return Promise.reject('');
@@ -373,8 +371,8 @@ Fliplet.Widget.instance({
         swiper.allowSlideNext = true;
         swiper.allowSlidePrev = true;
 
-        if (vm.data.formName) {
-          return Fliplet.App.Storage.set(`${pageId}${vm.data.formName}`, {
+        if (slider.data.formName) {
+          return Fliplet.App.Storage.set(`${pageId}${slider.data.formName}`, {
             entryId: response.result.id,
             dataSourceId: response.result.dataSourceId
           }).then(function() {
