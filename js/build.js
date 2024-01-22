@@ -19,8 +19,9 @@ Fliplet.Widget.instance({
       let pageId = Fliplet.Env.get('pageId');
       let pageMasterId = Fliplet.Env.get('pageMasterId');
       let vm = this;
-      let $vm = $(this);
-      let $slider = $($vm[0].$el[0]);
+      // let $vm = $(this);
+      // let $slider = $($vm[0].$el[0]);
+      let $slider = $(this);
       const interactMode = Fliplet.Env.get('interact');
 
       function isErrorMessageStructureValid($elements, message) {
