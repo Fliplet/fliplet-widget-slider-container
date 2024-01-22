@@ -290,8 +290,6 @@ Fliplet.Widget.instance({
             Fliplet.Page.scrollTo(slider.$el);
           });
         }
-
-        await Fliplet.Widget.initializeChildren(this.$el, this);
       });
 
       slider.showNav = true;
@@ -346,8 +344,6 @@ Fliplet.Widget.instance({
       };
 
       Fliplet.Hooks.run('sliderInitialized');
-
-      await Fliplet.Widget.initializeChildren(this.$el, this);
 
       Fliplet.Hooks.on('beforeFormSubmit', function(formData) {
         return Fliplet.App.Storage.get(`${pageId}${slider.data.formName}`).then(
