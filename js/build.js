@@ -88,13 +88,15 @@ Fliplet.Widget.instance({
         });
       }
 
-      var container = vm.$el.findUntil('.swiper-container', 'fl-helper').get(0);
+      let container = vm.$el.findUntil('.swiper-container', 'fl-helper');
 
-      if (!container) {
+      if (!container.length) {
         return;
       }
 
-      $(container).find('[data-widget-package="com.fliplet.slide"]').addClass('swiper-slide');
+      let firstContainer = container.get(0);
+
+      $(firstContainer).find('[data-widget-package="com.fliplet.slide"]').addClass('swiper-slide');
 
       let slides = vm.children({ name: 'slide' });
 
@@ -159,7 +161,7 @@ Fliplet.Widget.instance({
         swiperOptions.allowTouchMove = false;
       }
 
-      let swiper = new Swiper(container, swiperOptions);
+      let swiper = new Swiper(firstContainer, swiperOptions);
 
       let firstSlide = slides[0];
 
