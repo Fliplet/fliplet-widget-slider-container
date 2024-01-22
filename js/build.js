@@ -36,7 +36,7 @@ Fliplet.Widget.instance({
       function checkAllowedStructure() {
         let $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
         let $sliderInsideSlider = $slider.find('[name="slider"]');
-        let notAllowedComponents = $slider.find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-name="Slide"])');
+        let notAllowedComponents = $slider.find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"])');
 
         isErrorMessageStructureValid($slideInsideSlide, 'Slide inside slide is not allowed');
         isErrorMessageStructureValid($sliderInsideSlider, 'Slider inside slider is not allowed');
@@ -74,8 +74,6 @@ Fliplet.Widget.instance({
 
       if (vm.fields.firstTime.includes(true)) {
         Fliplet.App.Storage.get('sliderSeen').then(function(value) {
-          debugger;
-
           if (
             value
             && (value.pageId === pageId || value.pageMasterId === pageMasterId)
@@ -83,8 +81,8 @@ Fliplet.Widget.instance({
             Fliplet.Navigate.screen(vm.fields.redirectEndScreen);
           } else {
             Fliplet.App.Storage.set('sliderSeen', {
-              pageId: pageId,
-              pageMasterId: pageMasterId
+              pageId,
+              pageMasterId
             });
           }
         });
@@ -96,7 +94,7 @@ Fliplet.Widget.instance({
         return;
       }
 
-      $(container).find('[data-name="Slide"]').addClass('swiper-slide');
+      $(container).find('[data-widget-package="com.fliplet.slide"]').addClass('swiper-slide');
 
       let slides = vm.children({ name: 'slide' });
 
@@ -195,9 +193,9 @@ Fliplet.Widget.instance({
 
       function loadFormData() {
         let $activeSlide = $slider.find(
-          '[data-name="Slide"].swiper-slide-active'
+          '[data-widget-package="com.fliplet.slide"].swiper-slide-active'
         );
-        let formElement = $activeSlide.find('[data-name="Form"]');
+        let formElement = $activeSlide.find('[data-widget-package="com.fliplet.form-builder"]');
         let formId = formElement.data('id');
         let value;
 
@@ -209,7 +207,6 @@ Fliplet.Widget.instance({
 
         return Fliplet.FormBuilder.getAll()
           .then(function(forms) {
-            debugger;
             let form = forms.find((el) => el.instance.id === formId);
 
             if (form) {
