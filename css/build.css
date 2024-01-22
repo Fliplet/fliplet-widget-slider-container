@@ -92,11 +92,11 @@ fl-helper[name="slider"] .swiper-nav-prev-disabled .swiper-container-initialized
   content: 'Slider';
 }
 
-.custom-before::before {
+.component-error-before::before {
   content: 'Incorrect component placement'!important;
 }
 
-.custom-before:before {
+.component-error:before {
   border-top-right-radius: 10px!important;
   position: relative!important;
   padding: 5px;
