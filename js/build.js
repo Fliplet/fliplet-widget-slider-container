@@ -34,8 +34,9 @@ Fliplet.Widget.instance({
 
       function checkAllowedStructure() {
         let $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
-        let $sliderInsideSlider = $slider.find('[name="slider"]');
-        let notAllowedComponents = $slider.find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"])');
+        // let $slideOutsideSlider = $('[data-helper="slide"]').length && ;
+        let $sliderInsideSlider = $(slider.el).find('[name="slider"]');
+        let notAllowedComponents = $(slider.el).find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"])');
 
         isErrorMessageStructureValid($slideInsideSlide, 'Slide inside slide is not allowed');
         isErrorMessageStructureValid($sliderInsideSlider, 'Slider inside slider is not allowed');
