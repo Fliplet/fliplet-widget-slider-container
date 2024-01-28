@@ -39,7 +39,7 @@ Fliplet.Widget.instance({
         let notAllowedComponents = $(slider.el).find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"])');
 
         $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
-          if ($(el).parents('[data-widget-package="com.fliplet.slider-container"]')) {
+          if (!$(el).parents('[data-widget-package="com.fliplet.slider-container"]').length) {
             isErrorMessageStructureValid($(el), 'Slide must be inside the Slider');
           }
         });
