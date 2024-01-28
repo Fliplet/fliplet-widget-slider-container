@@ -97,7 +97,7 @@ fl-helper[name="slider"] .swiper-nav-prev-disabled .swiper-container-initialized
   content: 'Incorrect component placement'!important;
 }
 
-.component-error:before {
+.component-error-before:before {
   border-top-right-radius: 10px!important;
   position: relative!important;
   padding: 5px;

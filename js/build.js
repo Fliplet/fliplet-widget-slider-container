@@ -24,7 +24,7 @@ Fliplet.Widget.instance({
 
       function isErrorMessageStructureValid($elements, message) {
         $elements.each(function() {
-          $(this).addClass('component-error');
+          $(this).addClass('component-error-before');
 
           if (!interactMode) {
             Fliplet.UI.Toast(message);
