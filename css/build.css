@@ -30,6 +30,7 @@ fl-helper[name="slider"] .swiper-pagination-progressbar {
 
 fl-helper[name="slider"] .swiper-container-initialized .swiper-wrapper {
   min-height: 100px !important;
+  max-width: 100vw;
 }
 
 fl-helper[name="slider"] .swiper-container-initialized .swiper-button-next,
