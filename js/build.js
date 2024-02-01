@@ -21,7 +21,6 @@ Fliplet.Widget.instance({
       let slider = this;
       let $slider = $(this);
       const interactMode = Fliplet.Env.get('interact');
-      var isMousePressed = false;
 
       function isErrorMessageStructureValid($elements, message) {
         $elements.each(function() {
@@ -49,42 +48,47 @@ Fliplet.Widget.instance({
         isErrorMessageStructureValid(notAllowedComponents, 'Only Slide components are allowed inside the slider');
       }
 
-      document.addEventListener('mousedown', handleMouseDown);
-      document.addEventListener('mouseup', handleMouseUp);
+      let isMousePressed = false;
 
       function handleMouseDown() {
         isMousePressed = true;
-
-        if (interactMode) {
-          if (!isMousePressed) {
-            const $screen = $(document, '#preview').contents().find('.fl-page-content-wrapper');
-
-            const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-
-            const previewObserver = new MutationObserver(function() {
-              checkAllowedStructure();
-            });
-
-            previewObserver.observe($screen[0], {
-              subtree: true,
-              attributes: false,
-              childList: true
-            });
-          }
-        } else {
-          checkAllowedStructure();
-          removeEventListeners();
-        }
       }
 
       function handleMouseUp() {
         isMousePressed = false;
-        checkAllowedStructure();
       }
 
-      function removeEventListeners() {
-        document.removeEventListener('mousedown', handleMouseDown);
-        document.removeEventListener('mouseup', handleMouseUp);
+      // Attach event listeners
+      document.addEventListener('mousedown', handleMouseDown);
+      document.addEventListener('mouseup', handleMouseUp);
+
+      // // Remove event listeners when they are no longer needed
+      // function removeEventListeners() {
+      //   document.removeEventListener('mousedown', handleMouseDown);
+      //   document.removeEventListener('mouseup', handleMouseUp);
+      // }
+
+
+      if (interactMode) {
+        const $screen = $(document, '#preview').contents().find('.fl-page-content-wrapper');
+
+        const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+        const previewObserver = new MutationObserver(function() {
+          checkAllowedStructure();
+        });
+
+        if (isMousePressed) {
+          previewObserver.disconnect();
+        } else {
+          previewObserver.observe($screen[0], {
+            subtree: true,
+            attributes: false,
+            childList: true
+          });
+        }
+      } else {
+        checkAllowedStructure();
       }
 
       slider.fields = _.assign(
