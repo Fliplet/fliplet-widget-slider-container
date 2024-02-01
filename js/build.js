@@ -83,15 +83,16 @@ Fliplet.Widget.instance({
 
       function handleMouseUp() {
         isMousePressed = false;
+
         if (interactMode) {
           const $screen = $(document, '#preview').contents().find('.fl-page-content-wrapper');
-  
+
           const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-  
+
           const previewObserver = new MutationObserver(function() {
             checkAllowedStructure();
           });
-  
+
           previewObserver.observe($screen[0], {
             subtree: true,
             attributes: false,
@@ -125,12 +126,12 @@ Fliplet.Widget.instance({
         if (!isMousePressed) {
         //   previewObserver.disconnect();
         // } else {
-        previewObserver.observe($screen[0], {
-          subtree: true,
-          attributes: false,
-          childList: true
-        });
-        //}
+          previewObserver.observe($screen[0], {
+            subtree: true,
+            attributes: false,
+            childList: true
+          });
+        }
       } else {
         checkAllowedStructure();
       }
