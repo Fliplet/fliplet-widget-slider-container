@@ -22,7 +22,32 @@ Fliplet.Widget.instance({
       let $slider = $(this);
       const interactMode = Fliplet.Env.get('interact');
 
-      function isErrorMessageStructureValid($elements, message) {
+      function isErrorMessageStructureValid($elements, message, type) {
+        // if (!$elements.length) {
+        //   let $element = null;
+
+        //   switch (type) {
+        //     case 'slideNotInsideSlider':
+
+        //       break;
+        //     case 'slideInsideSlide':
+        //       $element = $('[data-helper="slide"]');
+        //       break;
+        //     case 'notAllowedComponents':
+        //       $element = $(slider.el);
+        //       break;
+        //     case 'sliderInsideSlider':
+        //       $element = $(slider.el).find('.swiper-wrapper > *');
+        //       break;
+        //     default:
+        //       return;
+        //   }
+
+        //   $element.removeClass('component-error-before');
+
+        //   return;
+        // }
+
         $elements.each(function() {
           $(this).addClass('component-error-before');
 
@@ -39,28 +64,30 @@ Fliplet.Widget.instance({
 
         $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
           if (!$(el).parents('[data-widget-package="com.fliplet.slider-container"]').length) {
-            isErrorMessageStructureValid($(el), 'Slide must be inside the Slider');
+            isErrorMessageStructureValid($(el), 'Slide must be inside the Slider', 'slideNotInsideSlider');
+          } else {
+            $(el).removeClass('component-error-before');
           }
         });
 
-        isErrorMessageStructureValid($slideInsideSlide, 'Slide inside slide is not allowed');
-        isErrorMessageStructureValid($sliderInsideSlider, 'Slider inside slider is not allowed');
-        isErrorMessageStructureValid(notAllowedComponents, 'Only Slide components are allowed inside the slider');
+        isErrorMessageStructureValid($slideInsideSlide, 'Slide inside slide is not allowed', 'slideInsideSlide');
+        isErrorMessageStructureValid($sliderInsideSlider, 'Slider inside slider is not allowed', 'sliderInsideSlider');
+        isErrorMessageStructureValid(notAllowedComponents, 'Only Slide components are allowed inside the slider', 'notAllowedComponents');
       }
 
-      let isMousePressed = false;
+      // let isMousePressed = false;
 
-      function handleMouseDown() {
-        isMousePressed = true;
-      }
+      // function handleMouseDown() {
+      //   isMousePressed = true;
+      // }
 
-      function handleMouseUp() {
-        isMousePressed = false;
-      }
+      // function handleMouseUp() {
+      //   isMousePressed = false;
+      // }
 
       // Attach event listeners
-      document.addEventListener('mousedown', handleMouseDown);
-      document.addEventListener('mouseup', handleMouseUp);
+      // document.addEventListener('mousedown', handleMouseDown);
+      // document.addEventListener('mouseup', handleMouseUp);
 
       // // Remove event listeners when they are no longer needed
       // function removeEventListeners() {
@@ -78,15 +105,15 @@ Fliplet.Widget.instance({
           checkAllowedStructure();
         });
 
-        if (isMousePressed) {
-          previewObserver.disconnect();
-        } else {
-          previewObserver.observe($screen[0], {
-            subtree: true,
-            attributes: false,
-            childList: true
-          });
-        }
+        // if (isMousePressed) {
+        //   previewObserver.disconnect();
+        // } else {
+        previewObserver.observe($screen[0], {
+          subtree: true,
+          attributes: false,
+          childList: true
+        });
+        // }
       } else {
         checkAllowedStructure();
       }
