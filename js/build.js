@@ -49,8 +49,32 @@ Fliplet.Widget.instance({
         isErrorMessageStructureValid(notAllowedComponents, 'Only Slide components are allowed inside the slider');
       }
 
+      document.addEventListener('mousedown', handleMouseDown);
+      document.addEventListener('mouseup', handleMouseUp);
+
       function handleMouseDown() {
         isMousePressed = true;
+
+        if (interactMode) {
+          if (!isMousePressed) {
+            const $screen = $(document, '#preview').contents().find('.fl-page-content-wrapper');
+
+            const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+            const previewObserver = new MutationObserver(function() {
+              checkAllowedStructure();
+            });
+
+            previewObserver.observe($screen[0], {
+              subtree: true,
+              attributes: false,
+              childList: true
+            });
+          }
+        } else {
+          checkAllowedStructure();
+          removeEventListeners();
+        }
       }
 
       function handleMouseUp() {
@@ -61,30 +85,6 @@ Fliplet.Widget.instance({
       function removeEventListeners() {
         document.removeEventListener('mousedown', handleMouseDown);
         document.removeEventListener('mouseup', handleMouseUp);
-      }
-
-      if (interactMode) {
-        document.addEventListener('mousedown', handleMouseDown);
-        document.addEventListener('mouseup', handleMouseUp);
-
-        if (!isMousePressed) {
-          const $screen = $(document, '#preview').contents().find('.fl-page-content-wrapper');
-
-          const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-
-          const previewObserver = new MutationObserver(function() {
-            checkAllowedStructure();
-          });
-
-          previewObserver.observe($screen[0], {
-            subtree: true,
-            attributes: false,
-            childList: true
-          });
-        }
-      } else {
-        checkAllowedStructure();
-        removeEventListeners();
       }
 
       slider.fields = _.assign(
