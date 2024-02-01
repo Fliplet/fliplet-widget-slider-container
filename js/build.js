@@ -28,8 +28,6 @@ Fliplet.Widget.instance({
 
           switch (type) {
             case 'slideNotInsideSlider':
-
-              break;
             case 'slideInsideSlide':
               $element = $('[data-helper="slide"]');
               break;
