@@ -75,21 +75,38 @@ Fliplet.Widget.instance({
         isErrorMessageStructureValid(notAllowedComponents, 'Only Slide components are allowed inside the slider', 'notAllowedComponents');
       }
 
-      // let isMousePressed = false;
+      let isMousePressed = false;
 
-      // function handleMouseDown() {
-      //   isMousePressed = true;
-      // }
+      function handleMouseDown() {
+        isMousePressed = true;
+      }
 
-      // function handleMouseUp() {
-      //   isMousePressed = false;
-      // }
+      function handleMouseUp() {
+        isMousePressed = false;
+        if (interactMode) {
+          const $screen = $(document, '#preview').contents().find('.fl-page-content-wrapper');
+  
+          const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+  
+          const previewObserver = new MutationObserver(function() {
+            checkAllowedStructure();
+          });
+  
+          previewObserver.observe($screen[0], {
+            subtree: true,
+            attributes: false,
+            childList: true
+          });
+        } else {
+          checkAllowedStructure();
+        }
+      }
 
       // Attach event listeners
-      // document.addEventListener('mousedown', handleMouseDown);
-      // document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('mousedown', handleMouseDown);
+      document.addEventListener('mouseup', handleMouseUp);
 
-      // // Remove event listeners when they are no longer needed
+      // Remove event listeners when they are no longer needed
       // function removeEventListeners() {
       //   document.removeEventListener('mousedown', handleMouseDown);
       //   document.removeEventListener('mouseup', handleMouseUp);
@@ -105,7 +122,7 @@ Fliplet.Widget.instance({
           checkAllowedStructure();
         });
 
-        // if (isMousePressed) {
+        if (!isMousePressed) {
         //   previewObserver.disconnect();
         // } else {
         previewObserver.observe($screen[0], {
@@ -113,7 +130,7 @@ Fliplet.Widget.instance({
           attributes: false,
           childList: true
         });
-        // }
+        //}
       } else {
         checkAllowedStructure();
       }
