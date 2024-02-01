@@ -21,6 +21,7 @@ Fliplet.Widget.instance({
       let slider = this;
       let $slider = $(this);
       const interactMode = Fliplet.Env.get('interact');
+      var isMousePressed = false;
 
       function isErrorMessageStructureValid($elements, message) {
         $elements.each(function() {
@@ -48,22 +49,42 @@ Fliplet.Widget.instance({
         isErrorMessageStructureValid(notAllowedComponents, 'Only Slide components are allowed inside the slider');
       }
 
+      function handleMouseDown() {
+        isMousePressed = true;
+      }
+
+      function handleMouseUp() {
+        isMousePressed = false;
+      }
+
+      function removeEventListeners() {
+        document.removeEventListener('mousedown', handleMouseDown);
+        document.removeEventListener('mouseup', handleMouseUp);
+      }
+
       if (interactMode) {
-        const $screen = $(document, '#preview').contents().find('.fl-page-content-wrapper');
+        // Attach event listeners
+        document.addEventListener('mousedown', handleMouseDown);
+        document.addEventListener('mouseup', handleMouseUp);
 
-        const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+        if (!isMousePressed) {
+          const $screen = $(document, '#preview').contents().find('.fl-page-content-wrapper');
 
-        const previewObserver = new MutationObserver(function() {
-          checkAllowedStructure();
-        });
+          const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
-        previewObserver.observe($screen[0], {
-          subtree: true,
-          attributes: false,
-          childList: true
-        });
+          const previewObserver = new MutationObserver(function() {
+            checkAllowedStructure();
+          });
+
+          previewObserver.observe($screen[0], {
+            subtree: true,
+            attributes: false,
+            childList: true
+          });
+        }
       } else {
         checkAllowedStructure();
+        removeEventListeners();
       }
 
       slider.fields = _.assign(
