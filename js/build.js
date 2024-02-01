@@ -55,6 +55,7 @@ Fliplet.Widget.instance({
 
       function handleMouseUp() {
         isMousePressed = false;
+        checkAllowedStructure();
       }
 
       function removeEventListeners() {
@@ -63,7 +64,6 @@ Fliplet.Widget.instance({
       }
 
       if (interactMode) {
-        // Attach event listeners
         document.addEventListener('mousedown', handleMouseDown);
         document.addEventListener('mouseup', handleMouseUp);
 
