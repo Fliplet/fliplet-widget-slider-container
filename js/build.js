@@ -34,8 +34,7 @@ Fliplet.Widget.instance({
 
       function checkAllowedStructure() {
         let $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
-        // let $slideOutsideSlider = $('[data-helper="slide"]').length && ;
-        let $sliderInsideSlider = $(slider.el).find('[name="slider"]');
+        let $sliderInsideSlider = $(slider.el).find('[data-name="Slider"]');
         let notAllowedComponents = $(slider.el).find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"])');
 
         $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
