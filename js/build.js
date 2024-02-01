@@ -23,30 +23,30 @@ Fliplet.Widget.instance({
       const interactMode = Fliplet.Env.get('interact');
 
       function isErrorMessageStructureValid($elements, message, type) {
-        // if (!$elements.length) {
-        //   let $element = null;
+        if (!$elements.length) {
+          let $element = null;
 
-        //   switch (type) {
-        //     case 'slideNotInsideSlider':
+          switch (type) {
+            case 'slideNotInsideSlider':
 
-        //       break;
-        //     case 'slideInsideSlide':
-        //       $element = $('[data-helper="slide"]');
-        //       break;
-        //     case 'notAllowedComponents':
-        //       $element = $(slider.el);
-        //       break;
-        //     case 'sliderInsideSlider':
-        //       $element = $(slider.el).find('.swiper-wrapper > *');
-        //       break;
-        //     default:
-        //       return;
-        //   }
+              break;
+            case 'slideInsideSlide':
+              $element = $('[data-helper="slide"]');
+              break;
+            case 'notAllowedComponents':
+              $element = $(slider.el);
+              break;
+            case 'sliderInsideSlider':
+              $element = $(slider.el).find('.swiper-wrapper > *');
+              break;
+            default:
+              return;
+          }
 
-        //   $element.removeClass('component-error-before');
+          $element.removeClass('component-error-before');
 
-        //   return;
-        // }
+          return;
+        }
 
         $elements.each(function() {
           $(this).addClass('component-error-before');
@@ -75,45 +75,6 @@ Fliplet.Widget.instance({
         isErrorMessageStructureValid(notAllowedComponents, 'Only Slide components are allowed inside the slider', 'notAllowedComponents');
       }
 
-      let isMousePressed = false;
-
-      function handleMouseDown() {
-        isMousePressed = true;
-      }
-
-      function handleMouseUp() {
-        isMousePressed = false;
-
-        if (interactMode) {
-          const $screen = $(document, '#preview').contents().find('.fl-page-content-wrapper');
-
-          const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-
-          const previewObserver = new MutationObserver(function() {
-            checkAllowedStructure();
-          });
-
-          previewObserver.observe($screen[0], {
-            subtree: true,
-            attributes: false,
-            childList: true
-          });
-        } else {
-          checkAllowedStructure();
-        }
-      }
-
-      // Attach event listeners
-      document.addEventListener('mousedown', handleMouseDown);
-      document.addEventListener('mouseup', handleMouseUp);
-
-      // Remove event listeners when they are no longer needed
-      // function removeEventListeners() {
-      //   document.removeEventListener('mousedown', handleMouseDown);
-      //   document.removeEventListener('mouseup', handleMouseUp);
-      // }
-
-
       if (interactMode) {
         const $screen = $(document, '#preview').contents().find('.fl-page-content-wrapper');
 
@@ -123,15 +84,11 @@ Fliplet.Widget.instance({
           checkAllowedStructure();
         });
 
-        if (!isMousePressed) {
-        //   previewObserver.disconnect();
-        // } else {
-          previewObserver.observe($screen[0], {
-            subtree: true,
-            attributes: false,
-            childList: true
-          });
-        }
+        previewObserver.observe($screen[0], {
+          subtree: true,
+          attributes: false,
+          childList: true
+        });
       } else {
         checkAllowedStructure();
       }
