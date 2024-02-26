@@ -63,9 +63,10 @@ Fliplet.Widget.instance({
         $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
           if (!$(el).parents('[data-widget-package="com.fliplet.slider-container"]').length) {
             isErrorMessageStructureValid($(el), 'Slide must be inside the Slider', 'slideNotInsideSlider');
-          } else {
-            $(el).removeClass('component-error-before');
           }
+          //  else {
+          //   $(el).removeClass('component-error-before');
+          // }
         });
 
         isErrorMessageStructureValid($slideInsideSlide, 'Slide inside slide is not allowed', 'slideInsideSlide');
