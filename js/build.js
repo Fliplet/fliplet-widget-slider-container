@@ -22,30 +22,7 @@ Fliplet.Widget.instance({
       let $slider = $(this);
       const interactMode = Fliplet.Env.get('interact');
 
-      function isErrorMessageStructureValid($elements, message, type) {
-        // if (!$elements.length) {
-        //   let $element = null;
-
-        //   switch (type) {
-        //     case 'slideNotInsideSlider':
-        //     case 'slideInsideSlide':
-        //       $element = $('[data-helper="slide"]');
-        //       break;
-        //     case 'notAllowedComponents':
-        //       $element = $(slider.el);
-        //       break;
-        //     case 'sliderInsideSlider':
-        //       $element = $(slider.el).find('.swiper-wrapper > *');
-        //       break;
-        //     default:
-        //       return;
-        //   }
-
-        //   $element.removeClass('component-error-before');
-
-        //   return;
-        // }
-
+      function errorMessageStructureNotValid($elements, message) {
         $elements.each(function() {
           $(this).addClass('component-error-before');
 
@@ -60,20 +37,25 @@ Fliplet.Widget.instance({
 
         let $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
         let $sliderInsideSlider = $(slider.el).find('[data-name="Slider"]');
-        let notAllowedComponents = $(slider.el).find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"]):not([data-name="Slide"])');
+        // let $notAllowedComponents = $(slider.el).find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"]):not([data-name="Slide"])');
 
         $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
           if (!$(el).parents('[data-widget-package="com.fliplet.slider-container"]').length) {
-            isErrorMessageStructureValid($(el), 'Slide must be inside the Slider', 'slideNotInsideSlider');
+            return errorMessageStructureNotValid($(el), 'Slide must be inside the Slider', 'slideNotInsideSlider');
           }
-          // else {
-          //   $(el).removeClass('component-error-before');
-          // }
         });
 
-        isErrorMessageStructureValid($slideInsideSlide, 'Slide inside slide is not allowed', 'slideInsideSlide');
-        isErrorMessageStructureValid($sliderInsideSlider, 'Slider inside slider is not allowed', 'sliderInsideSlider');
-        isErrorMessageStructureValid(notAllowedComponents, 'Only Slide components are allowed inside the slider', 'notAllowedComponents');
+        if ($slideInsideSlide.length) {
+          return errorMessageStructureNotValid($slideInsideSlide, 'Slide inside slide is not allowed', 'slideInsideSlide');
+        }
+
+        if ($sliderInsideSlider.length) {
+          return errorMessageStructureNotValid($sliderInsideSlider, 'Slider inside slider is not allowed', 'sliderInsideSlider');
+        }
+
+        // if ($notAllowedComponents.length) {
+        //   return errorMessageStructureNotValid($notAllowedComponents, 'Only Slide components are allowed inside the slider', 'notAllowedComponents');
+        // }
       }
 
       if (interactMode) {
