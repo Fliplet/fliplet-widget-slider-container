@@ -37,7 +37,7 @@ Fliplet.Widget.instance({
 
         let $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
         let $sliderInsideSlider = $(slider.el).find('[data-name="Slider"]');
-        let $notAllowedComponents = $(slider.el).find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"]):not([.fl-drop-marker.horizontal])');
+        let $notAllowedComponents = $(slider.el).find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"]):not(.fl-drop-marker.horizontal)');
 
         $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
           if (!$(el).parents('[data-widget-package="com.fliplet.slider-container"]').length) {
