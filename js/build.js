@@ -23,28 +23,28 @@ Fliplet.Widget.instance({
       const interactMode = Fliplet.Env.get('interact');
 
       function isErrorMessageStructureValid($elements, message, type) {
-        if (!$elements.length) {
-          let $element = null;
+        // if (!$elements.length) {
+        //   let $element = null;
 
-          switch (type) {
-            case 'slideNotInsideSlider':
-            case 'slideInsideSlide':
-              $element = $('[data-helper="slide"]');
-              break;
-            case 'notAllowedComponents':
-              $element = $(slider.el);
-              break;
-            case 'sliderInsideSlider':
-              $element = $(slider.el).find('.swiper-wrapper > *');
-              break;
-            default:
-              return;
-          }
+        //   switch (type) {
+        //     case 'slideNotInsideSlider':
+        //     case 'slideInsideSlide':
+        //       $element = $('[data-helper="slide"]');
+        //       break;
+        //     case 'notAllowedComponents':
+        //       $element = $(slider.el);
+        //       break;
+        //     case 'sliderInsideSlider':
+        //       $element = $(slider.el).find('.swiper-wrapper > *');
+        //       break;
+        //     default:
+        //       return;
+        //   }
 
-          $element.removeClass('component-error-before');
+        //   $element.removeClass('component-error-before');
 
-          return;
-        }
+        //   return;
+        // }
 
         $elements.each(function() {
           $(this).addClass('component-error-before');
