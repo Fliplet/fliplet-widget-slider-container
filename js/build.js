@@ -62,18 +62,18 @@ Fliplet.Widget.instance({
         let $sliderInsideSlider = $(slider.el).find('[data-name="Slider"]');
         let notAllowedComponents = $(slider.el).find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"])');
 
-        // $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
-        //   if (!$(el).parents('[data-widget-package="com.fliplet.slider-container"]').length) {
-        //     isErrorMessageStructureValid($(el), 'Slide must be inside the Slider', 'slideNotInsideSlider');
-        //   }
-        //   // else {
-        //   //   $(el).removeClass('component-error-before');
-        //   // }
-        // });
+        $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
+          if (!$(el).parents('[data-widget-package="com.fliplet.slider-container"]').length) {
+            isErrorMessageStructureValid($(el), 'Slide must be inside the Slider', 'slideNotInsideSlider');
+          }
+          // else {
+          //   $(el).removeClass('component-error-before');
+          // }
+        });
 
-        // isErrorMessageStructureValid($slideInsideSlide, 'Slide inside slide is not allowed', 'slideInsideSlide');
+        isErrorMessageStructureValid($slideInsideSlide, 'Slide inside slide is not allowed', 'slideInsideSlide');
         isErrorMessageStructureValid($sliderInsideSlider, 'Slider inside slider is not allowed', 'sliderInsideSlider');
-        isErrorMessageStructureValid(notAllowedComponents, 'Only Slide components are allowed inside the slider', 'notAllowedComponents');
+        // isErrorMessageStructureValid(notAllowedComponents, 'Only Slide components are allowed inside the slider', 'notAllowedComponents');
       }
 
       if (interactMode) {
