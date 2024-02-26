@@ -71,7 +71,7 @@ Fliplet.Widget.instance({
         //   // }
         // });
 
-        isErrorMessageStructureValid($slideInsideSlide, 'Slide inside slide is not allowed', 'slideInsideSlide');
+        // isErrorMessageStructureValid($slideInsideSlide, 'Slide inside slide is not allowed', 'slideInsideSlide');
         isErrorMessageStructureValid($sliderInsideSlider, 'Slider inside slider is not allowed', 'sliderInsideSlider');
         isErrorMessageStructureValid(notAllowedComponents, 'Only Slide components are allowed inside the slider', 'notAllowedComponents');
       }
