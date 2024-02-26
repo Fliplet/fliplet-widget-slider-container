@@ -37,7 +37,7 @@ Fliplet.Widget.instance({
 
         let $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
         let $sliderInsideSlider = $(slider.el).find('[data-name="Slider"]');
-        let $notAllowedComponents = $(slider.el).find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"]):not([data-name="Slide"])');
+        let $notAllowedComponents = $(slider.el).find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"]):not([.fl-drop-marker.horizontal])');
 
         $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
           if (!$(el).parents('[data-widget-package="com.fliplet.slider-container"]').length) {
@@ -54,8 +54,6 @@ Fliplet.Widget.instance({
         }
 
         if ($notAllowedComponents.length) {
-          debugger;
-
           return errorMessageStructureNotValid($notAllowedComponents, 'Only Slide components are allowed inside the slider', 'notAllowedComponents');
         }
       }
