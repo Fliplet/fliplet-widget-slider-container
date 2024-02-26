@@ -79,8 +79,14 @@ Fliplet.Widget.instance({
 
         const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
-        const previewObserver = new MutationObserver(function() {
-          checkAllowedStructure();
+        const previewObserver = new MutationObserver(function(mutationsList) {
+          const isElementDropped = mutationsList.some(function(mutation) {
+            return mutation.addedNodes.length > 0 && mutation.removedNodes.length === 0;
+          });
+
+          if (isElementDropped) {
+            checkAllowedStructure();
+          }
         });
 
         previewObserver.observe($screen[0], {
