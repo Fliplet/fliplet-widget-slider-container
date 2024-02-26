@@ -49,7 +49,7 @@ Fliplet.Widget.instance({
         $elements.each(function() {
           $(this).addClass('component-error-before');
 
-          if (interactMode) { // TODO place !interactMode
+          if (!interactMode) {
             Fliplet.UI.Toast(message);
           }
         });
@@ -88,10 +88,8 @@ Fliplet.Widget.instance({
         previewObserver.observe($screen[0], {
           subtree: true,
           attributes: false,
-          childList: true
-        });
-        document.addEventListener('dragstart', function(event) {
-          console.log('Dragging element:', event.target);
+          childList: true,
+          dragover: false
         });
       } else {
         checkAllowedStructure();
