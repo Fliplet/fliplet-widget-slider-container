@@ -90,6 +90,9 @@ Fliplet.Widget.instance({
           attributes: false,
           childList: true
         });
+        document.addEventListener('dragstart', function(event) {
+          console.log('Dragging element:', event.target);
+        });
       } else {
         checkAllowedStructure();
       }
