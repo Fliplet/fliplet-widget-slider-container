@@ -56,6 +56,8 @@ Fliplet.Widget.instance({
       }
 
       function checkAllowedStructure() {
+        $('.swiper-container *').removeClass('component-error-before');
+
         let $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
         let $sliderInsideSlider = $(slider.el).find('[data-name="Slider"]');
         let notAllowedComponents = $(slider.el).find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"])');
@@ -64,7 +66,7 @@ Fliplet.Widget.instance({
           if (!$(el).parents('[data-widget-package="com.fliplet.slider-container"]').length) {
             isErrorMessageStructureValid($(el), 'Slide must be inside the Slider', 'slideNotInsideSlider');
           }
-          //  else {
+          // else {
           //   $(el).removeClass('component-error-before');
           // }
         });
@@ -79,14 +81,8 @@ Fliplet.Widget.instance({
 
         const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
-        const previewObserver = new MutationObserver(function(mutationsList) {
-          const isElementDropped = mutationsList.some(function(mutation) {
-            return mutation.addedNodes.length > 0 && mutation.removedNodes.length === 0;
-          });
-
-          if (isElementDropped) {
-            checkAllowedStructure();
-          }
+        const previewObserver = new MutationObserver(function() {
+          checkAllowedStructure();
         });
 
         previewObserver.observe($screen[0], {
