@@ -110,7 +110,7 @@ Fliplet.Widget.instance({
 
       let firstContainer = container.get(0);
 
-      // $(firstContainer).find('[data-widget-package="com.fliplet.slide"]').addClass('swiper-slide');
+      $(firstContainer).find('[data-widget-package="com.fliplet.slide"]').addClass('swiper-slide');
 
       let slides = slider.children({ name: 'slide' });
 
