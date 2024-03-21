@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 Fliplet.Widget.instance({
   name: 'slider',
   data: {
@@ -23,10 +22,10 @@ Fliplet.Widget.instance({
       const interactMode = Fliplet.Env.get('interact');
 
       function errorMessageStructureNotValid($elements, message) {
-        $elements.each(function() {
+        $elements.each(function(index) {
           $(this).addClass('component-error-before');
 
-          if (!interactMode) {
+          if (!interactMode && index === 0) {
             Fliplet.UI.Toast(message);
           }
         });
@@ -36,7 +35,7 @@ Fliplet.Widget.instance({
         $('.swiper-container *').removeClass('component-error-before');
 
         let $slideInsideSlide = $('[data-helper="slide"] [data-helper="slide"]');
-        let $sliderInsideSlider = $(slider.el).find('[data-name="Slider"]');
+        let $sliderInsideSlider = $(slider.el).find('[data-widget-package="com.fliplet.slider-container"]');
         let $notAllowedComponents = $(slider.el).find('.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"]):not(.fl-drop-marker.horizontal)');
 
         $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
@@ -111,7 +110,7 @@ Fliplet.Widget.instance({
 
       let firstContainer = container.get(0);
 
-      $(firstContainer).find('[data-widget-package="com.fliplet.slide"]').addClass('swiper-slide');
+      // $(firstContainer).find('[data-widget-package="com.fliplet.slide"]').addClass('swiper-slide');
 
       let slides = slider.children({ name: 'slide' });
 
@@ -135,7 +134,6 @@ Fliplet.Widget.instance({
         effect: this.fields.animationStyle,
         allowSlideNext: true,
         allowSlidePrev: true,
-        // autoHeight: true,
         keyboard: {
           enabled: true,
           onlyInViewport: false
@@ -212,8 +210,8 @@ Fliplet.Widget.instance({
         let $activeSlide = $slider.find(
           '[data-widget-package="com.fliplet.slide"].swiper-slide-active'
         );
-        let formElement = $activeSlide.find('[data-widget-package="com.fliplet.form-builder"]');
-        let formId = formElement.data('id');
+        let $formElement = $activeSlide.find('[data-widget-package="com.fliplet.form-builder"]');
+        let formId = $formElement.data('id');
         let value;
 
         if (!formId) {
@@ -368,17 +366,15 @@ Fliplet.Widget.instance({
               return Promise.reject('');
             }
 
-            if (value) {
-              return Fliplet.DataSources.connect(value.dataSourceId).then(
-                function(connection) {
-                  return connection.update(value.entryId, formData).then(() => {
-                    swiper.slideNext();
+            return Fliplet.DataSources.connect(value.dataSourceId).then(
+              function(connection) {
+                return connection.update(value.entryId, formData).then(() => {
+                  swiper.slideNext();
 
-                    return Promise.reject('');
-                  });
-                }
-              );
-            }
+                  return Promise.reject('');
+                });
+              }
+            );
           }
         );
       });
