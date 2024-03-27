@@ -1,5 +1,5 @@
 Fliplet.Pages.get().then(pages => {
-  var appPages = [];
+  let appPages = [];
 
   appPages = pages.map(el => {
     return { value: el.id, label: el.title };
