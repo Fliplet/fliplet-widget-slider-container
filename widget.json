@@ -31,13 +31,12 @@
       "jquery",
       "bootstrap",
       "fliplet-core",
-      "fliplet-helper"
+      "fliplet-helper",
+      "swiper"
     ],
     "assets": [
       "css/build.css",
-      "css/swiper.min.css",
       "js/build.js",
-      "js/swiper.min.js",
       "css/index.scss"
     ],
     "appAssets": []
