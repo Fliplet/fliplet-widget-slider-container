@@ -250,7 +250,7 @@ Fliplet.Widget.instance({
         if (!formId) {
           slider.data.formName = null;
 
-          return true;
+          return Promise.resolve(true);
         }
 
         return Fliplet.FormBuilder.getAll()
