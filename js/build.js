@@ -292,12 +292,14 @@ Fliplet.Widget.instance({
               });
             }
 
-            return true;
+            return new Promise((resolve) => resolve(true));
           })
           .catch(function() {
             return Fliplet.App.Storage.remove(
               `${pageId}${slider.data.formName}`
-            );
+            ).then(() => {
+              return new Promise((resolve) => resolve(true));
+            });
           });
       }
 
