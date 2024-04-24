@@ -19,6 +19,7 @@ Fliplet.Widget.instance({
       let pageMasterId = Fliplet.Env.get('pageMasterId');
       let slider = this;
       let $slider = $(this);
+      let $sliderElement = $($slider[0].el);
       const interactMode = Fliplet.Env.get('interact');
 
       function errorMessageStructureNotValid($elements, message) {
@@ -196,12 +197,12 @@ Fliplet.Widget.instance({
         && (Fliplet.Env.get('platform') === 'native'
           || $('body').innerWidth() < 640)
       ) {
-        $slider.find('.swiper-button-next').hide();
-        $slider.find('.swiper-button-prev').hide();
+        $sliderElement.find('.swiper-button-next').hide();
+        $sliderElement.find('.swiper-button-prev').hide();
         swiperOptions.allowTouchMove = true;
       } else {
-        $slider.find('.swiper-button-next').show();
-        $slider.find('.swiper-button-prev').show();
+        $sliderElement.find('.swiper-button-next').show();
+        $sliderElement.find('.swiper-button-prev').show();
         swiperOptions.allowTouchMove = false;
       }
 
@@ -217,8 +218,8 @@ Fliplet.Widget.instance({
       }
 
       Fliplet.Hooks.on('flListDataBeforeGetData', function(options) {
-        let $btnPrev = $slider.find('.swiper-button-prev');
-        let $btnNext = $slider.find('.swiper-button-next');
+        let $btnPrev = $sliderElement.find('.swiper-button-prev');
+        let $btnNext = $sliderElement.find('.swiper-button-next');
 
         options.config.beforeOpen = function() {
           $btnPrev.hide();
@@ -238,7 +239,7 @@ Fliplet.Widget.instance({
       });
 
       function loadFormData() {
-        let $activeSlide = $slider.find(
+        let $activeSlide = $sliderElement.find(
           '[data-widget-package="com.fliplet.slide"].swiper-slide-active'
         );
         let $formElement = $activeSlide.find(
@@ -313,7 +314,7 @@ Fliplet.Widget.instance({
 
         slider.data.formName = null;
 
-        $slider.find('video, audio').each(function() {
+        $sliderElement.find('video, audio').each(function() {
           this.pause();
         });
 
