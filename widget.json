@@ -555,7 +555,7 @@
             "type": "color"
           },
           {
-            "name": "paginationChevronsColor",
+            "name": "paginationColor",
             "default": "#999999",
             "columns": 12,
             "styles": [
@@ -572,11 +572,11 @@
             ],
             "breakpoints": {
               "tablet": {
-                "name": "paginationChevronsColorTablet",
+                "name": "paginationColorTablet",
                 "default": "inherit-mobile"
               },
               "desktop": {
-                "name": "paginationChevronsColorDesktop",
+                "name": "paginationColorDesktop",
                 "default": "inherit-tablet"
               }
             },
@@ -589,11 +589,11 @@
             "columns": 12,
             "breakpoints": {
               "tablet": {
-                "name": "paginationChevronsColorTablet",
+                "name": "navigationArrowsBackgroundTablet",
                 "default": "inherit-mobile"
               },
               "desktop": {
-                "name": "paginationChevronsColorDesktop",
+                "name": "navigationArrowsBackgroundDesktop",
                 "default": "inherit-tablet"
               }
             },
@@ -606,11 +606,11 @@
             "columns": 12,
             "breakpoints": {
               "tablet": {
-                "name": "paginationChevronsColorTablet",
+                "name": "progresBarBackgroundTablet",
                 "default": "inherit-mobile"
               },
               "desktop": {
-                "name": "paginationChevronsColorDesktop",
+                "name": "progresBarBackgroundDesktop",
                 "default": "inherit-tablet"
               }
             },
@@ -623,11 +623,11 @@
             "columns": 12,
             "breakpoints": {
               "tablet": {
-                "name": "paginationChevronsColorTablet",
+                "name": "activeProgresBarBackgroundTablet",
                 "default": "inherit-mobile"
               },
               "desktop": {
-                "name": "paginationChevronsColorDesktop",
+                "name": "activeProgresBarBackgroundDesktop",
                 "default": "inherit-tablet"
               }
             },
