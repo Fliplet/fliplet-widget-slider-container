@@ -188,7 +188,7 @@ $variablePrefix: "slider";
       }
     }
 
-    .swiper-container-initialized .swiper-button-next:after, .swiper-container-initialized .swiper-button-prev:after {
+    .swiper-button-next:after, .swiper-button-prev:after {
       font-size: map-get($configuration, slider-arrowSize)!important;
 
       @include above($tabletBreakpoint) {
