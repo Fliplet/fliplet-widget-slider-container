@@ -1,6 +1,7 @@
 fl-helper[name="slider"] {
   display: block !important;
   min-height: 150px;
+  overflow-x: hidden;
 }
 
 .mode-interact fl-helper[name="slider"] .view-is-empty {
