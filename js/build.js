@@ -406,7 +406,7 @@ Fliplet.Widget.instance({
       Fliplet.Hooks.on('beforeFormSubmit', function(formData) {
         return Fliplet.App.Storage.get(`${pageId}${slider.data.formName}`).then(
           (value) => {
-            if (value || value.entryId) {
+            if (value && value.entryId) {
               return Fliplet.DataSources.connect(value.dataSourceId).then(
                 (connection) => {
                   return connection.update(value.entryId, formData).then(() => {
