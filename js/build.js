@@ -23,6 +23,74 @@ Fliplet.Widget.instance({
       let $sliderElement = $($slider[0].el);
       const interactMode = Fliplet.Env.get('interact');
 
+      function loadFormData() {
+        let $activeSlide = $sliderElement.find(
+          '[data-widget-package="com.fliplet.slide"].swiper-slide-active'
+        );
+        let $formElement = $activeSlide.find(
+          '[data-widget-package="com.fliplet.form-builder"]'
+        );
+        let formId = $formElement.data('id');
+        let value;
+
+        if (!formId) {
+          slider.data.formId = null;
+
+          return Promise.resolve(true);
+        }
+
+        return Fliplet.FormBuilder.getAll()
+          .then((forms) => {
+            let form = forms.find((el) => el.instance.id === formId);
+
+            if (form) {
+              slider.data.formId = form.data().id;
+
+              return Fliplet.App.Storage.get(
+                `${pageId}${slider.data.formId}`
+              );
+            }
+
+            slider.data.formId = null;
+
+            return Promise.resolve(false);
+          })
+          .then((storageValue) => {
+            value = storageValue;
+
+            if (value) {
+              return Fliplet.DataSources.connect(value.dataSourceId);
+            }
+
+            return Promise.reject('');
+          })
+          .then((connection) => {
+            if (!connection || !value.entryId) {
+              return Promise.reject('');
+            }
+
+            return connection.findById(value.entryId);
+          })
+          .then((record) => {
+            if (record) {
+              return Fliplet.FormBuilder.get().then((form) => {
+                return new Promise((resolve) => {
+                  form.load(resolve(record.data));
+                });
+              });
+            }
+
+            return new Promise((resolve) => resolve(true));
+          })
+          .catch(function() {
+            return Fliplet.App.Storage.remove(
+              `${pageId}${slider.data.formId}`
+            ).then(() => {
+              return new Promise((resolve) => resolve(true));
+            });
+          });
+      }
+
       function errorMessageStructureNotValid($elements, message) {
         $elements.each(function(index) {
           $(this).addClass('component-error-before');
@@ -238,72 +306,6 @@ Fliplet.Widget.instance({
             });
         };
       });
-
-      function loadFormData() {
-        let $activeSlide = $sliderElement.find(
-          '[data-widget-package="com.fliplet.slide"].swiper-slide-active'
-        );
-        let $formElement = $activeSlide.find(
-          '[data-widget-package="com.fliplet.form-builder"]'
-        );
-        let formId = $formElement.data('id');
-        let value;
-
-        if (!formId) {
-          slider.data.formId = null;
-
-          return Promise.resolve(true);
-        }
-
-        return Fliplet.FormBuilder.getAll()
-          .then((forms) => {
-            let form = forms.find((el) => el.instance.id === formId);
-
-            if (form) {
-              slider.data.formId = form.data().id;
-
-              return Fliplet.App.Storage.get(
-                `${pageId}${slider.data.formId}`
-              );
-            }
-
-            slider.data.formId = null;
-
-            return Promise.resolve(false);
-          })
-          .then((storageValue) => {
-            if (storageValue) {
-              return Fliplet.DataSources.connect(storageValue.dataSourceId);
-            }
-
-            return Promise.reject('');
-          })
-          .then((connection) => {
-            if (!connection || !value.entryId) {
-              return Promise.reject('');
-            }
-
-            return connection.findById(value.entryId);
-          })
-          .then((record) => {
-            if (record) {
-              return Fliplet.FormBuilder.get().then((form) => {
-                return new Promise((resolve) => {
-                  form.load(resolve(record.data));
-                });
-              });
-            }
-
-            return new Promise((resolve) => resolve(true));
-          })
-          .catch(function() {
-            return Fliplet.App.Storage.remove(
-              `${pageId}${slider.data.formId}`
-            ).then(() => {
-              return new Promise((resolve) => resolve(true));
-            });
-          });
-      }
 
       if (Fliplet.FormBuilder) {
         loadFormData();
