@@ -5,6 +5,17 @@ fl-helper[name="slider"] {
   overflow-x: hidden;
 }
 
+fl-helper[name="slider"] * {
+  &::-webkit-scrollbar {
+    width: 7px;
+    background: rgb(245, 245, 245);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #c7c7c7;
+  }
+}
+
 .mode-interact fl-helper[name="slider"] .view-is-empty {
   box-sizing: border-box;
 }
