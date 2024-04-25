@@ -23,6 +23,125 @@ Fliplet.Widget.instance({
       let $sliderElement = $($slider[0].el);
       const interactMode = Fliplet.Env.get('interact');
 
+      function manageSliderActions() {
+        slider.showNav = true;
+
+        slider.toggleNav = function(toggle) {
+          if (typeof toggle === 'undefined') {
+            toggle = !slider.showNav;
+          }
+
+          slider.$el
+            .find('.swiper-pagination, .swiper-button-prev, .swiper-button-next')[toggle ? 'show' : 'hide']();
+          slider.showNav = !!toggle;
+          slider.swiper.allowTouchMove = toggle ? Modernizr.touchevents : false;
+          slider.swiper.update();
+        };
+
+        slider.togglePrevNav = function(toggle) {
+          if (typeof toggle === 'undefined') {
+            toggle = slider.$el.hasClass('swiper-nav-prev-disabled');
+          }
+
+          slider.$el[toggle ? 'removeClass' : 'addClass'](
+            'swiper-nav-prev-disabled'
+          );
+          slider.swiper.allowSlidePrev = !!toggle;
+          slider.swiper.update();
+        };
+
+        slider.toggleNextNav = function(toggle) {
+          if (typeof toggle === 'undefined') {
+            toggle = slider.$el.hasClass('swiper-nav-next-disabled');
+          }
+
+          slider.$el[toggle ? 'removeClass' : 'addClass'](
+            'swiper-nav-next-disabled'
+          );
+          slider.swiper.allowSlideNext = !!toggle;
+          slider.swiper.update();
+        };
+
+        slider.slidePrev = function() {
+          swiper.slidePrev.apply(swiper, arguments);
+        };
+
+        slider.slideNext = function() {
+          swiper.slideNext.apply(swiper, arguments);
+        };
+
+        slider.slideTo = function() {
+          swiper.slideTo.apply(swiper, arguments);
+          swiper.updateAutoHeight(500);
+        };
+
+        slider.getActiveSlide = function() {
+          return slider.children('slide')[swiper.activeIndex];
+        };
+      }
+
+      function errorMessageStructureNotValid($elements, message) {
+        $elements.each(function(index) {
+          $(this).addClass('component-error-before');
+
+          if (!interactMode && index === 0) {
+            Fliplet.UI.Toast(message);
+          }
+        });
+      }
+
+      function checkAllowedStructure() {
+        $('.swiper-container *').removeClass('component-error-before');
+
+        let $slideInsideSlide = $(
+          '[data-helper="slide"] [data-helper="slide"]'
+        );
+        let $sliderInsideSlider = $(slider.el).find(
+          '[data-widget-package="com.fliplet.slider-container"]'
+        );
+        let $notAllowedComponents = $(slider.el).find(
+          '.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"]):not(.fl-drop-marker.horizontal)'
+        );
+
+        $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
+          if (
+            !$(el).parents(
+              '[data-widget-package="com.fliplet.slider-container"]'
+            ).length
+          ) {
+            return errorMessageStructureNotValid(
+              $(el),
+              'Slide must be inside the Slider',
+              'slideNotInsideSlider'
+            );
+          }
+        });
+
+        if ($slideInsideSlide.length) {
+          return errorMessageStructureNotValid(
+            $slideInsideSlide,
+            'Slide inside slide is not allowed',
+            'slideInsideSlide'
+          );
+        }
+
+        if ($sliderInsideSlider.length) {
+          return errorMessageStructureNotValid(
+            $sliderInsideSlider,
+            'Slider inside slider is not allowed',
+            'sliderInsideSlider'
+          );
+        }
+
+        if ($notAllowedComponents.length) {
+          return errorMessageStructureNotValid(
+            $notAllowedComponents,
+            'Only Slide components are allowed inside the slider',
+            'notAllowedComponents'
+          );
+        }
+      }
+
       function loadFormData() {
         let $activeSlide = $sliderElement.find(
           '[data-widget-package="com.fliplet.slide"].swiper-slide-active'
@@ -91,65 +210,55 @@ Fliplet.Widget.instance({
           });
       }
 
-      function errorMessageStructureNotValid($elements, message) {
-        $elements.each(function(index) {
-          $(this).addClass('component-error-before');
+      async function manageSliderOptions() {
+        if (slider.fields.firstTime.includes(true)) {
+          await Fliplet.App.Storage.get('sliderSeen').then((value) => {
+            if (
+              value
+              && (value.pageId === pageId || value.pageMasterId === pageMasterId)
+            ) {
+              return Fliplet.Navigate.screen(slider.fields.redirectEndScreen);
+            }
 
-          if (!interactMode && index === 0) {
-            Fliplet.UI.Toast(message);
-          }
-        });
-      }
-
-      function checkAllowedStructure() {
-        $('.swiper-container *').removeClass('component-error-before');
-
-        let $slideInsideSlide = $(
-          '[data-helper="slide"] [data-helper="slide"]'
-        );
-        let $sliderInsideSlider = $(slider.el).find(
-          '[data-widget-package="com.fliplet.slider-container"]'
-        );
-        let $notAllowedComponents = $(slider.el).find(
-          '.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"]):not(.fl-drop-marker.horizontal)'
-        );
-
-        $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
-          if (
-            !$(el).parents(
-              '[data-widget-package="com.fliplet.slider-container"]'
-            ).length
-          ) {
-            return errorMessageStructureNotValid(
-              $(el),
-              'Slide must be inside the Slider',
-              'slideNotInsideSlider'
-            );
-          }
-        });
-
-        if ($slideInsideSlide.length) {
-          return errorMessageStructureNotValid(
-            $slideInsideSlide,
-            'Slide inside slide is not allowed',
-            'slideInsideSlide'
-          );
+            return Fliplet.App.Storage.set('sliderSeen', {
+              pageId,
+              pageMasterId
+            });
+          });
         }
 
-        if ($sliderInsideSlider.length) {
-          return errorMessageStructureNotValid(
-            $sliderInsideSlider,
-            'Slider inside slider is not allowed',
-            'sliderInsideSlider'
-          );
+        if (this.fields.animationStyle === 'fade') {
+          swiperOptions.fadeEffect = {
+            crossFade: true
+          };
         }
 
-        if ($notAllowedComponents.length) {
-          return errorMessageStructureNotValid(
-            $notAllowedComponents,
-            'Only Slide components are allowed inside the slider',
-            'notAllowedComponents'
-          );
+        if (this.fields.animationStyle === 'coverflow') {
+          swiperOptions.fadeEffect = {
+            grabCursor: 'true',
+            centeredSlides: 'true',
+            coverflowEffect: {
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true
+            }
+          };
+        }
+
+        if (
+          !this.fields.showArrows
+          && (Fliplet.Env.get('platform') === 'native'
+            || $('body').innerWidth() < 640)
+        ) {
+          $sliderElement.find('.swiper-button-next').hide();
+          $sliderElement.find('.swiper-button-prev').hide();
+          swiperOptions.allowTouchMove = true;
+        } else {
+          $sliderElement.find('.swiper-button-next').show();
+          $sliderElement.find('.swiper-button-prev').show();
+          swiperOptions.allowTouchMove = false;
         }
       }
 
@@ -184,22 +293,6 @@ Fliplet.Widget.instance({
         },
         slider.fields
       );
-
-      if (slider.fields.firstTime.includes(true)) {
-        await Fliplet.App.Storage.get('sliderSeen').then((value) => {
-          if (
-            value
-            && (value.pageId === pageId || value.pageMasterId === pageMasterId)
-          ) {
-            return Fliplet.Navigate.screen(slider.fields.redirectEndScreen);
-          }
-
-          return Fliplet.App.Storage.set('sliderSeen', {
-            pageId,
-            pageMasterId
-          });
-        });
-      }
 
       let container = slider.$el.findUntil('.swiper-container', 'fl-helper');
 
@@ -241,39 +334,7 @@ Fliplet.Widget.instance({
         }
       };
 
-      if (this.fields.animationStyle === 'fade') {
-        swiperOptions.fadeEffect = {
-          crossFade: true
-        };
-      }
-
-      if (this.fields.animationStyle === 'coverflow') {
-        swiperOptions.fadeEffect = {
-          grabCursor: 'true',
-          centeredSlides: 'true',
-          coverflowEffect: {
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true
-          }
-        };
-      }
-
-      if (
-        !this.fields.showArrows
-        && (Fliplet.Env.get('platform') === 'native'
-          || $('body').innerWidth() < 640)
-      ) {
-        $sliderElement.find('.swiper-button-next').hide();
-        $sliderElement.find('.swiper-button-prev').hide();
-        swiperOptions.allowTouchMove = true;
-      } else {
-        $sliderElement.find('.swiper-button-next').show();
-        $sliderElement.find('.swiper-button-prev').show();
-        swiperOptions.allowTouchMove = false;
-      }
+      manageSliderOptions();
 
       let swiper = new Swiper(firstContainer, swiperOptions);
 
@@ -347,60 +408,7 @@ Fliplet.Widget.instance({
         }
       });
 
-      slider.showNav = true;
-
-      slider.toggleNav = function(toggle) {
-        if (typeof toggle === 'undefined') {
-          toggle = !slider.showNav;
-        }
-
-        slider.$el
-          .find('.swiper-pagination, .swiper-button-prev, .swiper-button-next')[toggle ? 'show' : 'hide']();
-        slider.showNav = !!toggle;
-        slider.swiper.allowTouchMove = toggle ? Modernizr.touchevents : false;
-        slider.swiper.update();
-      };
-
-      slider.togglePrevNav = function(toggle) {
-        if (typeof toggle === 'undefined') {
-          toggle = slider.$el.hasClass('swiper-nav-prev-disabled');
-        }
-
-        slider.$el[toggle ? 'removeClass' : 'addClass'](
-          'swiper-nav-prev-disabled'
-        );
-        slider.swiper.allowSlidePrev = !!toggle;
-        slider.swiper.update();
-      };
-
-      slider.toggleNextNav = function(toggle) {
-        if (typeof toggle === 'undefined') {
-          toggle = slider.$el.hasClass('swiper-nav-next-disabled');
-        }
-
-        slider.$el[toggle ? 'removeClass' : 'addClass'](
-          'swiper-nav-next-disabled'
-        );
-        slider.swiper.allowSlideNext = !!toggle;
-        slider.swiper.update();
-      };
-
-      slider.slidePrev = function() {
-        swiper.slidePrev.apply(swiper, arguments);
-      };
-
-      slider.slideNext = function() {
-        swiper.slideNext.apply(swiper, arguments);
-      };
-
-      slider.slideTo = function() {
-        swiper.slideTo.apply(swiper, arguments);
-        swiper.updateAutoHeight(500);
-      };
-
-      slider.getActiveSlide = function() {
-        return slider.children('slide')[swiper.activeIndex];
-      };
+      manageSliderActions();
 
       Fliplet.Hooks.run('sliderInitialized');
 
