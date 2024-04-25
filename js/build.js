@@ -2,7 +2,7 @@ Fliplet.Widget.instance({
   name: 'slider',
   displayName: 'Slider container',
   data: {
-    formName: null
+    formId: null
   },
   render: {
     template: [
@@ -118,18 +118,18 @@ Fliplet.Widget.instance({
       );
 
       if (slider.fields.firstTime.includes(true)) {
-        Fliplet.App.Storage.get('sliderSeen').then((value) => {
+        await Fliplet.App.Storage.get('sliderSeen').then((value) => {
           if (
             value
             && (value.pageId === pageId || value.pageMasterId === pageMasterId)
           ) {
-            Fliplet.Navigate.screen(slider.fields.redirectEndScreen);
-          } else {
-            Fliplet.App.Storage.set('sliderSeen', {
-              pageId,
-              pageMasterId
-            });
+            return Fliplet.Navigate.screen(slider.fields.redirectEndScreen);
           }
+
+          return Fliplet.App.Storage.set('sliderSeen', {
+            pageId,
+            pageMasterId
+          });
         });
       }
 
@@ -250,7 +250,7 @@ Fliplet.Widget.instance({
         let value;
 
         if (!formId) {
-          slider.data.formName = null;
+          slider.data.formId = null;
 
           return Promise.resolve(true);
         }
@@ -260,23 +260,23 @@ Fliplet.Widget.instance({
             let form = forms.find((el) => el.instance.id === formId);
 
             if (form) {
-              slider.data.formName = form.data().displayName;
+              slider.data.formId = form.data().id;
 
               return Fliplet.App.Storage.get(
-                `${pageId}${slider.data.formName}`
+                `${pageId}${slider.data.formId}`
               );
             }
 
-            slider.data.formName = null;
+            slider.data.formId = null;
 
             return Promise.resolve(false);
           })
           .then((storageValue) => {
-            value = storageValue;
-
-            if (value) {
-              return Fliplet.DataSources.connect(value.dataSourceId);
+            if (storageValue) {
+              return Fliplet.DataSources.connect(storageValue.dataSourceId);
             }
+
+            return Promise.reject('');
           })
           .then((connection) => {
             if (!connection || !value.entryId) {
@@ -298,7 +298,7 @@ Fliplet.Widget.instance({
           })
           .catch(function() {
             return Fliplet.App.Storage.remove(
-              `${pageId}${slider.data.formName}`
+              `${pageId}${slider.data.formId}`
             ).then(() => {
               return new Promise((resolve) => resolve(true));
             });
@@ -313,7 +313,7 @@ Fliplet.Widget.instance({
       swiper.on('slideChange', async function() {
         let slideObject = this;
 
-        slider.data.formName = null;
+        slider.data.formId = null;
 
         $sliderElement.find('video, audio').each(function() {
           this.pause();
@@ -323,7 +323,7 @@ Fliplet.Widget.instance({
           loadFormData().then(async function() {
             let currentSlide = slides[swiper.realIndex];
             let hasFormSubmitted = await Fliplet.App.Storage.get(
-              `${pageId}${slider.data.formName}`
+              `${pageId}${slider.data.formId}`
             );
 
             slideObject.allowSlidePrev = true;
@@ -353,8 +353,7 @@ Fliplet.Widget.instance({
         }
 
         slider.$el
-          .find('.swiper-pagination, .swiper-button-prev, .swiper-button-next')
-          [toggle ? 'show' : 'hide']();
+          .find('.swiper-pagination, .swiper-button-prev, .swiper-button-next')[toggle ? 'show' : 'hide']();
         slider.showNav = !!toggle;
         slider.swiper.allowTouchMove = toggle ? Modernizr.touchevents : false;
         slider.swiper.update();
@@ -404,7 +403,7 @@ Fliplet.Widget.instance({
       Fliplet.Hooks.run('sliderInitialized');
 
       Fliplet.Hooks.on('beforeFormSubmit', function(formData) {
-        return Fliplet.App.Storage.get(`${pageId}${slider.data.formName}`).then(
+        return Fliplet.App.Storage.get(`${pageId}${slider.data.formId}`).then(
           (value) => {
             if (value && value.entryId) {
               return Fliplet.DataSources.connect(value.dataSourceId).then(
@@ -425,8 +424,8 @@ Fliplet.Widget.instance({
         swiper.allowSlideNext = true;
         swiper.allowSlidePrev = true;
 
-        if (slider.data.formName) {
-          return Fliplet.App.Storage.set(`${pageId}${slider.data.formName}`, {
+        if (slider.data.formId) {
+          return Fliplet.App.Storage.set(`${pageId}${slider.data.formId}`, {
             entryId: response.result.id,
             dataSourceId: response.result.dataSourceId
           }).then(() => {
