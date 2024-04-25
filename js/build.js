@@ -1,5 +1,6 @@
 Fliplet.Widget.instance({
   name: 'slider',
+  displayName: 'Dynamic image',
   data: {
     formName: null
   },
