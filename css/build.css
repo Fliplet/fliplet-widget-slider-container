@@ -1,7 +1,6 @@
 fl-helper[name="slider"] {
   display: block !important;
-  min-height: 150px;
-  max-height: 100vh;
+  height: calc(100vh - 44px);
   overflow-x: hidden;
 }
 
