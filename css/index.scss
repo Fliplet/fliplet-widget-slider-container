@@ -390,47 +390,40 @@ $variablePrefix: "slider";
     // pagination dots width
     .swiper-pagination-bullet {
       width: map-get($configuration, slider-paginationBulletWidth) !important;
-
       @include above($tabletBreakpoint) {
         width: map-get($configuration, slider-paginationBulletWidthTablet) !important;
       }
-
       @include above($desktopBreakpoint) {
         width: map-get($configuration, slider-paginationBulletWidthDesktop) !important;
       }
 
       height: map-get($configuration, slider-paginationBulletHeight) !important;
-
       @include above($tabletBreakpoint) {
         height: map-get($configuration, slider-paginationBulletHeightTablet) !important;
       }
-
       @include above($desktopBreakpoint) {
         height: map-get($configuration, slider-paginationBulletHeightDesktop) !important;
       }
 
 
       color: map-get($configuration, slider-paginationBulletColor) !important;
-
       @include above($tabletBreakpoint) {
         color: map-get($configuration, slider-paginationBulletColorTablet) !important;
       }
-
       @include above($desktopBreakpoint) {
         color: map-get($configuration, slider-paginationBulletColorDesktop) !important;
       }
 
       &.swiper-pagination-bullet-active {
         color: map-get($configuration, slider-paginationBulletColorActive) !important;
-
         @include above($tabletBreakpoint) {
           color: map-get($configuration, slider-paginationBulletColorActiveTablet) !important;
         }
-
         @include above($desktopBreakpoint) {
           color: map-get($configuration, slider-paginationBulletColorActiveDesktop) !important;
         }
       }
+    }
     // end of pagination dots width
 
     .swiper-pagination {
