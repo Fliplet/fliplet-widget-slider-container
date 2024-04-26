@@ -405,22 +405,21 @@ $variablePrefix: "slider";
         height: map-get($configuration, slider-paginationBulletHeightDesktop) !important;
       }
 
-
-      color: map-get($configuration, slider-paginationBulletColor) !important;
+      background: map-get($configuration, slider-paginationBulletColor) !important;
       @include above($tabletBreakpoint) {
-        color: map-get($configuration, slider-paginationBulletColorTablet) !important;
+        background: map-get($configuration, slider-paginationBulletColorTablet) !important;
       }
       @include above($desktopBreakpoint) {
-        color: map-get($configuration, slider-paginationBulletColorDesktop) !important;
+        background: map-get($configuration, slider-paginationBulletColorDesktop) !important;
       }
 
       &.swiper-pagination-bullet-active {
-        color: map-get($configuration, slider-paginationBulletColorActive) !important;
+        background: map-get($configuration, slider-paginationBulletColorActive) !important;
         @include above($tabletBreakpoint) {
-          color: map-get($configuration, slider-paginationBulletColorActiveTablet) !important;
+          background: map-get($configuration, slider-paginationBulletColorActiveTablet) !important;
         }
         @include above($desktopBreakpoint) {
-          color: map-get($configuration, slider-paginationBulletColorActiveDesktop) !important;
+          background: map-get($configuration, slider-paginationBulletColorActiveDesktop) !important;
         }
       }
     }
