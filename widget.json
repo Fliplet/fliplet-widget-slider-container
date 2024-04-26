@@ -555,7 +555,7 @@
             "type": "color"
           },
           {
-            "name": "paginationColor",
+            "name": "arrowsColor",
             "default": "#999999",
             "columns": 12,
             "styles": [
@@ -572,11 +572,11 @@
             ],
             "breakpoints": {
               "tablet": {
-                "name": "paginationColorTablet",
+                "name": "arrowsColorTablet",
                 "default": "inherit-mobile"
               },
               "desktop": {
-                "name": "paginationColorDesktop",
+                "name": "arrowsColorDesktop",
                 "default": "inherit-tablet"
               }
             },

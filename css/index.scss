@@ -75,6 +75,12 @@ $variablePrefix: "slider";
         slider-paginationBulletHeight: $slider-paginationBulletHeight,
         slider-paginationBulletHeightTablet: $slider-paginationBulletHeightTablet,
         slider-paginationBulletHeightDesktop: $slider-paginationBulletHeightDesktop,
+        slider-paginationBulletColor: $slider-paginationBulletColor,
+        slider-paginationBulletColorTablet: $slider-paginationBulletColorTablet,
+        slider-paginationBulletColorDesktop: $slider-paginationBulletColorDesktop,
+        slider-paginationBulletColorActive: $slider-paginationBulletColorActive,
+        slider-paginationBulletColorActiveTablet: $slider-paginationBulletColorActiveTablet,
+        slider-paginationBulletColorActiveDesktop: $slider-paginationBulletColorActiveDesktop,
         slider-slideVisibility: $slider-slideVisibility,
         slider-slideVisibilityTablet: $slider-slideVisibilityTablet,
         slider-slideVisibilityDesktop: $slider-slideVisibilityDesktop,
@@ -84,6 +90,9 @@ $variablePrefix: "slider";
         slider-paginationFont: $slider-paginationFont,
         slider-paginationFontTablet: $slider-paginationFontTablet,
         slider-paginationFontDesktop: $slider-paginationFontDesktop,
+        slider-arrowsColor: $slider-arrowsColor,
+        slider-arrowsColorTablet: $slider-arrowsColorTablet,
+        slider-arrowsColorDesktop: $slider-arrowsColorDesktop,
         slider-paginationColor: $slider-paginationColor,
         slider-paginationColorTablet: $slider-paginationColorTablet,
         slider-paginationColorDesktop: $slider-paginationColorDesktop,
@@ -399,7 +408,29 @@ $variablePrefix: "slider";
       @include above($desktopBreakpoint) {
         height: map-get($configuration, slider-paginationBulletHeightDesktop) !important;
       }
-    }
+
+
+      color: map-get($configuration, slider-paginationBulletColor) !important;
+
+      @include above($tabletBreakpoint) {
+        color: map-get($configuration, slider-paginationBulletColorTablet) !important;
+      }
+
+      @include above($desktopBreakpoint) {
+        color: map-get($configuration, slider-paginationBulletColorDesktop) !important;
+      }
+
+      &.swiper-pagination-bullet-active {
+        color: map-get($configuration, slider-paginationBulletColorActive) !important;
+
+        @include above($tabletBreakpoint) {
+          color: map-get($configuration, slider-paginationBulletColorActiveTablet) !important;
+        }
+
+        @include above($desktopBreakpoint) {
+          color: map-get($configuration, slider-paginationBulletColorActiveDesktop) !important;
+        }
+      }
     // end of pagination dots width
 
     .swiper-pagination {
@@ -467,6 +498,16 @@ $variablePrefix: "slider";
       // Styles for desktop
       @include above($desktopBreakpoint) {
         background-color: map-get($configuration, slider-navigationArrowsBackgroundDesktop);
+      }
+
+      color: map-get($configuration, slider-arrowsColor)!important;
+
+      @include above($tabletBreakpoint) {
+        color: map-get($configuration, slider-arrowsColorTablet)!important;
+      }
+  
+      @include above($desktopBreakpoint) {
+        color: map-get($configuration, slider-arrowsColorDesktop)!important;
       }
     }
 
