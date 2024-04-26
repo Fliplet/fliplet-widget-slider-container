@@ -389,6 +389,8 @@ $variablePrefix: "slider";
 
     // pagination dots width
     .swiper-pagination-bullet {
+      opacity: 1;
+
       width: map-get($configuration, slider-paginationBulletWidth) !important;
       @include above($tabletBreakpoint) {
         width: map-get($configuration, slider-paginationBulletWidthTablet) !important;
