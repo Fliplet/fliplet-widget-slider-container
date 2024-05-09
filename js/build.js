@@ -81,10 +81,6 @@ Fliplet.Widget.instance({
       }
 
       function loadFormData() {
-        debugger;
-        // let $activeSlide = $sliderElement.find(
-        //   '[data-widget-package="com.fliplet.slide"].swiper-slide-active'
-        // );
         let $activeSlide = slides[swiper.realIndex].$el;
         let $formElement = $activeSlide.find(
           '[data-widget-package="com.fliplet.form-builder"]'
@@ -370,13 +366,33 @@ Fliplet.Widget.instance({
       slider.swiper = swiper;
 
       if (Fliplet.FormBuilder) {
-        loadFormData();
+        loadFormData().then(async function() {
+          let currentSlide = slides[swiper.realIndex];
+          let isFormSubmitted = await Fliplet.App.Storage.get(
+            `${pageId}${slider.data.formId}`
+          );
+
+          slider.swiper.allowSlidePrev = true;
+          slider.swiper.allowSlideNext = true;
+
+          if (
+            currentSlide
+            && currentSlide.fields.requiredForm
+            && !isFormSubmitted
+          ) {
+            slider.swiper.allowSlidePrev
+              = !currentSlide.fields.requiredFormBackwardNavigation;
+            slider.swiper.allowSlideNext
+              = !currentSlide.fields.requiredFormForwardNavigation;
+          }
+
+          Fliplet.Page.scrollTo(slider.$el);
+        });
       }
 
       swiper.on('slideChange', async function() {
         let slideObject = this;
 
-        debugger;
         slider.data.formId = null;
 
         $sliderElement.find('video, audio').each(function() {
