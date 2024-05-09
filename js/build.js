@@ -415,11 +415,12 @@ Fliplet.Widget.instance({
         return Fliplet.App.Storage.get(`${pageId}${slider.data.formId}`).then(
           (value) => {
             if (value && value.entryId) {
+              swiper.allowSlidePrev = true;
+              swiper.allowSlideNext = true;
+
               return Fliplet.DataSources.connect(value.dataSourceId).then(
                 (connection) => {
                   return connection.update(value.entryId, formData).then(() => {
-                    swiper.allowSlidePrev = true;
-                    swiper.allowSlideNext = true;
                     swiper.slideNext();
 
                     return Promise.reject('');
