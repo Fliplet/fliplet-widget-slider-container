@@ -82,8 +82,11 @@ Fliplet.Widget.instance({
 
       function loadFormData() {
         debugger;
-        let $activeSlide = $sliderElement.find(
-          '[data-widget-package="com.fliplet.slide"].swiper-slide-active'
+        // let $activeSlide = $sliderElement.find(
+        //   '[data-widget-package="com.fliplet.slide"].swiper-slide-active'
+        // );
+        let $activeSlide = slides[swiper.realIndex].$el.find(
+          '[data-widget-package="com.fliplet.form-builder"]'
         );
         let $formElement = $activeSlide.find(
           '[data-widget-package="com.fliplet.form-builder"]'
@@ -337,7 +340,6 @@ Fliplet.Widget.instance({
       let firstSlide = slides[0];
 
       if (firstSlide.fields.requiredForm) {
-        debugger;
         swiperOptions.allowSlidePrev
           = !firstSlide.fields.requiredFormBackwardNavigation;
         swiperOptions.allowSlideNext
@@ -385,6 +387,7 @@ Fliplet.Widget.instance({
 
         if (Fliplet.FormBuilder) {
           loadFormData().then(async function() {
+            // slides[swiper.realIndex]
             let currentSlide = slides[swiper.realIndex];
             let isFormSubmitted = await Fliplet.App.Storage.get(
               `${pageId}${slider.data.formId}`
