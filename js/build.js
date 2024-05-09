@@ -292,7 +292,7 @@ Fliplet.Widget.instance({
         effect: this.fields.animationStyle,
         allowSlideNext: true,
         allowSlidePrev: true,
-        // autoHeight: true,
+        autoHeight: true,
         keyboard: {
           enabled: true,
           onlyInViewport: false
@@ -334,20 +334,6 @@ Fliplet.Widget.instance({
       }
 
       let swiper = new Swiper(firstContainer, swiperOptions);
-
-      const autoheightIntervalInstance = setInterval(myTimer, 1000);
-
-      function myTimer() {
-        swiper.updateAutoHeight(500);
-      }
-
-      function stopAutoheightInterval() {
-        clearInterval(autoheightIntervalInstance);
-      }
-
-      $(window).bind('beforeunload', function() {
-        return stopAutoheightInterval();
-      });
 
       let firstSlide = slides[0];
 
