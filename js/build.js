@@ -418,6 +418,8 @@ Fliplet.Widget.instance({
               return Fliplet.DataSources.connect(value.dataSourceId).then(
                 (connection) => {
                   return connection.update(value.entryId, formData).then(() => {
+                    swiper.allowSlidePrev = true;
+                    swiper.allowSlideNext = true;
                     swiper.slideNext();
 
                     return Promise.reject('');
