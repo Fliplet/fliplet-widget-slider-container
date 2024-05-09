@@ -333,7 +333,6 @@ Fliplet.Widget.instance({
         swiperOptions.allowTouchMove = false;
       }
 
-
       let firstSlide = slides[0];
 
       if (firstSlide.fields.requiredForm) {
@@ -384,7 +383,7 @@ Fliplet.Widget.instance({
         if (Fliplet.FormBuilder) {
           loadFormData().then(async function() {
             let currentSlide = slides[swiper.realIndex];
-            let hasFormSubmitted = await Fliplet.App.Storage.get(
+            let isFormSubmitted = await Fliplet.App.Storage.get(
               `${pageId}${slider.data.formId}`
             );
 
@@ -394,7 +393,7 @@ Fliplet.Widget.instance({
             if (
               currentSlide
               && currentSlide.fields.requiredForm
-              && !hasFormSubmitted
+              && !isFormSubmitted
             ) {
               slideObject.allowSlidePrev
                 = !currentSlide.fields.requiredFormBackwardNavigation;
@@ -428,6 +427,8 @@ Fliplet.Widget.instance({
                 }
               );
             }
+
+            return Promise.resolve(true);
           }
         );
       });
