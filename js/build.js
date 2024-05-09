@@ -85,9 +85,7 @@ Fliplet.Widget.instance({
         // let $activeSlide = $sliderElement.find(
         //   '[data-widget-package="com.fliplet.slide"].swiper-slide-active'
         // );
-        let $activeSlide = slides[swiper.realIndex].$el.find(
-          '[data-widget-package="com.fliplet.form-builder"]'
-        );
+        let $activeSlide = slides[swiper.realIndex].$el;
         let $formElement = $activeSlide.find(
           '[data-widget-package="com.fliplet.form-builder"]'
         );
