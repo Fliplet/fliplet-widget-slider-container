@@ -72,7 +72,7 @@ Fliplet.Widget.instance({
 
         slider.slideTo = function() {
           swiper.slideTo.apply(swiper, arguments);
-          swiper.updateAutoHeight(500);
+          // swiper.updateAutoHeight(500);
         };
 
         slider.getActiveSlide = function() {
@@ -334,6 +334,20 @@ Fliplet.Widget.instance({
       }
 
       let swiper = new Swiper(firstContainer, swiperOptions);
+
+      const autoheightIntervalInstance = setInterval(myTimer, 1000);
+
+      function myTimer() {
+        swiper.updateAutoHeight(500);
+      }
+
+      function stopAutoheightInterval() {
+        clearInterval(autoheightIntervalInstance);
+      }
+
+      $(window).bind('beforeunload', function() {
+        return stopAutoheightInterval();
+      });
 
       let firstSlide = slides[0];
 
