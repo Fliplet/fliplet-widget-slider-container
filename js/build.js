@@ -241,7 +241,7 @@ Fliplet.Widget.instance({
       );
 
       if (slider.fields.firstTime.includes(true)) {
-        await Fliplet.App.Storage.get('sliderSeen').then((value) => {
+        await Fliplet.App.Storage.get(`sliderSeen${pageId}`).then((value) => {
           if (
             value
             && (value.pageId === pageId || value.pageMasterId === pageMasterId)
@@ -249,11 +249,13 @@ Fliplet.Widget.instance({
             return Fliplet.Navigate.screen(slider.fields.redirectEndScreen);
           }
 
-          return Fliplet.App.Storage.set('sliderSeen', {
+          return Fliplet.App.Storage.set(`sliderSeen${pageId}`, {
             pageId,
             pageMasterId
           });
         });
+      } else {
+        await Fliplet.App.Storage.remove(`sliderSeen${pageId}`);
       }
 
       let container = slider.$el.findUntil('.swiper-container', 'fl-helper');
