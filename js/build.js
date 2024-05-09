@@ -356,11 +356,11 @@ Fliplet.Widget.instance({
         };
       });
 
+      slider.swiper = swiper;
+
       if (Fliplet.FormBuilder) {
         loadFormData();
       }
-
-      slider.swiper = swiper;
 
       let firstSlide = slides[0];
 
