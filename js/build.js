@@ -335,15 +335,6 @@ Fliplet.Widget.instance({
 
       let swiper = new Swiper(firstContainer, swiperOptions);
 
-      let firstSlide = slides[0];
-
-      if (firstSlide.fields.requiredForm) {
-        swiper.allowSlidePrev
-          = !firstSlide.fields.requiredFormBackwardNavigation;
-        swiper.allowSlideNext
-          = !firstSlide.fields.requiredFormForwardNavigation;
-      }
-
       Fliplet.Hooks.on('flListDataBeforeGetData', function(options) {
         let $btnPrev = $sliderElement.find('.swiper-button-prev');
         let $btnNext = $sliderElement.find('.swiper-button-next');
@@ -370,6 +361,16 @@ Fliplet.Widget.instance({
       }
 
       slider.swiper = swiper;
+
+      let firstSlide = slides[0];
+
+      if (firstSlide.fields.requiredForm) {
+        slider.swiper.allowSlidePrev
+          = !firstSlide.fields.requiredFormBackwardNavigation;
+        slider.swiper.allowSlideNext
+          = !firstSlide.fields.requiredFormForwardNavigation;
+      }
+
       swiper.on('slideChange', async function() {
         let slideObject = this;
 
