@@ -72,7 +72,9 @@ Fliplet.Widget.instance({
 
         slider.slideTo = function() {
           swiper.slideTo.apply(swiper, arguments);
-          // swiper.updateAutoHeight(500);
+          setTimeout(() => {
+            swiper.updateAutoHeight(500);
+          }, 3000);
         };
 
         slider.getActiveSlide = function() {
