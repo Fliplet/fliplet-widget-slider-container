@@ -358,10 +358,6 @@ Fliplet.Widget.instance({
 
       slider.swiper = swiper;
 
-      if (Fliplet.FormBuilder) {
-        loadFormData();
-      }
-
       let firstSlide = slides[0];
 
       if (firstSlide.fields.requiredForm) {
@@ -369,6 +365,10 @@ Fliplet.Widget.instance({
           = !firstSlide.fields.requiredFormBackwardNavigation;
         slider.swiper.allowSlideNext
           = !firstSlide.fields.requiredFormForwardNavigation;
+
+        if (Fliplet.FormBuilder) {
+          loadFormData();
+        }
       }
 
       swiper.on('slideChange', async function() {
