@@ -81,6 +81,7 @@ Fliplet.Widget.instance({
       }
 
       function loadFormData() {
+        debugger;
         let $activeSlide = $sliderElement.find(
           '[data-widget-package="com.fliplet.slide"].swiper-slide-active'
         );
@@ -336,6 +337,7 @@ Fliplet.Widget.instance({
       let firstSlide = slides[0];
 
       if (firstSlide.fields.requiredForm) {
+        debugger;
         swiperOptions.allowSlidePrev
           = !firstSlide.fields.requiredFormBackwardNavigation;
         swiperOptions.allowSlideNext
@@ -374,6 +376,7 @@ Fliplet.Widget.instance({
       swiper.on('slideChange', async function() {
         let slideObject = this;
 
+        debugger;
         slider.data.formId = null;
 
         $sliderElement.find('video, audio').each(function() {
