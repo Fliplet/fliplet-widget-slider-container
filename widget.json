@@ -5,7 +5,8 @@
   "icon": "img/icon.png",
   "tags": [
     "type:component",
-    "category:general"
+    "category:general",
+    "beta:true"
   ],
   "provider_only": false,
   "references": [
