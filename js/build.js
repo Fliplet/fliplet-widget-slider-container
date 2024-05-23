@@ -170,8 +170,8 @@ Fliplet.Widget.instance({
         );
 
         let $notAllowedHelpers = $(slider.el).find(
-          '.swiper-wrapper fl-helper:not([data-name="slide"])'
-        );
+          '.swiper-wrapper fl-helper:not([name="slide"]):not([name="image-2-0-0"])'
+        )
 
         $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
           if (
