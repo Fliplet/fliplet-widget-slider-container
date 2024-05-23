@@ -169,6 +169,10 @@ Fliplet.Widget.instance({
           '.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"]):not(.fl-drop-marker.horizontal)'
         );
 
+        let $notAllowedHelpers = $(slider.el).find(
+          '.swiper-wrapper fl-helper:not([data-name="slide"])'
+        );
+
         $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
           if (
             !$(el).parents(
@@ -177,8 +181,7 @@ Fliplet.Widget.instance({
           ) {
             return errorMessageStructureNotValid(
               $(el),
-              'Slide must be inside the Slider',
-              'slideNotInsideSlider'
+              'Slide must be inside the Slider'
             );
           }
         });
@@ -186,24 +189,28 @@ Fliplet.Widget.instance({
         if ($slideInsideSlide.length) {
           return errorMessageStructureNotValid(
             $slideInsideSlide,
-            'Slide inside slide is not allowed',
-            'slideInsideSlide'
+            'Slide inside slide is not allowed'
           );
         }
 
         if ($sliderInsideSlider.length) {
           return errorMessageStructureNotValid(
             $sliderInsideSlider,
-            'Slider inside slider is not allowed',
-            'sliderInsideSlider'
+            'Slider inside slider is not allowed'
+          );
+        }
+
+        if ($notAllowedHelpers.length) {
+          return errorMessageStructureNotValid(
+            $notAllowedHelpers,
+            'Helpers are not supported inside the slider'
           );
         }
 
         if ($notAllowedComponents.length) {
           return errorMessageStructureNotValid(
             $notAllowedComponents,
-            'Only Slide components are allowed inside the slider',
-            'notAllowedComponents'
+            'Only Slide components are allowed inside the slider'
           );
         }
       }
