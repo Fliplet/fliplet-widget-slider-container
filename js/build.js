@@ -22,6 +22,21 @@ Fliplet.Widget.instance({
       let $slider = $(this);
       let $sliderElement = $($slider[0].el);
       const interactMode = Fliplet.Env.get('interact');
+      const notAllowedCustomHelpers = [
+        'authTitle',
+        'conditionalContainer',
+        'map',
+        'analyze',
+        'accordionStart',
+        'accordionEnd',
+        'glossary',
+        'benchmark',
+        'question',
+        'answer',
+        'result',
+        'decision-tree',
+        'iframe'
+      ];
 
       function manageSliderActions() {
         slider.showNav = true;
@@ -32,7 +47,9 @@ Fliplet.Widget.instance({
           }
 
           slider.$el
-            .find('.swiper-pagination, .swiper-button-prev, .swiper-button-next')[toggle ? 'show' : 'hide']();
+            .find(
+              '.swiper-pagination, .swiper-button-prev, .swiper-button-next'
+            )[toggle ? 'show' : 'hide']();
           slider.showNav = !!toggle;
           slider.swiper.allowTouchMove = toggle ? Modernizr.touchevents : false;
           slider.swiper.update();
@@ -101,9 +118,7 @@ Fliplet.Widget.instance({
             if (form) {
               slider.data.formId = form.data().id;
 
-              return Fliplet.App.Storage.get(
-                `${pageId}${slider.data.formId}`
-              );
+              return Fliplet.App.Storage.get(`${pageId}${slider.data.formId}`);
             }
 
             slider.data.formId = null;
@@ -169,9 +184,13 @@ Fliplet.Widget.instance({
           '.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"]):not(.fl-drop-marker.horizontal)'
         );
 
-        let $notAllowedHelpers = $(slider.el).find(
-          '.swiper-wrapper fl-helper:not([name="slide"]):not([name="image-2-0-0"])'
-        )
+        let notAllowedSelector = '.swiper-wrapper fl-helper';
+
+        notAllowedCustomHelpers.forEach((helper) => {
+          notAllowedSelector += `:not([name="${helper}"])`;
+        });
+
+        let $notAllowedHelpers = $(slider.el).find(notAllowedSelector);
 
         $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
           if (
