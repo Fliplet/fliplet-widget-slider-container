@@ -184,13 +184,8 @@ Fliplet.Widget.instance({
           '.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"]):not(.fl-drop-marker.horizontal)'
         );
 
-        let notAllowedSelector = '.swiper-wrapper fl-helper';
-
-        notAllowedCustomHelpers.forEach((helper) => {
-          notAllowedSelector += `:not([name="${helper}"])`;
-        });
-
-        let $notAllowedHelpers = $(slider.el).find(notAllowedSelector);
+        let notAllowedSelectors = notAllowedCustomHelpers.map(helper => `[name="${helper}"]`).join(',');
+        let $notAllowedHelpers = $(slider.el).find('.swiper-wrapper fl-helper').filter(notAllowedSelectors);
 
         $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
           if (
