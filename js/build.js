@@ -16,6 +16,18 @@ Fliplet.Widget.instance({
     ready: async function() {
       await Fliplet.Widget.initializeChildren(this.$el, this);
 
+      Fliplet.Hooks.on('beforePageView', function() {
+        return Fliplet.App.Storage.getAll().then(function(values) {
+          const submittedForms = Object.keys(values).filter(key => key.includes('slider_form_'));
+
+          if (submittedForms.length) {
+            return Fliplet.App.Storage.remove(submittedForms);
+          }
+
+          return Promise.resolve(true);
+        });
+      });
+
       let pageId = Fliplet.Env.get('pageId');
       let pageMasterId = Fliplet.Env.get('pageMasterId');
       let slider = this;
@@ -118,7 +130,7 @@ Fliplet.Widget.instance({
             if (form) {
               slider.data.formId = form.data().id;
 
-              return Fliplet.App.Storage.get(`${pageId}${slider.data.formId}`);
+              return Fliplet.App.Storage.get(`slider_form_${pageId}${slider.data.formId}`);
             }
 
             slider.data.formId = null;
@@ -154,7 +166,7 @@ Fliplet.Widget.instance({
           })
           .catch(function() {
             return Fliplet.App.Storage.remove(
-              `${pageId}${slider.data.formId}`
+              `slider_form_${pageId}${slider.data.formId}`
             ).then(() => {
               return new Promise((resolve) => resolve(true));
             });
@@ -262,7 +274,7 @@ Fliplet.Widget.instance({
       );
 
       if (slider.fields.firstTime.includes(true)) {
-        await Fliplet.App.Storage.get(`sliderSeen_${pageId}`).then((value) => {
+        await Fliplet.App.Storage.get(`slider_seen_${pageId}`).then((value) => {
           if (
             value
             && (value.pageId === pageId || value.pageMasterId === pageMasterId)
@@ -270,13 +282,13 @@ Fliplet.Widget.instance({
             return Fliplet.Navigate.screen(slider.fields.redirectEndScreen);
           }
 
-          return Fliplet.App.Storage.set(`sliderSeen_${pageId}`, {
+          return Fliplet.App.Storage.set(`slider_seen_${pageId}`, {
             pageId,
             pageMasterId
           });
         });
       } else {
-        await Fliplet.App.Storage.remove(`sliderSeen_${pageId}`);
+        await Fliplet.App.Storage.remove(`slider_seen_${pageId}`);
       }
 
       let container = slider.$el.findUntil('.swiper-container', 'fl-helper');
@@ -392,7 +404,7 @@ Fliplet.Widget.instance({
         loadFormData().then(async function() {
           let currentSlide = slides[swiper.realIndex];
           let isFormSubmitted = await Fliplet.App.Storage.get(
-            `${pageId}${slider.data.formId}`
+            `slider_form_${pageId}${slider.data.formId}`
           );
 
           slider.swiper.allowSlidePrev = true;
@@ -427,7 +439,7 @@ Fliplet.Widget.instance({
             // slides[swiper.realIndex]
             let currentSlide = slides[swiper.realIndex];
             let isFormSubmitted = await Fliplet.App.Storage.get(
-              `${pageId}${slider.data.formId}`
+              `slider_form_${pageId}${slider.data.formId}`
             );
 
             slideObject.allowSlidePrev = true;
@@ -454,7 +466,7 @@ Fliplet.Widget.instance({
       Fliplet.Hooks.run('sliderInitialized');
 
       Fliplet.Hooks.on('beforeFormSubmit', function(formData) {
-        return Fliplet.App.Storage.get(`${pageId}${slider.data.formId}`).then(
+        return Fliplet.App.Storage.get(`slider_form_${pageId}${slider.data.formId}`).then(
           (value) => {
             if (value && value.entryId) {
               swiper.allowSlidePrev = true;
@@ -481,7 +493,7 @@ Fliplet.Widget.instance({
         swiper.allowSlidePrev = true;
 
         if (slider.data.formId) {
-          return Fliplet.App.Storage.set(`${pageId}${slider.data.formId}`, {
+          return Fliplet.App.Storage.set(`slider_form_${pageId}${slider.data.formId}`, {
             entryId: response.result.id,
             dataSourceId: response.result.dataSourceId
           }).then(() => {
