@@ -36,7 +36,7 @@ Fliplet.Widget.instance({
       const interactMode = Fliplet.Env.get('interact');
       const notAllowedCustomHelpers = [
         'authTitle',
-        'conditionalContainer',
+        'conditional-container',
         'map',
         'analyze',
         'accordionStart',
@@ -47,8 +47,7 @@ Fliplet.Widget.instance({
         'answer',
         'result',
         'decision-tree',
-        'iframe',
-        'conditional-container'
+        'iframe'
       ];
 
       function manageSliderActions() {
