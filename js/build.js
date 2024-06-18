@@ -35,7 +35,8 @@ Fliplet.Widget.instance({
         'answer',
         'result',
         'decision-tree',
-        'iframe'
+        'iframe',
+        'conditional-container'
       ];
 
       function manageSliderActions() {
