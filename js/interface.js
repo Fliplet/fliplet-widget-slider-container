@@ -13,14 +13,14 @@ Fliplet.Pages.get().then(pages => {
         label: 'Show navigation arrows',
         options: [
           { value: true, label: 'Mobile & Desktop' },
-          { value: false, label: 'Only Desktop' }
+          { value: false, label: 'Only on Desktop' }
         ],
         default: true
       },
       {
         name: 'progress',
         type: 'dropdown',
-        label: 'Enable progress interface',
+        label: 'Show progress',
         options: [
           { value: 'bullets', label: 'Pagination dots' },
           { value: 'fraction', label: 'Pagination bar' },
@@ -44,7 +44,7 @@ Fliplet.Pages.get().then(pages => {
       {
         name: 'firstTime',
         type: 'checkbox',
-        label: 'Show slides only once',
+        label: 'The slides will only be displayed once for first time users',
         options: [{ value: true, label: 'yes' }],
         default: [],
         change: function(value) {
@@ -56,7 +56,8 @@ Fliplet.Pages.get().then(pages => {
       {
         name: 'redirectEndScreen',
         type: 'dropdown',
-        label: 'Display this screen to returning users',
+        label: 'Select the screen users will be redirected to',
+        description: 'This only applies to users who have already seen the slides',
         options: appPages,
         default: '',
         ready: function() {
