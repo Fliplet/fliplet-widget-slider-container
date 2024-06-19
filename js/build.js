@@ -36,7 +36,7 @@ Fliplet.Widget.instance({
       const interactMode = Fliplet.Env.get('interact');
       const notAllowedCustomHelpers = [
         'authTitle',
-        'conditionalContainer',
+        'conditional-container',
         'map',
         'analyze',
         'accordionStart',
