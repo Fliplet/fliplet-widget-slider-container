@@ -82,6 +82,10 @@ fl-helper[name="slider"] .swiper-nav-prev-disabled .swiper-container-initialized
   pointer-events: none;
 }
 
+.mode-interact [data-widget-package="com.fliplet.slider-container"] {
+  width: 100%;
+}
+
 .mode-interact fl-helper[name="slider"] .swiper-pagination,
 .mode-interact fl-helper[name="slider"] .swiper-button-prev,
 .mode-interact fl-helper[name="slider"] .swiper-button-next {

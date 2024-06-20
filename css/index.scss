@@ -124,12 +124,6 @@ $variablePrefix: "slider";
     $instanceSelector: '#{$instanceSelector}[data-id="#{$widgetInstanceId}"]';
   }
 
-  .mode-interact {
-    #{$instanceSelector} {
-      width: 100%;
-    }
-  }
-
   #{$instanceSelector} {
     .swiper-pagination.swiper-pagination-fraction {
       font-size: map-get($configuration, slider-paginationSize)!important;
