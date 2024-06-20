@@ -10,7 +10,7 @@ Fliplet.Pages.get().then(pages => {
       {
         name: 'showArrows',
         type: 'radio',
-        label: 'Show navigation arrows',
+        label: 'Show navigation arrows on',
         options: [
           { value: true, label: 'Mobile & Desktop' },
           { value: false, label: 'Only on Desktop' }
@@ -44,8 +44,9 @@ Fliplet.Pages.get().then(pages => {
       {
         name: 'firstTime',
         type: 'checkbox',
-        label: 'The slides will only be displayed once for first time users',
-        options: [{ value: true, label: 'yes' }],
+        label: 'Display slides once',
+        description: 'The slides will only be displayed once for first time users',
+        options: [{ value: true, label: 'Yes' }],
         default: [],
         change: function(value) {
           Fliplet.Helper.field('redirectEndScreen')
