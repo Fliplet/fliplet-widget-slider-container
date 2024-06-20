@@ -260,14 +260,14 @@ $variablePrefix: "slider";
     // end of min slider width
 
     // slider max width
-    width: map-get($configuration, slider-sliderMaxWidth) !important;
+    max-width: map-get($configuration, slider-sliderMaxWidth) !important;
 
     @include above($tabletBreakpoint) {
-      width: map-get($configuration, slider-sliderMaxWidthTablet) !important;
+      max-width: map-get($configuration, slider-sliderMaxWidthTablet) !important;
     }
 
     @include above($desktopBreakpoint) {
-      width: map-get($configuration, slider-sliderMaxWidthDesktop) !important;
+      max-width: map-get($configuration, slider-sliderMaxWidthDesktop) !important;
     }
 
     // end of slider max width
