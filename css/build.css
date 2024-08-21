@@ -75,14 +75,21 @@ fl-helper[name="slider"] .swiper-container-initialized .swiper-button-prev:after
   right: 1px;
 }
 
-fl-helper[name="slider"] .swiper-nav-next-disabled .swiper-container-initialized .swiper-button-next,
-fl-helper[name="slider"] .swiper-nav-prev-disabled .swiper-container-initialized .swiper-button-prev {
+fl-helper[name="slider"]
+  .swiper-nav-next-disabled
+  .swiper-container-initialized
+  .swiper-button-next,
+fl-helper[name="slider"]
+  .swiper-nav-prev-disabled
+  .swiper-container-initialized
+  .swiper-button-prev {
   opacity: 0.35;
   cursor: auto;
   pointer-events: none;
 }
 
-.mode-interact [data-widget-package="com.fliplet.slider-container"] {
+.mode-interact [data-widget-package="com.fliplet.slider-container"],
+[data-widget-package="com.fliplet.slider-container"] {
   width: 100%;
 }
 
@@ -96,7 +103,7 @@ fl-helper[name="slider"] .swiper-nav-prev-disabled .swiper-container-initialized
   display: block;
 }
 
-.mode-interact fl-helper[name="slider"] .swiper-wrapper>div {
+.mode-interact fl-helper[name="slider"] .swiper-wrapper > div {
   margin-bottom: 25px;
   height: auto;
 }
@@ -110,11 +117,11 @@ fl-helper[name="slider"] .swiper-nav-prev-disabled .swiper-container-initialized
 }
 
 .mode-interact fl-helper[name="slider"]::before {
-  content: 'Slider';
+  content: "Slider";
 }
 
 .component-error-before::before {
-  content: 'Incorrect component placement' !important;
+  content: "Incorrect component placement" !important;
 }
 
 .component-error-before:before {
@@ -130,7 +137,7 @@ fl-helper[name="slider"] .swiper-nav-prev-disabled .swiper-container-initialized
   z-index: 5;
 }
 
-.mode-interact fl-helper[name='slider']:before {
+.mode-interact fl-helper[name="slider"]:before {
   border-bottom-right-radius: 10px;
   cursor: grab;
   position: relative;
