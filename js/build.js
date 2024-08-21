@@ -459,6 +459,8 @@ Fliplet.Widget.instance({
             Fliplet.Page.scrollTo(slider.$el);
           });
         }
+
+        swiper.updateAutoHeight(500);
       });
 
       manageSliderActions();
