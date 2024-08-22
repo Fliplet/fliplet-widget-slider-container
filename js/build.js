@@ -485,7 +485,7 @@ Fliplet.Widget.instance({
               );
             }
 
-            return Promise.resolve(true);
+            // return Promise.resolve(true);
           }
         );
       });
