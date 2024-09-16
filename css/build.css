@@ -4,6 +4,11 @@ fl-helper[name="slider"] {
   overflow-x: hidden;
 }
 
+fl-helper[name="slider"] .dynamic-list-add-item {
+  position: absolute!important;
+  bottom: -30px;
+}
+
 fl-helper[name="slider"] * {
   &::-webkit-scrollbar {
     width: 7px;
