@@ -189,9 +189,10 @@ Fliplet.Widget.instance({
       }
 
       function scrollToTopOfSlide() {
-        $(slider.$el).animate({
-          scrollTop: $('.swiper-slide-active').offset().top
-        }, 500);
+        Fliplet.Page.scrollTo(slider.$el, { context: slider.$el.find('.swiper-slide-active') });
+        // $(slider.$el).animate({
+        //   scrollTop: $('.swiper-slide-active').offset().top
+        // }, 500);
       }
 
       function checkAllowedStructure() {
