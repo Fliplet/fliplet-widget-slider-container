@@ -18,7 +18,9 @@ Fliplet.Widget.instance({
 
       Fliplet.Hooks.on('beforePageView', function() {
         return Fliplet.App.Storage.getAll().then(function(values) {
-          const submittedForms = Object.keys(values).filter(key => key.includes('slider_form_'));
+          const submittedForms = Object.keys(values).filter((key) =>
+            key.includes('slider_form_')
+          );
 
           if (submittedForms.length) {
             return Fliplet.App.Storage.remove(submittedForms);
@@ -61,7 +63,8 @@ Fliplet.Widget.instance({
           slider.$el
             .find(
               '.swiper-pagination, .swiper-button-prev, .swiper-button-next'
-            )[toggle ? 'show' : 'hide']();
+            )
+            [toggle ? 'show' : 'hide']();
           slider.showNav = !!toggle;
           slider.swiper.allowTouchMove = toggle ? Modernizr.touchevents : false;
           slider.swiper.update();
@@ -130,7 +133,9 @@ Fliplet.Widget.instance({
             if (form) {
               slider.data.formId = form.data().id;
 
-              return Fliplet.App.Storage.get(`slider_form_${pageId}${slider.data.formId}`);
+              return Fliplet.App.Storage.get(
+                `slider_form_${pageId}${slider.data.formId}`
+              );
             }
 
             slider.data.formId = null;
@@ -183,6 +188,12 @@ Fliplet.Widget.instance({
         });
       }
 
+      function scrollToTopOfSlide() {
+        $(slider.$el).animate({
+          scrollTop: $('.swiper-slide-active').offset().top
+        }, 500);
+      }
+
       function checkAllowedStructure() {
         $('.swiper-container *').removeClass('component-error-before');
 
@@ -196,8 +207,12 @@ Fliplet.Widget.instance({
           '.swiper-wrapper > :not(div[data-view-placeholder]):not([data-widget-package="com.fliplet.slide"]):not(.fl-drop-marker.horizontal)'
         );
 
-        let notAllowedSelectors = notAllowedCustomHelpers.map(helper => `[name="${helper}"]`).join(',');
-        let $notAllowedHelpers = $(slider.el).find('.swiper-wrapper fl-helper').filter(notAllowedSelectors);
+        let notAllowedSelectors = notAllowedCustomHelpers
+          .map((helper) => `[name="${helper}"]`)
+          .join(',');
+        let $notAllowedHelpers = $(slider.el)
+          .find('.swiper-wrapper fl-helper')
+          .filter(notAllowedSelectors);
 
         $('[data-widget-package="com.fliplet.slide"]').each((ind, el) => {
           if (
@@ -421,7 +436,7 @@ Fliplet.Widget.instance({
               = !currentSlide.fields.requiredFormForwardNavigation;
           }
 
-          Fliplet.Page.scrollTo(slider.$el);
+          scrollToTopOfSlide();
         });
       }
 
@@ -456,11 +471,13 @@ Fliplet.Widget.instance({
                 = !currentSlide.fields.requiredFormForwardNavigation;
             }
 
-            Fliplet.Page.scrollTo(slider.$el);
+            scrollToTopOfSlide();
           });
         }
 
         swiper.updateAutoHeight(500);
+
+        scrollToTopOfSlide();
       });
 
       manageSliderActions();
@@ -468,26 +485,26 @@ Fliplet.Widget.instance({
       Fliplet.Hooks.run('sliderInitialized');
 
       Fliplet.Hooks.on('beforeFormSubmit', function(formData) {
-        return Fliplet.App.Storage.get(`slider_form_${pageId}${slider.data.formId}`).then(
-          (value) => {
-            if (value && value.entryId) {
-              swiper.allowSlidePrev = true;
-              swiper.allowSlideNext = true;
+        return Fliplet.App.Storage.get(
+          `slider_form_${pageId}${slider.data.formId}`
+        ).then((value) => {
+          if (value && value.entryId) {
+            swiper.allowSlidePrev = true;
+            swiper.allowSlideNext = true;
 
-              return Fliplet.DataSources.connect(value.dataSourceId).then(
-                (connection) => {
-                  return connection.update(value.entryId, formData).then(() => {
-                    swiper.slideNext();
+            return Fliplet.DataSources.connect(value.dataSourceId).then(
+              (connection) => {
+                return connection.update(value.entryId, formData).then(() => {
+                  swiper.slideNext();
 
-                    return Promise.reject('');
-                  });
-                }
-              );
-            }
-
-            // return Promise.resolve(true);
+                  return Promise.reject('');
+                });
+              }
+            );
           }
-        );
+
+          // return Promise.resolve(true);
+        });
       });
 
       Fliplet.Hooks.on('afterFormSubmit', function(response) {
@@ -495,10 +512,13 @@ Fliplet.Widget.instance({
         swiper.allowSlidePrev = true;
 
         if (slider.data.formId) {
-          return Fliplet.App.Storage.set(`slider_form_${pageId}${slider.data.formId}`, {
-            entryId: response.result.id,
-            dataSourceId: response.result.dataSourceId
-          }).then(() => {
+          return Fliplet.App.Storage.set(
+            `slider_form_${pageId}${slider.data.formId}`,
+            {
+              entryId: response.result.id,
+              dataSourceId: response.result.dataSourceId
+            }
+          ).then(() => {
             swiper.slideNext();
 
             return Promise.reject('');
