@@ -35,9 +35,7 @@ Fliplet.Pages.get().then(pages => {
         options: [
           { value: '', label: 'None' },
           { value: 'slide', label: 'Slide' },
-          { value: 'flip', label: 'Flip' },
-          { value: 'fade', label: 'Fade' },
-          { value: 'coverflow', label: 'Coverflow' }
+          { value: 'fade', label: 'Fade' }
         ],
         default: 'fade'
       },
