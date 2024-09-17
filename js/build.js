@@ -189,9 +189,17 @@ Fliplet.Widget.instance({
       }
 
       function scrollToTopOfSlide() {
-        $(slider.$el).animate({
-          scrollTop: $('.swiper-slide-active').offset().top
-        }, 1);
+        var currentScrollTop = $(slider.$el).scrollTop();
+        var targetScrollTop = $('.swiper-slide-active').offset().top;
+
+        if (currentScrollTop !== targetScrollTop) {
+          $(slider.$el).animate(
+            {
+              scrollTop: targetScrollTop
+            },
+            1
+          );
+        }
       }
 
       function checkAllowedStructure() {
