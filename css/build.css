@@ -9,6 +9,10 @@ fl-helper[name="slider"] .dynamic-list-add-item {
   bottom: -30px;
 }
 
+fl-helper[name="slider"] .app-list-content .btn-primary.link-button-primary.hidden-xs.login-button {
+  display: none!important;
+}
+
 fl-helper[name="slider"] * {
   &::-webkit-scrollbar {
     width: 7px;
