@@ -189,17 +189,11 @@ Fliplet.Widget.instance({
       }
 
       function scrollToTopOfSlide() {
-        var currentScrollTop = $(slider.$el).scrollTop();
-        var targetScrollTop = $('.swiper-slide-active').offset().top;
-
-        if (currentScrollTop !== targetScrollTop) {
-          $(slider.$el).animate(
-            {
-              scrollTop: targetScrollTop
-            },
-            1
-          );
-        }
+        setTimeout(() => {
+          $(slider.$el).animate({
+            scrollTop: $('.swiper-slide-active').offset().top
+          }, 1);
+        }, 100);
       }
 
       function checkAllowedStructure() {
