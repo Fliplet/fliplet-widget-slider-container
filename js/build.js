@@ -390,7 +390,7 @@ Fliplet.Widget.instance({
         options.config.afterShowDetails = function() {
           $(document)
             .find(
-              '.small-card-detail-overlay-close, .news-feed-detail-overlay-close'
+              '.small-card-detail-overlay-close, .news-feed-detail-overlay-close, .agenda-detail-overlay-close'
             )
             .click(function() {
               $btnPrev.show();

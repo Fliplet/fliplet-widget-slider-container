@@ -13,6 +13,10 @@ fl-helper[name="slider"] .app-list-content .btn-primary.link-button-primary.hidd
   display: none!important;
 }
 
+fl-helper[name="slider"] .agenda-detail-overlay .agenda-detail-overlay-screen {
+  height: 100vh;
+}
+
 fl-helper[name="slider"] * {
   &::-webkit-scrollbar {
     width: 7px;
