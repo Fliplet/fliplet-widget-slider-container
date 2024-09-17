@@ -191,7 +191,7 @@ Fliplet.Widget.instance({
       function scrollToTopOfSlide() {
         $(slider.$el).animate({
           scrollTop: $('.swiper-slide-active').offset().top
-        }, 100);
+        }, 1);
       }
 
       function checkAllowedStructure() {
