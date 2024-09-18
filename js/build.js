@@ -337,7 +337,6 @@ Fliplet.Widget.instance({
         },
         threshold: 5,
         allowTouchMove: Modernizr.touchevents,
-        effect: this.fields.animationStyle,
         allowSlideNext: true,
         allowSlidePrev: true,
         autoHeight: true,
@@ -349,6 +348,8 @@ Fliplet.Widget.instance({
 
       if (this.fields.animationStyle === '') {
         swiperOptions.speed = 0;
+      } else {
+        swiperOptions.effect = this.fields.animationStyle;
       }
 
       if (this.fields.animationStyle === 'fade') {
