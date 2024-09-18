@@ -280,7 +280,7 @@ Fliplet.Widget.instance({
       slider.fields = _.assign(
         {
           progress: 'progressbar',
-          animationStyle: 'fade',
+          animationStyle: '',
           showArrows: true,
           redirectEndScreen: '',
           firstTime: []
@@ -346,6 +346,10 @@ Fliplet.Widget.instance({
           onlyInViewport: false
         }
       };
+
+      if (this.fields.animationStyle === '') {
+        swiperOptions.speed = 0;
+      }
 
       if (this.fields.animationStyle === 'fade') {
         swiperOptions.fadeEffect = {

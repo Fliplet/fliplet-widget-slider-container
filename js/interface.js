@@ -37,7 +37,7 @@ Fliplet.Pages.get().then(pages => {
           { value: 'slide', label: 'Slide' },
           { value: 'fade', label: 'Fade' }
         ],
-        default: 'fade'
+        default: ''
       },
       {
         name: 'firstTime',
