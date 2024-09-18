@@ -348,6 +348,7 @@ Fliplet.Widget.instance({
 
       if (this.fields.animationStyle === '') {
         swiperOptions.speed = 0;
+        swiperOptions.resistanceRatio = 0;
       } else {
         swiperOptions.effect = this.fields.animationStyle;
       }
