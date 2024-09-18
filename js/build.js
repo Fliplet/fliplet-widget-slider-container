@@ -355,7 +355,7 @@ Fliplet.Widget.instance({
         swiperOptions.touchRatio = 1;
         swiperOptions.resistanceRatio = 0;
 
-        $slider.$el.find('.swiper-wrapper').css('transition', 'none!important');
+        $sliderElement.find('.swiper-wrapper').css('transition', 'none!important');
       } else {
         swiperOptions.effect = this.fields.animationStyle;
       }
