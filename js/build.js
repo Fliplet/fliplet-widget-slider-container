@@ -16,20 +16,6 @@ Fliplet.Widget.instance({
     ready: async function () {
       await Fliplet.Widget.initializeChildren(this.$el, this);
 
-      Fliplet.Hooks.on("beforePageView", function () {
-        return Fliplet.App.Storage.getAll().then(function (values) {
-          const submittedForms = Object.keys(values).filter((key) =>
-            key.includes("slider_form_")
-          );
-
-          if (submittedForms.length) {
-            return Fliplet.App.Storage.remove(submittedForms);
-          }
-
-          return Promise.resolve(true);
-        });
-      });
-
       let pageId = Fliplet.Env.get("pageId");
       let pageMasterId = Fliplet.Env.get("pageMasterId");
       let slider = this;
@@ -110,72 +96,6 @@ Fliplet.Widget.instance({
         slider.getActiveSlide = function () {
           return slider.children("slide")[swiper.activeIndex];
         };
-      }
-
-      function loadFormData() {
-        let $activeSlide = slides[swiper.realIndex].$el;
-        let $formElement = $activeSlide.find(
-          '[data-widget-package="com.fliplet.form-builder"]'
-        );
-        let formId = $formElement.data("id");
-        let value;
-
-        if (!formId) {
-          slider.data.formId = null;
-
-          return Promise.resolve(true);
-        }
-
-        return Fliplet.FormBuilder.getAll()
-          .then((forms) => {
-            let form = forms.find((el) => el.instance.id === formId);
-
-            if (form) {
-              slider.data.formId = form.data().id;
-
-              return Fliplet.App.Storage.get(
-                `slider_form_${pageId}${slider.data.formId}`
-              );
-            }
-
-            slider.data.formId = null;
-
-            return Promise.resolve(false);
-          })
-          .then((storageValue) => {
-            value = storageValue;
-
-            if (value) {
-              return Fliplet.DataSources.connect(value.dataSourceId);
-            }
-
-            return Promise.reject("");
-          })
-          .then((connection) => {
-            if (!connection || !value.entryId) {
-              return Promise.reject("");
-            }
-
-            return connection.findById(value.entryId);
-          })
-          .then((record) => {
-            if (record) {
-              return Fliplet.FormBuilder.get().then((form) => {
-                return new Promise((resolve) => {
-                  form.load(resolve(record.data));
-                });
-              });
-            }
-
-            return new Promise((resolve) => resolve(true));
-          })
-          .catch(function () {
-            return Fliplet.App.Storage.remove(
-              `slider_form_${pageId}${slider.data.formId}`
-            ).then(() => {
-              return new Promise((resolve) => resolve(true));
-            });
-          });
       }
 
       function errorMessageStructureNotValid($elements, message) {
@@ -355,7 +275,7 @@ Fliplet.Widget.instance({
         swiperOptions.touchRatio = 1;
         swiperOptions.resistanceRatio = 0;
 
-        $sliderElement.find('.swiper-wrapper').css('transition', 'none');
+        $sliderElement.find(".swiper-wrapper").css("transition", "none");
       } else {
         swiperOptions.effect = this.fields.animationStyle;
       }
@@ -414,29 +334,13 @@ Fliplet.Widget.instance({
 
       slider.swiper = swiper;
 
-      if (Fliplet.FormBuilder) {
-        loadFormData().then(async function () {
-          let currentSlide = slides[swiper.realIndex];
-          let isFormSubmitted = await Fliplet.App.Storage.get(
-            `slider_form_${pageId}${slider.data.formId}`
-          );
+      let currentSlide = slides[swiper.realIndex];
 
-          slider.swiper.allowSlidePrev = true;
-          slider.swiper.allowSlideNext = true;
-
-          if (
-            currentSlide &&
-            currentSlide.fields.requiredForm &&
-            !isFormSubmitted
-          ) {
-            slider.swiper.allowSlidePrev =
-              !currentSlide.fields.requiredFormBackwardNavigation;
-            slider.swiper.allowSlideNext =
-              !currentSlide.fields.requiredFormForwardNavigation;
-          }
-
-          scrollToTopOfSlide();
-        });
+      if (currentSlide && currentSlide.fields.requiredForm) {
+        slider.swiper.allowSlidePrev =
+          !currentSlide.fields.requiredFormBackwardNavigation;
+        slider.swiper.allowSlideNext =
+          !currentSlide.fields.requiredFormForwardNavigation;
       }
 
       swiper.on("slideChange", async function () {
@@ -448,30 +352,13 @@ Fliplet.Widget.instance({
           this.pause();
         });
 
-        if (Fliplet.FormBuilder) {
-          loadFormData().then(async function () {
-            // slides[swiper.realIndex]
-            let currentSlide = slides[swiper.realIndex];
-            let isFormSubmitted = await Fliplet.App.Storage.get(
-              `slider_form_${pageId}${slider.data.formId}`
-            );
+        let currentSlide = slides[swiper.realIndex];
 
-            slideObject.allowSlidePrev = true;
-            slideObject.allowSlideNext = true;
-
-            if (
-              currentSlide &&
-              currentSlide.fields.requiredForm &&
-              !isFormSubmitted
-            ) {
-              slideObject.allowSlidePrev =
-                !currentSlide.fields.requiredFormBackwardNavigation;
-              slideObject.allowSlideNext =
-                !currentSlide.fields.requiredFormForwardNavigation;
-            }
-
-            scrollToTopOfSlide();
-          });
+        if (currentSlide && currentSlide.fields.requiredForm) {
+          slideObject.allowSlidePrev =
+            !currentSlide.fields.requiredFormBackwardNavigation;
+          slideObject.allowSlideNext =
+            !currentSlide.fields.requiredFormForwardNavigation;
         }
 
         swiper.updateAutoHeight(500);
@@ -483,50 +370,11 @@ Fliplet.Widget.instance({
 
       Fliplet.Hooks.run("sliderInitialized");
 
-      Fliplet.Hooks.on("beforeFormSubmit", function (formData) {
-        return Fliplet.App.Storage.get(
-          `slider_form_${pageId}${slider.data.formId}`
-        ).then((value) => {
-          if (value && value.entryId) {
-            swiper.allowSlidePrev = true;
-            swiper.allowSlideNext = true;
-
-            return Fliplet.DataSources.connect(value.dataSourceId).then(
-              (connection) => {
-                return connection.update(value.entryId, formData).then(() => {
-                  swiper.slideNext();
-
-                  return Promise.reject("");
-                });
-              }
-            );
-          }
-
-          // return Promise.resolve(true);
-        });
-      });
-
       Fliplet.Hooks.on("afterFormSubmit", function (response) {
         swiper.allowSlideNext = true;
         swiper.allowSlidePrev = true;
 
-        if (slider.data.formId) {
-          return Fliplet.App.Storage.set(
-            `slider_form_${pageId}${slider.data.formId}`,
-            {
-              entryId: response.result.id,
-              dataSourceId: response.result.dataSourceId,
-            }
-          ).then(() => {
-            swiper.slideNext();
-
-            return Promise.reject("");
-          });
-        }
-
         swiper.slideNext();
-
-        return Promise.reject("");
       });
     },
     views: [
