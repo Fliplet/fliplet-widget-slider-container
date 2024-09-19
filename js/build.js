@@ -300,6 +300,15 @@ Fliplet.Widget.instance({
         swiperOptions.allowTouchMove = false;
       }
 
+      let firstSlide = slides[0];
+
+      if (firstSlide.fields.requiredForm) {
+        swiperOptions.allowSlidePrev =
+          !firstSlide.fields.requiredFormBackwardNavigation;
+        swiperOptions.allowSlideNext =
+          !firstSlide.fields.requiredFormForwardNavigation;
+      }
+
       let swiper = new Swiper(firstContainer, swiperOptions);
 
       Fliplet.Hooks.on("flListDataBeforeGetData", function (options) {
@@ -324,15 +333,6 @@ Fliplet.Widget.instance({
       });
 
       slider.swiper = swiper;
-
-      let currentSlide = slides[swiper.realIndex];
-
-      if (currentSlide && currentSlide.fields.requiredForm) {
-        slider.swiper.allowSlidePrev =
-          !currentSlide.fields.requiredFormBackwardNavigation;
-        slider.swiper.allowSlideNext =
-          !currentSlide.fields.requiredFormForwardNavigation;
-      }
 
       swiper.on("slideChange", async function () {
         let slideObject = this;
