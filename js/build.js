@@ -14,6 +14,8 @@ Fliplet.Widget.instance({
     ready: async function () {
       await Fliplet.Widget.initializeChildren(this.$el, this);
 
+      let submittedForms = [];
+      let currentFormId = null;
       let pageId = Fliplet.Env.get("pageId");
       let pageMasterId = Fliplet.Env.get("pageMasterId");
       let slider = this;
@@ -349,8 +351,13 @@ Fliplet.Widget.instance({
         });
 
         let currentSlide = slides[swiper.realIndex];
+        let $activeSlide = currentSlide.$el;
+        let $formElement = $activeSlide.find(
+          '[data-widget-package="com.fliplet.form-builder"]'
+        );
+        let formId = $formElement ? $formElement.data("id") : '';
 
-        if (currentSlide && currentSlide.fields.requiredForm) {
+        if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
           slideObject.allowSlidePrev =
             !currentSlide.fields.requiredFormBackwardNavigation;
           slideObject.allowSlideNext =
@@ -369,6 +376,16 @@ Fliplet.Widget.instance({
       Fliplet.Hooks.on("afterFormSubmit", function (response) {
         swiper.allowSlideNext = true;
         swiper.allowSlidePrev = true;
+
+        submittedForms.push(response);
+
+        let $activeSlide = slides[swiper.realIndex].$el;
+        let $formElement = $activeSlide.find(
+          '[data-widget-package="com.fliplet.form-builder"]'
+        );
+        let formId = $formElement.data("id");
+
+        submittedForms.push(formId);
 
         swiper.slideNext();
       });
