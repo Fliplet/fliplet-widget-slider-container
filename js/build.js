@@ -1,9 +1,7 @@
 Fliplet.Widget.instance({
   name: "slider",
   displayName: "Slider container",
-  data: {
-    formId: null,
-  },
+  data: {},
   render: {
     template: [
       '<div class="swiper-container">',
@@ -345,8 +343,6 @@ Fliplet.Widget.instance({
 
       swiper.on("slideChange", async function () {
         let slideObject = this;
-
-        slider.data.formId = null;
 
         $sliderElement.find("video, audio").each(function () {
           this.pause();
