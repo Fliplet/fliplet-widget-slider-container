@@ -15,7 +15,6 @@ Fliplet.Widget.instance({
       await Fliplet.Widget.initializeChildren(this.$el, this);
 
       let submittedForms = [];
-      let currentFormId = null;
       let pageId = Fliplet.Env.get("pageId");
       let pageMasterId = Fliplet.Env.get("pageMasterId");
       let slider = this;
@@ -353,6 +352,9 @@ Fliplet.Widget.instance({
             !currentSlide.fields.requiredFormBackwardNavigation;
           slideObject.allowSlideNext =
             !currentSlide.fields.requiredFormForwardNavigation;
+        } else {
+          slideObject.allowSlidePrev = true;
+          slideObject.allowSlideNext = true;
         }
 
         swiper.updateAutoHeight(500);
