@@ -368,8 +368,6 @@ Fliplet.Widget.instance({
         swiper.allowSlideNext = true;
         swiper.allowSlidePrev = true;
 
-        submittedForms.push(response);
-
         let $activeSlide = slides[swiper.realIndex].$el;
         let $formElement = $activeSlide.find(
           '[data-widget-package="com.fliplet.form-builder"]'
