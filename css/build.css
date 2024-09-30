@@ -32,6 +32,10 @@ fl-helper[name="slider"] * {
   box-sizing: border-box;
 }
 
+.mode-interact fl-helper[name="slider"] * {
+  transform: none!important;
+}
+
 fl-helper[name="slider"] .swiper-button-next {
   position: absolute !important;
   top: 49% !important;
