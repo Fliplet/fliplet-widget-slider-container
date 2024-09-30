@@ -359,7 +359,9 @@ Fliplet.Widget.instance({
 
         swiper.updateAutoHeight(500);
 
-        scrollToTopOfSlide();
+        if (!interactMode) {
+          scrollToTopOfSlide();
+        }
       });
 
       manageSliderActions();
