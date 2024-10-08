@@ -1,0 +1,17 @@
+{
+  "extends": ["eslint:recommended", "fliplet"],
+  "env": {
+    "node": true,
+    "es6": true,
+    "jasmine": true,
+    "browser": true,
+    "jquery": true
+  },
+  "globals": {
+    "_": true,
+    "Fliplet": true,
+    "widgetInstance": true,
+    "Swiper":  true
+  },
+  "rules": {}
+}
