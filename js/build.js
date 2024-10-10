@@ -49,7 +49,7 @@ Fliplet.Widget.instance({
             .find(
               ".swiper-pagination, .swiper-button-prev, .swiper-button-next"
             )
-            [toggle ? "show" : "hide"]();
+          [toggle ? "show" : "hide"]();
           slider.showNav = !!toggle;
           slider.swiper.allowTouchMove = toggle ? Modernizr.touchevents : false;
           slider.swiper.update();
@@ -333,10 +333,22 @@ Fliplet.Widget.instance({
 
       slider.swiper = swiper;
 
+      swiper.on('slideNextTransitionStart', function () {
+
+        swiper.allowSlideNext = false;
+        swiper.allowSlidePrev = false;
+      });
+
+      swiper.on('slidePrevTransitionStart', function () {
+
+        swiper.allowSlideNext = false;
+        swiper.allowSlidePrev = false;
+      });
+
       swiper.on("slideChange", async function () {
         swiper.allowSlideNext = false;
         swiper.allowSlidePrev = false;
-        
+
         // let slideObject = this;
 
         // $sliderElement.find("video, audio").each(function () {
