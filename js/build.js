@@ -340,6 +340,7 @@ Fliplet.Widget.instance({
           swiper.allowSlideNext = false;
           slider.swiper.allowSlidePrev = false;
           slider.swiper.allowSlideNext = false;
+          manageSliderActions();
 
         // $sliderElement.find("video, audio").each(function () {
         //   this.pause();
