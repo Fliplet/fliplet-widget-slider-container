@@ -37,66 +37,6 @@ Fliplet.Widget.instance({
         "iframe",
       ];
 
-      function manageSliderActions() {
-        slider.showNav = true;
-
-        slider.toggleNav = function (toggle) {
-          if (typeof toggle === "undefined") {
-            toggle = !slider.showNav;
-          }
-
-          slider.$el
-            .find(
-              ".swiper-pagination, .swiper-button-prev, .swiper-button-next"
-            )
-            [toggle ? "show" : "hide"]();
-          slider.showNav = !!toggle;
-          slider.swiper.allowTouchMove = toggle ? Modernizr.touchevents : false;
-          slider.swiper.update();
-        };
-
-        slider.togglePrevNav = function (toggle) {
-          if (typeof toggle === "undefined") {
-            toggle = slider.$el.hasClass("swiper-nav-prev-disabled");
-          }
-
-          slider.$el[toggle ? "removeClass" : "addClass"](
-            "swiper-nav-prev-disabled"
-          );
-          slider.swiper.allowSlidePrev = !!toggle;
-          slider.swiper.update();
-        };
-
-        slider.toggleNextNav = function (toggle) {
-          if (typeof toggle === "undefined") {
-            toggle = slider.$el.hasClass("swiper-nav-next-disabled");
-          }
-
-          slider.$el[toggle ? "removeClass" : "addClass"](
-            "swiper-nav-next-disabled"
-          );
-          slider.swiper.allowSlideNext = !!toggle;
-          slider.swiper.update();
-        };
-
-        slider.slidePrev = function () {
-          swiper.slidePrev.apply(swiper, arguments);
-        };
-
-        slider.slideNext = function () {
-          swiper.slideNext.apply(swiper, arguments);
-        };
-
-        slider.slideTo = function () {
-          swiper.slideTo.apply(swiper, arguments);
-          swiper.updateAutoHeight(500);
-        };
-
-        slider.getActiveSlide = function () {
-          return slider.children("slide")[swiper.activeIndex];
-        };
-      }
-
       function errorMessageStructureNotValid($elements, message) {
         $elements.each(function (index) {
           $(this).addClass("component-error-before");
@@ -365,8 +305,6 @@ Fliplet.Widget.instance({
           scrollToTopOfSlide();
         }
       });
-
-      // manageSliderActions();
 
       Fliplet.Hooks.run("sliderInitialized");
 
