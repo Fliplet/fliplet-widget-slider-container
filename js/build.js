@@ -334,8 +334,6 @@ Fliplet.Widget.instance({
       slider.swiper = swiper;
 
       swiper.on("slideChange", async function () {
-        let slideObject = this;
-
         $sliderElement.find("video, audio").each(function () {
           this.pause();
         });
@@ -348,13 +346,13 @@ Fliplet.Widget.instance({
         let formId = $formElement ? $formElement.data("id") : '';
 
         if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
-          slideObject.allowSlidePrev =
+          swiper.allowSlidePrev =
             !currentSlide.fields.requiredFormBackwardNavigation;
-          slideObject.allowSlideNext =
+            swiper.allowSlideNext =
             !currentSlide.fields.requiredFormForwardNavigation;
         } else {
-          slideObject.allowSlidePrev = true;
-          slideObject.allowSlideNext = true;
+          swiper.allowSlidePrev = true;
+          swiper.allowSlideNext = true;
         }
 
         swiper.updateAutoHeight(500);
