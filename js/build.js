@@ -308,7 +308,9 @@ Fliplet.Widget.instance({
           !firstSlide.fields.requiredFormForwardNavigation;
       }
 
-      let swiper = new Swiper(firstContainer, swiperOptions);
+      var swiper = new Swiper(firstContainer, swiperOptions);
+      
+      slider.swiper = swiper;
 
       Fliplet.Hooks.on("flListDataBeforeGetData", function (options) {
         let $btnPrev = $sliderElement.find(".swiper-button-prev");
@@ -331,29 +333,31 @@ Fliplet.Widget.instance({
         };
       });
 
-      slider.swiper = swiper;
-
       swiper.on("slideChange", async function () {
-        $sliderElement.find("video, audio").each(function () {
-          this.pause();
-        });
+        
+          swiper.allowSlidePrev = false;
+          swiper.allowSlideNext = false;
+        // $sliderElement.find("video, audio").each(function () {
+        //   this.pause();
+        // });
 
-        let currentSlide = slides[swiper.realIndex];
-        let $activeSlide = currentSlide.$el;
-        let $formElement = $activeSlide.find(
-          '[data-widget-package="com.fliplet.form-builder"]'
-        );
-        let formId = $formElement ? $formElement.data("id") : '';
+        // let currentSlide = slides[swiper.realIndex];
+        // let $activeSlide = currentSlide.$el;
+        // let $formElement = $activeSlide.find(
+        //   '[data-widget-package="com.fliplet.form-builder"]'
+        // );
+        // let formId = $formElement ? $formElement.data("id") : '';
 
-        if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
-          swiper.allowSlidePrev =
-            !currentSlide.fields.requiredFormBackwardNavigation;
-            swiper.allowSlideNext =
-            !currentSlide.fields.requiredFormForwardNavigation;
-        } else {
-          swiper.allowSlidePrev = true;
-          swiper.allowSlideNext = true;
-        }
+        // if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
+        //   swiper.allowSlidePrev =
+        //     !currentSlide.fields.requiredFormBackwardNavigation;
+        //     swiper.allowSlideNext =
+        //     !currentSlide.fields.requiredFormForwardNavigation;
+        // }
+        // else {
+        //   swiper.allowSlidePrev = true;
+        //   swiper.allowSlideNext = true;
+        // }
 
         swiper.updateAutoHeight(500);
 
@@ -362,7 +366,7 @@ Fliplet.Widget.instance({
         }
       });
 
-      manageSliderActions();
+      // manageSliderActions();
 
       Fliplet.Hooks.run("sliderInitialized");
 
