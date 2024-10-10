@@ -333,8 +333,7 @@ Fliplet.Widget.instance({
 
       slider.swiper = swiper;
 
-      swiper.on('slideChangeTransitionStart', function () {
-
+      swiper.on('touchMove', function () {
         swiper.allowSlideNext = false;
         swiper.allowSlidePrev = false;
       });
