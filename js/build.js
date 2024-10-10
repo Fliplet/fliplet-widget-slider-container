@@ -178,26 +178,26 @@ Fliplet.Widget.instance({
         }
       }
 
-      // if (interactMode) {
-      //   const $screen = $(document, "#preview")
-      //     .contents()
-      //     .find(".fl-page-content-wrapper");
+      if (interactMode) {
+        const $screen = $(document, "#preview")
+          .contents()
+          .find(".fl-page-content-wrapper");
 
-      //   const MutationObserver =
-      //     window.MutationObserver || window.WebKitMutationObserver;
+        const MutationObserver =
+          window.MutationObserver || window.WebKitMutationObserver;
 
-      //   const previewObserver = new MutationObserver(function () {
-      //     checkAllowedStructure();
-      //   });
+        const previewObserver = new MutationObserver(function () {
+          checkAllowedStructure();
+        });
 
-      //   previewObserver.observe($screen[0], {
-      //     subtree: true,
-      //     attributes: false,
-      //     childList: true,
-      //   });
-      // } else {
-      //   checkAllowedStructure();
-      // }
+        previewObserver.observe($screen[0], {
+          subtree: true,
+          attributes: false,
+          childList: true,
+        });
+      } else {
+        checkAllowedStructure();
+      }
 
       slider.fields = _.assign(
         {
@@ -264,7 +264,7 @@ Fliplet.Widget.instance({
         autoHeight: true,
         keyboard: {
           enabled: true,
-          // onlyInViewport: false,
+          onlyInViewport: false,
         },
       };
 
@@ -331,41 +331,39 @@ Fliplet.Widget.instance({
         };
       });
 
-      swiper.on("slideChange", async function () {
-        swiper.allowSlidePrev = false;
-        swiper.allowSlideNext = false;
-        // $sliderElement.find("video, audio").each(function () {
-        //   this.pause();
-        // });
-
-        // let currentSlide = slides[swiper.realIndex];
-        // let $activeSlide = currentSlide.$el;
-        // let $formElement = $activeSlide.find(
-        //   '[data-widget-package="com.fliplet.form-builder"]'
-        // );
-        // let formId = $formElement ? $formElement.data("id") : '';
-
-        // if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
-        //   swiper.allowSlidePrev =
-        //     !currentSlide.fields.requiredFormBackwardNavigation;
-        //     swiper.allowSlideNext =
-        //     !currentSlide.fields.requiredFormForwardNavigation;
-        // } else {
-        //   swiper.allowSlidePrev = true;
-        //   swiper.allowSlideNext = true;
-        // }
-
-        // swiper.updateAutoHeight(500);
-
-        // if (!interactMode) {
-        //   scrollToTopOfSlide();
-        // }
-      });
-
       slider.swiper = swiper;
 
+      swiper.on("slideChange", async function () {
+        $sliderElement.find("video, audio").each(function () {
+          this.pause();
+        });
+
+        let currentSlide = slides[swiper.realIndex];
+        let $activeSlide = currentSlide.$el;
+        let $formElement = $activeSlide.find(
+          '[data-widget-package="com.fliplet.form-builder"]'
+        );
+        let formId = $formElement ? $formElement.data("id") : '';
+
+        if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
+          swiper.allowSlidePrev =
+            !currentSlide.fields.requiredFormBackwardNavigation;
+            swiper.allowSlideNext =
+            !currentSlide.fields.requiredFormForwardNavigation;
+        } else {
+          swiper.allowSlidePrev = true;
+          swiper.allowSlideNext = true;
+        }
+
+        swiper.updateAutoHeight(500);
+
+        if (!interactMode) {
+          scrollToTopOfSlide();
+        }
+      });
+
       manageSliderActions();
-      
+
       Fliplet.Hooks.run("sliderInitialized");
 
       Fliplet.Hooks.on("afterFormSubmit", function (response) {
