@@ -299,14 +299,14 @@ Fliplet.Widget.instance({
         swiperOptions.allowTouchMove = false;
       }
 
-      let firstSlide = slides[0];
+      // let firstSlide = slides[0];
 
-      if (firstSlide.fields.requiredForm) {
-        swiperOptions.allowSlidePrev =
-          !firstSlide.fields.requiredFormBackwardNavigation;
-        swiperOptions.allowSlideNext =
-          !firstSlide.fields.requiredFormForwardNavigation;
-      }
+      // if (firstSlide.fields.requiredForm) {
+      //   swiperOptions.allowSlidePrev =
+      //     !firstSlide.fields.requiredFormBackwardNavigation;
+      //   swiperOptions.allowSlideNext =
+      //     !firstSlide.fields.requiredFormForwardNavigation;
+      // }
 
       let swiper = new Swiper(firstContainer, swiperOptions);
 
