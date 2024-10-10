@@ -333,14 +333,9 @@ Fliplet.Widget.instance({
 
       slider.swiper = swiper;
 
-      swiper.on('touchMove', function () {
-        swiper.allowSlideNext = false;
-        swiper.allowSlidePrev = false;
-      });
-
       swiper.on("slideChange", async function () {
-        swiper.allowSlideNext = false;
-        swiper.allowSlidePrev = false;
+        slider.swiper.allowSlideNext = false;
+        slider.swiper.allowSlidePrev = false;
 
         // let slideObject = this;
 
