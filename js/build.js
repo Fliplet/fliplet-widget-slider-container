@@ -335,35 +335,35 @@ Fliplet.Widget.instance({
 
       swiper.on("slideChange", async function () {
         if (swiper.realIndex == 1) {
-          swiper.allowSlidePrev = false;
-          swiper.allowSlideNext = false;
+          slider.swiper.allowSlidePrev = false;
+          slider.swiper.allowSlideNext = false;
         }
-        $sliderElement.find("video, audio").each(function () {
-          this.pause();
-        });
+        // $sliderElement.find("video, audio").each(function () {
+        //   this.pause();
+        // });
 
-        let currentSlide = slides[swiper.realIndex];
-        let $activeSlide = currentSlide.$el;
-        let $formElement = $activeSlide.find(
-          '[data-widget-package="com.fliplet.form-builder"]'
-        );
-        let formId = $formElement ? $formElement.data("id") : '';
+        // let currentSlide = slides[swiper.realIndex];
+        // let $activeSlide = currentSlide.$el;
+        // let $formElement = $activeSlide.find(
+        //   '[data-widget-package="com.fliplet.form-builder"]'
+        // );
+        // let formId = $formElement ? $formElement.data("id") : '';
 
-        if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
-          swiper.allowSlidePrev =
-            !currentSlide.fields.requiredFormBackwardNavigation;
-            swiper.allowSlideNext =
-            !currentSlide.fields.requiredFormForwardNavigation;
-        } else {
-          swiper.allowSlidePrev = true;
-          swiper.allowSlideNext = true;
-        }
+        // if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
+        //   swiper.allowSlidePrev =
+        //     !currentSlide.fields.requiredFormBackwardNavigation;
+        //     swiper.allowSlideNext =
+        //     !currentSlide.fields.requiredFormForwardNavigation;
+        // } else {
+        //   swiper.allowSlidePrev = true;
+        //   swiper.allowSlideNext = true;
+        // }
 
-        swiper.updateAutoHeight(500);
+        // swiper.updateAutoHeight(500);
 
-        if (!interactMode) {
-          scrollToTopOfSlide();
-        }
+        // if (!interactMode) {
+        //   scrollToTopOfSlide();
+        // }
       });
 
       manageSliderActions();
