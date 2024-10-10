@@ -334,6 +334,10 @@ Fliplet.Widget.instance({
       slider.swiper = swiper;
 
       swiper.on("slideChange", async function () {
+        if (swiper.realIndex == 1) {
+          swiper.allowSlidePrev = false;
+          swiper.allowSlideNext = false;
+        }
         $sliderElement.find("video, audio").each(function () {
           this.pause();
         });
@@ -362,7 +366,7 @@ Fliplet.Widget.instance({
         }
       });
 
-      // manageSliderActions();
+      manageSliderActions();
 
       Fliplet.Hooks.run("sliderInitialized");
 
