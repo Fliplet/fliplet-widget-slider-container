@@ -38,11 +38,11 @@ Fliplet.Widget.instance({
       ];
 
       function manageSliderActions() {
-        slider.showNav = true;
+        swiper.showNav = true;
 
-        slider.toggleNav = function (toggle) {
+        swiper.toggleNav = function (toggle) {
           if (typeof toggle === "undefined") {
-            toggle = !slider.showNav;
+            toggle = !swiper.showNav;
           }
 
           slider.$el
@@ -50,12 +50,12 @@ Fliplet.Widget.instance({
               ".swiper-pagination, .swiper-button-prev, .swiper-button-next"
             )
             [toggle ? "show" : "hide"]();
-          slider.showNav = !!toggle;
-          slider.swiper.allowTouchMove = toggle ? Modernizr.touchevents : false;
-          slider.swiper.update();
+            swiper.showNav = !!toggle;
+          swiper.allowTouchMove = toggle ? Modernizr.touchevents : false;
+          swiper.update();
         };
 
-        slider.togglePrevNav = function (toggle) {
+        swiper.togglePrevNav = function (toggle) {
           if (typeof toggle === "undefined") {
             toggle = slider.$el.hasClass("swiper-nav-prev-disabled");
           }
@@ -63,11 +63,11 @@ Fliplet.Widget.instance({
           slider.$el[toggle ? "removeClass" : "addClass"](
             "swiper-nav-prev-disabled"
           );
-          slider.swiper.allowSlidePrev = !!toggle;
-          slider.swiper.update();
+          swiper.allowSlidePrev = !!toggle;
+          swiper.update();
         };
 
-        slider.toggleNextNav = function (toggle) {
+        swiper.toggleNextNav = function (toggle) {
           if (typeof toggle === "undefined") {
             toggle = slider.$el.hasClass("swiper-nav-next-disabled");
           }
@@ -75,24 +75,24 @@ Fliplet.Widget.instance({
           slider.$el[toggle ? "removeClass" : "addClass"](
             "swiper-nav-next-disabled"
           );
-          slider.swiper.allowSlideNext = !!toggle;
-          slider.swiper.update();
+          swiper.allowSlideNext = !!toggle;
+          swiper.update();
         };
 
-        slider.slidePrev = function () {
+        swiper.slidePrev = function () {
           swiper.slidePrev.apply(swiper, arguments);
         };
 
-        slider.slideNext = function () {
+        swiper.slideNext = function () {
           swiper.slideNext.apply(swiper, arguments);
         };
 
-        slider.slideTo = function () {
+        swiper.slideTo = function () {
           swiper.slideTo.apply(swiper, arguments);
           swiper.updateAutoHeight(500);
         };
 
-        slider.getActiveSlide = function () {
+        swiper.getActiveSlide = function () {
           return slider.children("slide")[swiper.activeIndex];
         };
       }
@@ -334,41 +334,35 @@ Fliplet.Widget.instance({
       slider.swiper = swiper;
 
       swiper.on("slideChange", async function () {
-        // let slideObject = this;
-        
-          swiper.allowSlidePrev = false;
-          swiper.allowSlideNext = false;
-          slider.swiper.allowSlidePrev = false;
-          slider.swiper.allowSlideNext = false;
-          // manageSliderActions();
+        $sliderElement.find("video, audio").each(function () {
+          this.pause();
+        });
 
-        // $sliderElement.find("video, audio").each(function () {
-        //   this.pause();
-        // });
+        let currentSlide = slides[swiper.realIndex];
+        let $activeSlide = currentSlide.$el;
+        let $formElement = $activeSlide.find(
+          '[data-widget-package="com.fliplet.form-builder"]'
+        );
+        let formId = $formElement ? $formElement.data("id") : '';
 
-        // let currentSlide = slides[swiper.realIndex];
-        // let $activeSlide = currentSlide.$el;
-        // let $formElement = $activeSlide.find(
-        //   '[data-widget-package="com.fliplet.form-builder"]'
-        // );
-        // let formId = $formElement ? $formElement.data("id") : '';
+        if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
+          swiper.allowSlidePrev =
+            !currentSlide.fields.requiredFormBackwardNavigation;
+            swiper.allowSlideNext =
+            !currentSlide.fields.requiredFormForwardNavigation;
+        } else {
+          swiper.allowSlidePrev = true;
+          swiper.allowSlideNext = true;
+        }
 
-        // if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
-        //   slideObject.allowSlidePrev =
-        //     !currentSlide.fields.requiredFormBackwardNavigation;
-        //   slideObject.allowSlideNext =
-        //     !currentSlide.fields.requiredFormForwardNavigation;
-        // } else {
-        //   slideObject.allowSlidePrev = true;
-        //   slideObject.allowSlideNext = true;
-        // }
+        swiper.updateAutoHeight(500);
 
-        // swiper.updateAutoHeight(500);
-
-        // scrollToTopOfSlide();
+        if (!interactMode) {
+          scrollToTopOfSlide();
+        }
       });
 
-      // manageSliderActions();
+      manageSliderActions();
 
       Fliplet.Hooks.run("sliderInitialized");
 
