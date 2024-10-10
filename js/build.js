@@ -38,9 +38,9 @@ Fliplet.Widget.instance({
       ];
 
       function manageSliderActions() {
-        slider.swiper.showNav = true;
+        slider.showNav = true;
 
-        slider.swiper.toggleNav = function (toggle) {
+        slider.toggleNav = function (toggle) {
           if (typeof toggle === "undefined") {
             toggle = !slider.showNav;
           }
@@ -55,7 +55,7 @@ Fliplet.Widget.instance({
           slider.swiper.update();
         };
 
-        slider.swiper.togglePrevNav = function (toggle) {
+        slider.togglePrevNav = function (toggle) {
           if (typeof toggle === "undefined") {
             toggle = slider.$el.hasClass("swiper-nav-prev-disabled");
           }
@@ -67,7 +67,7 @@ Fliplet.Widget.instance({
           slider.swiper.update();
         };
 
-        slider.swiper.toggleNextNav = function (toggle) {
+        slider.toggleNextNav = function (toggle) {
           if (typeof toggle === "undefined") {
             toggle = slider.$el.hasClass("swiper-nav-next-disabled");
           }
@@ -79,20 +79,20 @@ Fliplet.Widget.instance({
           slider.swiper.update();
         };
 
-        slider.swiper.slidePrev = function () {
+        slider.slidePrev = function () {
           swiper.slidePrev.apply(swiper, arguments);
         };
 
-        slider.swiper.slideNext = function () {
+        slider.slideNext = function () {
           swiper.slideNext.apply(swiper, arguments);
         };
 
-        slider.swiper.slideTo = function () {
+        slider.slideTo = function () {
           swiper.slideTo.apply(swiper, arguments);
           swiper.updateAutoHeight(500);
         };
 
-        slider.swiper.getActiveSlide = function () {
+        slider.getActiveSlide = function () {
           return slider.children("slide")[swiper.activeIndex];
         };
       }
