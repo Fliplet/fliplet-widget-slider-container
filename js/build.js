@@ -334,34 +334,37 @@ Fliplet.Widget.instance({
       slider.swiper = swiper;
 
       swiper.on("slideChange", async function () {
-        let slideObject = this;
+        swiper.allowSlideNext = false;
+        swiper.allowSlidePrev = false;
+        
+        // let slideObject = this;
 
-        $sliderElement.find("video, audio").each(function () {
-          this.pause();
-        });
+        // $sliderElement.find("video, audio").each(function () {
+        //   this.pause();
+        // });
 
-        let currentSlide = slides[swiper.realIndex];
-        let $activeSlide = currentSlide.$el;
-        let $formElement = $activeSlide.find(
-          '[data-widget-package="com.fliplet.form-builder"]'
-        );
-        let formId = $formElement ? $formElement.data("id") : '';
+        // let currentSlide = slides[swiper.realIndex];
+        // let $activeSlide = currentSlide.$el;
+        // let $formElement = $activeSlide.find(
+        //   '[data-widget-package="com.fliplet.form-builder"]'
+        // );
+        // let formId = $formElement ? $formElement.data("id") : '';
 
-        if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
-          slideObject.allowSlidePrev =
-            !currentSlide.fields.requiredFormBackwardNavigation;
-          slideObject.allowSlideNext =
-            !currentSlide.fields.requiredFormForwardNavigation;
-        } else {
-          slideObject.allowSlidePrev = true;
-          slideObject.allowSlideNext = true;
-        }
+        // if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
+        //   slideObject.allowSlidePrev =
+        //     !currentSlide.fields.requiredFormBackwardNavigation;
+        //   slideObject.allowSlideNext =
+        //     !currentSlide.fields.requiredFormForwardNavigation;
+        // } else {
+        //   slideObject.allowSlidePrev = true;
+        //   slideObject.allowSlideNext = true;
+        // }
 
-        swiper.updateAutoHeight(500);
+        // swiper.updateAutoHeight(500);
 
-        if (!interactMode) {
-          scrollToTopOfSlide();
-        }
+        // if (!interactMode) {
+        //   scrollToTopOfSlide();
+        // }
       });
 
       manageSliderActions();
