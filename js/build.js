@@ -334,10 +334,12 @@ Fliplet.Widget.instance({
       slider.swiper = swiper;
 
       swiper.on("slideChange", async function () {
-        let slideObject = this;
+        // let slideObject = this;
         
-          slideObject.allowSlidePrev = false;
-          slideObject.allowSlideNext = false;
+          swiper.allowSlidePrev = false;
+          swiper.allowSlideNext = false;
+          slider.swiper.allowSlidePrev = false;
+          slider.swiper.allowSlideNext = false;
 
         // $sliderElement.find("video, audio").each(function () {
         //   this.pause();
