@@ -264,7 +264,7 @@ Fliplet.Widget.instance({
         autoHeight: true,
         keyboard: {
           enabled: true,
-          onlyInViewport: false,
+          // onlyInViewport: false,
         },
       };
 
