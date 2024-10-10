@@ -306,6 +306,9 @@ Fliplet.Widget.instance({
           !firstSlide.fields.requiredFormBackwardNavigation;
         swiperOptions.allowSlideNext =
           !firstSlide.fields.requiredFormForwardNavigation;
+      } else {
+        swiperOptions.allowSlidePrev = true;
+        swiperOptions.allowSlideNext = true;
       }
 
       var swiper = new Swiper(firstContainer, swiperOptions);
@@ -334,30 +337,27 @@ Fliplet.Widget.instance({
       });
 
       swiper.on("slideChange", async function () {
-        
-          swiper.allowSlidePrev = false;
-          swiper.allowSlideNext = false;
-        // $sliderElement.find("video, audio").each(function () {
-        //   this.pause();
-        // });
+        $sliderElement.find("video, audio").each(function () {
+          this.pause();
+        });
 
-        // let currentSlide = slides[swiper.realIndex];
-        // let $activeSlide = currentSlide.$el;
-        // let $formElement = $activeSlide.find(
-        //   '[data-widget-package="com.fliplet.form-builder"]'
-        // );
-        // let formId = $formElement ? $formElement.data("id") : '';
+        let currentSlide = slides[swiper.realIndex];
+        let $activeSlide = currentSlide.$el;
+        let $formElement = $activeSlide.find(
+          '[data-widget-package="com.fliplet.form-builder"]'
+        );
+        let formId = $formElement ? $formElement.data("id") : '';
 
-        // if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
-        //   swiper.allowSlidePrev =
-        //     !currentSlide.fields.requiredFormBackwardNavigation;
-        //     swiper.allowSlideNext =
-        //     !currentSlide.fields.requiredFormForwardNavigation;
-        // }
-        // else {
-        //   swiper.allowSlidePrev = true;
-        //   swiper.allowSlideNext = true;
-        // }
+        if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
+          swiper.allowSlidePrev =
+            !currentSlide.fields.requiredFormBackwardNavigation;
+            swiper.allowSlideNext =
+            !currentSlide.fields.requiredFormForwardNavigation;
+        }
+        else {
+          swiper.allowSlidePrev = true;
+          swiper.allowSlideNext = true;
+        }
 
         swiper.updateAutoHeight(500);
 
