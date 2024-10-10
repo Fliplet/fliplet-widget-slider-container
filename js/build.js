@@ -348,13 +348,13 @@ Fliplet.Widget.instance({
         let formId = $formElement ? $formElement.data("id") : '';
 
         if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
-          swiperOptions.allowSlidePrev =
+          slideObject.allowSlidePrev =
             !currentSlide.fields.requiredFormBackwardNavigation;
-            swiperOptions.allowSlideNext =
+          slideObject.allowSlideNext =
             !currentSlide.fields.requiredFormForwardNavigation;
         } else {
-          swiperOptions.allowSlidePrev = true;
-          swiperOptions.allowSlideNext = true;
+          slideObject.allowSlidePrev = true;
+          slideObject.allowSlideNext = true;
         }
 
         swiper.updateAutoHeight(500);
