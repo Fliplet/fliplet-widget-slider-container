@@ -37,66 +37,6 @@ Fliplet.Widget.instance({
         "iframe",
       ];
 
-      function manageSliderActions() {
-        slider.showNav = true;
-
-        slider.toggleNav = function (toggle) {
-          if (typeof toggle === "undefined") {
-            toggle = !slider.showNav;
-          }
-
-          slider.$el
-            .find(
-              ".swiper-pagination, .swiper-button-prev, .swiper-button-next"
-            )
-            [toggle ? "show" : "hide"]();
-          slider.showNav = !!toggle;
-          slider.swiper.allowTouchMove = toggle ? Modernizr.touchevents : false;
-          slider.swiper.update();
-        };
-
-        slider.togglePrevNav = function (toggle) {
-          if (typeof toggle === "undefined") {
-            toggle = slider.$el.hasClass("swiper-nav-prev-disabled");
-          }
-
-          slider.$el[toggle ? "removeClass" : "addClass"](
-            "swiper-nav-prev-disabled"
-          );
-          slider.swiper.allowSlidePrev = !!toggle;
-          slider.swiper.update();
-        };
-
-        slider.toggleNextNav = function (toggle) {
-          if (typeof toggle === "undefined") {
-            toggle = slider.$el.hasClass("swiper-nav-next-disabled");
-          }
-
-          slider.$el[toggle ? "removeClass" : "addClass"](
-            "swiper-nav-next-disabled"
-          );
-          slider.swiper.allowSlideNext = !!toggle;
-          slider.swiper.update();
-        };
-
-        slider.slidePrev = function () {
-          swiper.slidePrev.apply(swiper, arguments);
-        };
-
-        slider.slideNext = function () {
-          swiper.slideNext.apply(swiper, arguments);
-        };
-
-        slider.slideTo = function () {
-          swiper.slideTo.apply(swiper, arguments);
-          swiper.updateAutoHeight(500);
-        };
-
-        slider.getActiveSlide = function () {
-          return slider.children("slide")[swiper.activeIndex];
-        };
-      }
-
       function errorMessageStructureNotValid($elements, message) {
         $elements.each(function (index) {
           $(this).addClass("component-error-before");
@@ -259,8 +199,8 @@ Fliplet.Widget.instance({
         },
         threshold: 5,
         allowTouchMove: Modernizr.touchevents,
-        allowSlideNext: true,
-        allowSlidePrev: true,
+        allowSlideNext: false,
+        allowSlidePrev: false,
         autoHeight: true,
         keyboard: {
           enabled: true,
@@ -301,14 +241,18 @@ Fliplet.Widget.instance({
 
       let firstSlide = slides[0];
 
-      if (firstSlide.fields.requiredForm) {
-        swiperOptions.allowSlidePrev =
-          !firstSlide.fields.requiredFormBackwardNavigation;
-        swiperOptions.allowSlideNext =
-          !firstSlide.fields.requiredFormForwardNavigation;
-      }
-
+      
       let swiper = new Swiper(firstContainer, swiperOptions);
+
+      if (firstSlide.fields.requiredForm) {
+        swiper.allowSlidePrev =
+          !firstSlide.fields.requiredFormBackwardNavigation;
+        swiper.allowSlideNext =
+          !firstSlide.fields.requiredFormForwardNavigation;
+      } else {
+        swiper.allowSlidePrev = true;
+        swiper.allowSlideNext = true;
+      }
 
       Fliplet.Hooks.on("flListDataBeforeGetData", function (options) {
         let $btnPrev = $sliderElement.find(".swiper-button-prev");
@@ -361,8 +305,6 @@ Fliplet.Widget.instance({
           scrollToTopOfSlide();
         }
       });
-
-      manageSliderActions();
 
       Fliplet.Hooks.run("sliderInitialized");
 
