@@ -302,10 +302,11 @@ Fliplet.Widget.instance({
       let firstSlide = slides[0];
 
       if (firstSlide.fields.requiredForm) {
-        swiperOptions.allowSlidePrev =
-          !firstSlide.fields.requiredFormBackwardNavigation;
-        swiperOptions.allowSlideNext =
-          !firstSlide.fields.requiredFormForwardNavigation;
+        let allowSlidePrev = !firstSlide.fields.requiredFormBackwardNavigation;
+        let allowSlideNext = !firstSlide.fields.requiredFormForwardNavigation;
+        swiperOptions.allowSlidePrev = allowSlidePrev;
+          
+        swiperOptions.allowSlideNext = allowSlideNext;
       }
 
       let swiper = new Swiper(firstContainer, swiperOptions);
