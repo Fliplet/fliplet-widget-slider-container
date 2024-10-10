@@ -178,26 +178,26 @@ Fliplet.Widget.instance({
         }
       }
 
-      if (interactMode) {
-        const $screen = $(document, "#preview")
-          .contents()
-          .find(".fl-page-content-wrapper");
+      // if (interactMode) {
+      //   const $screen = $(document, "#preview")
+      //     .contents()
+      //     .find(".fl-page-content-wrapper");
 
-        const MutationObserver =
-          window.MutationObserver || window.WebKitMutationObserver;
+      //   const MutationObserver =
+      //     window.MutationObserver || window.WebKitMutationObserver;
 
-        const previewObserver = new MutationObserver(function () {
-          checkAllowedStructure();
-        });
+      //   const previewObserver = new MutationObserver(function () {
+      //     checkAllowedStructure();
+      //   });
 
-        previewObserver.observe($screen[0], {
-          subtree: true,
-          attributes: false,
-          childList: true,
-        });
-      } else {
-        checkAllowedStructure();
-      }
+      //   previewObserver.observe($screen[0], {
+      //     subtree: true,
+      //     attributes: false,
+      //     childList: true,
+      //   });
+      // } else {
+      //   checkAllowedStructure();
+      // }
 
       slider.fields = _.assign(
         {
@@ -306,9 +306,6 @@ Fliplet.Widget.instance({
           !firstSlide.fields.requiredFormBackwardNavigation;
         swiperOptions.allowSlideNext =
           !firstSlide.fields.requiredFormForwardNavigation;
-      } else {
-        swiperOptions.allowSlidePrev = true;
-        swiperOptions.allowSlideNext = true;
       }
 
       let swiper = new Swiper(firstContainer, swiperOptions);
