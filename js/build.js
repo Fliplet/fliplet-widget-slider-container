@@ -331,8 +331,6 @@ Fliplet.Widget.instance({
         };
       });
 
-      slider.swiper = swiper;
-
       swiper.on("slideChange", async function () {
         swiper.allowSlidePrev = false;
         swiper.allowSlideNext = false;
@@ -364,8 +362,10 @@ Fliplet.Widget.instance({
         // }
       });
 
-      // manageSliderActions();
+      slider.swiper = swiper;
 
+      manageSliderActions();
+      
       Fliplet.Hooks.run("sliderInitialized");
 
       Fliplet.Hooks.on("afterFormSubmit", function (response) {
