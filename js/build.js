@@ -259,8 +259,8 @@ Fliplet.Widget.instance({
         },
         threshold: 5,
         allowTouchMove: Modernizr.touchevents,
-        allowSlideNext: true,
-        allowSlidePrev: true,
+        allowSlideNext: false,
+        allowSlidePrev: false,
         autoHeight: true,
         keyboard: {
           enabled: true,
@@ -301,12 +301,12 @@ Fliplet.Widget.instance({
 
       let firstSlide = slides[0];
 
-      if (firstSlide.fields.requiredForm) {
-        swiperOptions.allowSlidePrev =
-          !firstSlide.fields.requiredFormBackwardNavigation;
-        swiperOptions.allowSlideNext =
-          !firstSlide.fields.requiredFormForwardNavigation;
-      }
+      // if (firstSlide.fields.requiredForm) {
+      //   swiperOptions.allowSlidePrev =
+      //     !firstSlide.fields.requiredFormBackwardNavigation;
+      //   swiperOptions.allowSlideNext =
+      //     !firstSlide.fields.requiredFormForwardNavigation;
+      // }
 
       let swiper = new Swiper(firstContainer, swiperOptions);
 
