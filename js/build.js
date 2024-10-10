@@ -362,7 +362,7 @@ Fliplet.Widget.instance({
         }
       });
 
-      manageSliderActions();
+      // manageSliderActions();
 
       Fliplet.Hooks.run("sliderInitialized");
 
