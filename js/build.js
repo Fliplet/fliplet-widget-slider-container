@@ -38,11 +38,11 @@ Fliplet.Widget.instance({
       ];
 
       function manageSliderActions() {
-        swiper.showNav = true;
+        slider.showNav = true;
 
-        swiper.toggleNav = function (toggle) {
+        slider.toggleNav = function (toggle) {
           if (typeof toggle === "undefined") {
-            toggle = !swiper.showNav;
+            toggle = !slider.showNav;
           }
 
           slider.$el
@@ -50,12 +50,12 @@ Fliplet.Widget.instance({
               ".swiper-pagination, .swiper-button-prev, .swiper-button-next"
             )
             [toggle ? "show" : "hide"]();
-            swiper.showNav = !!toggle;
-          swiper.allowTouchMove = toggle ? Modernizr.touchevents : false;
-          swiper.update();
+          slider.showNav = !!toggle;
+          slider.swiper.allowTouchMove = toggle ? Modernizr.touchevents : false;
+          slider.swiper.update();
         };
 
-        swiper.togglePrevNav = function (toggle) {
+        slider.togglePrevNav = function (toggle) {
           if (typeof toggle === "undefined") {
             toggle = slider.$el.hasClass("swiper-nav-prev-disabled");
           }
@@ -63,11 +63,11 @@ Fliplet.Widget.instance({
           slider.$el[toggle ? "removeClass" : "addClass"](
             "swiper-nav-prev-disabled"
           );
-          swiper.allowSlidePrev = !!toggle;
-          swiper.update();
+          slider.swiper.allowSlidePrev = !!toggle;
+          slider.swiper.update();
         };
 
-        swiper.toggleNextNav = function (toggle) {
+        slider.toggleNextNav = function (toggle) {
           if (typeof toggle === "undefined") {
             toggle = slider.$el.hasClass("swiper-nav-next-disabled");
           }
@@ -75,24 +75,24 @@ Fliplet.Widget.instance({
           slider.$el[toggle ? "removeClass" : "addClass"](
             "swiper-nav-next-disabled"
           );
-          swiper.allowSlideNext = !!toggle;
-          swiper.update();
+          slider.swiper.allowSlideNext = !!toggle;
+          slider.swiper.update();
         };
 
-        swiper.slidePrev = function () {
+        slider.slidePrev = function () {
           swiper.slidePrev.apply(swiper, arguments);
         };
 
-        swiper.slideNext = function () {
+        slider.slideNext = function () {
           swiper.slideNext.apply(swiper, arguments);
         };
 
-        swiper.slideTo = function () {
+        slider.slideTo = function () {
           swiper.slideTo.apply(swiper, arguments);
           swiper.updateAutoHeight(500);
         };
 
-        swiper.getActiveSlide = function () {
+        slider.getActiveSlide = function () {
           return slider.children("slide")[swiper.activeIndex];
         };
       }
