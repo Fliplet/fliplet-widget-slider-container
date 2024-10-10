@@ -301,14 +301,18 @@ Fliplet.Widget.instance({
 
       let firstSlide = slides[0];
 
-      // if (firstSlide.fields.requiredForm) {
-      //   swiperOptions.allowSlidePrev =
-      //     !firstSlide.fields.requiredFormBackwardNavigation;
-      //   swiperOptions.allowSlideNext =
-      //     !firstSlide.fields.requiredFormForwardNavigation;
-      // }
-
+      
       let swiper = new Swiper(firstContainer, swiperOptions);
+
+      if (firstSlide.fields.requiredForm) {
+        swiper.allowSlidePrev =
+          !firstSlide.fields.requiredFormBackwardNavigation;
+        swiper.allowSlideNext =
+          !firstSlide.fields.requiredFormForwardNavigation;
+      } else {
+        swiper.allowSlidePrev = true;
+        swiper.allowSlideNext = true;
+      }
 
       Fliplet.Hooks.on("flListDataBeforeGetData", function (options) {
         let $btnPrev = $sliderElement.find(".swiper-button-prev");
