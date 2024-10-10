@@ -308,7 +308,9 @@ Fliplet.Widget.instance({
           !firstSlide.fields.requiredFormForwardNavigation;
       }
 
-      let swiper = new Swiper(firstContainer, swiperOptions);
+      var swiper = new Swiper(firstContainer, swiperOptions);
+      
+      slider.swiper = swiper;
 
       Fliplet.Hooks.on("flListDataBeforeGetData", function (options) {
         let $btnPrev = $sliderElement.find(".swiper-button-prev");
@@ -330,8 +332,6 @@ Fliplet.Widget.instance({
             });
         };
       });
-
-      slider.swiper = swiper;
 
       swiper.on("slideChange", async function () {
         $sliderElement.find("video, audio").each(function () {
@@ -362,7 +362,7 @@ Fliplet.Widget.instance({
         }
       });
 
-      manageSliderActions();
+      // manageSliderActions();
 
       Fliplet.Hooks.run("sliderInitialized");
 
