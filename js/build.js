@@ -368,7 +368,7 @@ Fliplet.Widget.instance({
         // scrollToTopOfSlide();
       });
 
-      manageSliderActions();
+      // manageSliderActions();
 
       Fliplet.Hooks.run("sliderInitialized");
 
