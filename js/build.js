@@ -320,7 +320,9 @@ Fliplet.Widget.instance({
 
         submittedForms.push(formId);
 
-        swiper.slideNext();
+        setTimeout(() => { // if there is form redirect, next slide won't be triggered
+          swiper.slideNext();
+        }, 500);
       });
     },
     views: [
