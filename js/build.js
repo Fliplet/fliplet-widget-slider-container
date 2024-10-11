@@ -319,10 +319,6 @@ Fliplet.Widget.instance({
         let formId = $formElement.data("id");
 
         submittedForms.push(formId);
-
-        setTimeout(() => { // if there is form redirect, next slide won't be triggered
-          swiper.slideNext();
-        }, 500);
       });
     },
     views: [
