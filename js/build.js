@@ -320,6 +320,19 @@ Fliplet.Widget.instance({
 
         submittedForms.push(formId);
       });
+
+      setSliderHeight();
+
+      function setSliderHeight() {
+        let $bottomBar = $('[data-widget-package="com.fliplet.menu.bottom-bar"]:visible');
+        let $viewportHeader = $('.fl-viewport-header:visible');
+        let bottomBarHeight = $bottomBar.length ? $bottomBar.outerHeight() : 0;
+        let viewportHeaderHeight = $viewportHeader.length ? $viewportHeader.outerHeight() : 0;
+        let totalHeight = bottomBarHeight + viewportHeaderHeight;
+        let sliderHeight = `calc(100vh - ${totalHeight}px)`;
+
+        $sliderElement.css('height', sliderHeight);
+      }
     },
     views: [
       {
