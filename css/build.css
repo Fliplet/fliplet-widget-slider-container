@@ -1,5 +1,6 @@
 fl-helper[name="slider"] {
   display: block !important;
+  position: relative;
   height: 100vh;
   overflow-x: hidden;
 }
