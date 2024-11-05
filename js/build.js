@@ -241,7 +241,7 @@ Fliplet.Widget.instance({
 
       let firstSlide = slides[0];
 
-      
+
       let swiper = new Swiper(firstContainer, swiperOptions);
 
       if (firstSlide.fields.requiredForm) {
@@ -292,7 +292,7 @@ Fliplet.Widget.instance({
         if (currentSlide && currentSlide.fields.requiredForm && !submittedForms.includes(formId)) {
           swiper.allowSlidePrev =
             !currentSlide.fields.requiredFormBackwardNavigation;
-            swiper.allowSlideNext =
+          swiper.allowSlideNext =
             !currentSlide.fields.requiredFormForwardNavigation;
         } else {
           swiper.allowSlidePrev = true;
@@ -321,22 +321,22 @@ Fliplet.Widget.instance({
         submittedForms.push(formId);
       });
 
-      setSliderHeight();
+      // setSliderHeight();
 
-      function setSliderHeight() {
-        let $bottomBar = $('[data-widget-package="com.fliplet.menu.bottom-bar"]:visible');
-        let $viewportHeader = $('.fl-viewport-header:visible');
-        // let dataNotch = $('[data-has-notch]');
-        let bottomBarHeight = $bottomBar.length ? $bottomBar.outerHeight() : 0;
-        let viewportHeaderHeight = $viewportHeader.length ? $viewportHeader.outerHeight() : 0;
-        // let notchHeight = dataNotch.length ? 34 : 0
-        let totalHeight = bottomBarHeight + viewportHeaderHeight; // + notchHeight;
-        let sliderHeight = `calc(100vh - ${totalHeight}px)`;
+      // function setSliderHeight() {
+      //   let $bottomBar = $('[data-widget-package="com.fliplet.menu.bottom-bar"]:visible');
+      //   let $viewportHeader = $('.fl-viewport-header:visible');
+      //   // let dataNotch = $('[data-has-notch]');
+      //   let bottomBarHeight = $bottomBar.length ? $bottomBar.outerHeight() : 0;
+      //   let viewportHeaderHeight = $viewportHeader.length ? $viewportHeader.outerHeight() : 0;
+      //   // let notchHeight = dataNotch.length ? 34 : 0
+      //   let totalHeight = bottomBarHeight + viewportHeaderHeight; // + notchHeight;
+      //   let sliderHeight = `calc(100vh - ${totalHeight}px)`;
 
-        $('body').css('padding', 'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)');
+      $('body').css('padding', 'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)');
 
-        $sliderElement.css('height', sliderHeight);
-      }
+      //   $sliderElement.css('height', sliderHeight);
+      // }
     },
     views: [
       {
