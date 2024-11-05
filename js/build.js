@@ -333,9 +333,7 @@ Fliplet.Widget.instance({
         let totalHeight = bottomBarHeight + viewportHeaderHeight + notchHeight;
         let sliderHeight = `calc(100vh - ${totalHeight}px)`;
 
-        if (notchHeight) {
-          $(document).find('[data-has-notch] body').css('padding-bottom', '0px');
-        }
+        $(document).find('body').css('padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);');
 
         $sliderElement.css('height', sliderHeight);
       }
