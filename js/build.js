@@ -320,23 +320,6 @@ Fliplet.Widget.instance({
 
         submittedForms.push(formId);
       });
-
-      // setSliderHeight();
-
-      // function setSliderHeight() {
-      //   let $bottomBar = $('[data-widget-package="com.fliplet.menu.bottom-bar"]:visible');
-      //   let $viewportHeader = $('.fl-viewport-header:visible');
-      //   // let dataNotch = $('[data-has-notch]');
-      //   let bottomBarHeight = $bottomBar.length ? $bottomBar.outerHeight() : 0;
-      //   let viewportHeaderHeight = $viewportHeader.length ? $viewportHeader.outerHeight() : 0;
-      //   // let notchHeight = dataNotch.length ? 34 : 0
-      //   let totalHeight = bottomBarHeight + viewportHeaderHeight; // + notchHeight;
-      //   let sliderHeight = `calc(100vh - ${totalHeight}px)`;
-
-      $('body').css('padding', 'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)');
-
-      //   $sliderElement.css('height', sliderHeight);
-      // }
     },
     views: [
       {
