@@ -314,14 +314,10 @@ Fliplet.Widget.instance({
           scrollToTopOfSlide();
         }
 
-        $(firstContainer).find('.swiper-slide').attr({
-          'aria-hidden': 'true',
-          'tabindex': '-1'
-        });
-        $(firstContainer).find('.swiper-slide-active').attr({
-          'aria-hidden': 'false',
-          'tabindex': '0'
-        });
+        setTimeout(() => {
+          $(firstContainer).find('.swiper-slide').attr('aria-hidden', 'true');
+          $(firstContainer).find('.swiper-slide-active').attr('aria-hidden', 'false');
+        }, 300);
       });
 
       Fliplet.Hooks.run("sliderInitialized");
