@@ -390,7 +390,6 @@ $variablePrefix: "slider-container";
     // pagination dots width
     .swiper-pagination-bullet {
       opacity: 1;
-
       width: map-get($configuration, slider-container-paginationBulletWidth) !important;
       @include above($tabletBreakpoint) {
         width: map-get($configuration, slider-container-paginationBulletWidthTablet) !important;
