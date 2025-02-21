@@ -4,11 +4,11 @@ Fliplet.Widget.instance({
   data: {},
   render: {
     template: [
-      '<div class="swiper-container">',
-      '<div class="swiper-wrapper" data-view="slides"></div>',
-      '<div class="swiper-pagination"></div>',
-      '<div class="swiper-button-prev"></div>',
-      '<div class="swiper-button-next"></div>',
+      '<div class="swiper-container" role="region" aria-label="Slider container">',
+      '<div class="swiper-wrapper" data-view="slides" role="list"></div>',
+      '<div class="swiper-pagination" role="tablist"></div>',
+      '<div class="swiper-button-prev" role="button" aria-label="Previous slide" tabindex="0"></div>',
+      '<div class="swiper-button-next" role="button" aria-label="Next slide" tabindex="0"></div>',
       "</div>",
     ].join(""),
     ready: async function () {
@@ -192,10 +192,21 @@ Fliplet.Widget.instance({
         pagination: {
           el: ".swiper-pagination",
           type: this.fields.progress,
+          renderBullet: function (index, className) {
+            return '<span class="' + className + '" role="tab" aria-label="Go to slide ' + (index + 1) + '" tabindex="0"></span>';
+          }
         },
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
+        },
+        a11y: {
+          enabled: true,
+          prevSlideMessage: 'Previous slide',
+          nextSlideMessage: 'Next slide',
+          firstSlideMessage: 'This is the first slide',
+          lastSlideMessage: 'This is the last slide',
+          paginationBulletMessage: 'Go to slide {{index}}'
         },
         threshold: 5,
         allowTouchMove: Modernizr.touchevents,
@@ -302,6 +313,11 @@ Fliplet.Widget.instance({
         if (!interactMode) {
           scrollToTopOfSlide();
         }
+
+        setTimeout(() => {
+          $(firstContainer).find('.swiper-slide').attr('aria-hidden', 'true');
+          $(firstContainer).find('.swiper-slide-active').attr('aria-hidden', 'false');
+        }, 300);
       });
 
       Fliplet.Hooks.run("sliderInitialized");
@@ -317,6 +333,13 @@ Fliplet.Widget.instance({
         let formId = $formElement.data("id");
 
         submittedForms.push(formId);
+      });
+
+      $(firstContainer).find('.swiper-slide').each(function(index) {
+        $(this).attr({
+          'role': 'listitem',
+          'aria-label': 'Slide ' + (index + 1),
+        });
       });
     },
     views: [
