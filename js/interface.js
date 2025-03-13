@@ -20,6 +20,13 @@ Fliplet.Pages.get().then(pages => {
           Fliplet.Helper.field('showArrows').toggle(value.includes('arrows'));
           Fliplet.Helper.field('nextButtonLabel').toggle(value.includes('button'));
           Fliplet.Helper.field('backButtonLabel').toggle(value.includes('button'));
+          $('.multi-step-text').toggle(value.includes('button'));
+        },
+        ready: function() {
+          Fliplet.Helper.field('showArrows').toggle(value.includes('arrows'));
+          Fliplet.Helper.field('nextButtonLabel').toggle(value.includes('button'));
+          Fliplet.Helper.field('backButtonLabel').toggle(value.includes('button'));
+          $('.multi-step-text').toggle(value.includes('button'));
         }
       },
       {
