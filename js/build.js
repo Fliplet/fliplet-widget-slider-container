@@ -146,6 +146,7 @@ Fliplet.Widget.instance({
           showArrows: true,
           redirectEndScreen: "",
           firstTime: [],
+          sliderNavigation: "button",
         },
         slider.fields
       );

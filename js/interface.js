@@ -8,6 +8,35 @@ Fliplet.Pages.get().then(pages => {
     title: 'slider',
     fields: [
       {
+        name: 'sliderNavigation',
+        type: 'radio',
+        label: 'Slider navigation',
+        options: [
+          { value: 'button', label: 'Button' },
+          { value: 'arrows', label: 'Arrows' }
+        ],
+        default: 'button',
+        change: function(value) {
+          Fliplet.Helper.field('showArrows').toggle(value.includes('arrows'));
+          Fliplet.Helper.field('nextButtonLabel').toggle(value.includes('button'));
+          Fliplet.Helper.field('backButtonLabel').toggle(value.includes('button'));
+        }
+      },
+      {
+        type: 'text',
+        name: 'nextButtonLabel',
+        label: 'Next button label',
+        placeholder: 'Next',
+        default: 'Next'
+      },
+      {
+        type: 'text',
+        name: 'backButtonLabel',
+        label: 'Back button label',
+        placeholder: 'Back',
+        default: 'Back'
+      },
+      {
         name: 'showArrows',
         type: 'radio',
         label: 'Show navigation arrows on',
@@ -16,6 +45,11 @@ Fliplet.Pages.get().then(pages => {
           { value: false, label: 'Only on Desktop' }
         ],
         default: true
+      },
+      {
+        type: 'html',
+        html: `<p class='multi-step-text'>Create multi-step forms by adding forms linked to the same data source to Slides.
+        Add a 'Submit' button on the last slide to save all data.</p>`
       },
       {
         name: 'progress',
