@@ -23,6 +23,7 @@ Fliplet.Pages.get().then(pages => {
           $('.multi-step-text').toggle(value.includes('button'));
         },
         ready: function() {
+          var value = Fliplet.Helper.field('sliderNavigation').get();
           Fliplet.Helper.field('showArrows').toggle(value.includes('arrows'));
           Fliplet.Helper.field('nextButtonLabel').toggle(value.includes('button'));
           Fliplet.Helper.field('backButtonLabel').toggle(value.includes('button'));
