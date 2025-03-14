@@ -343,6 +343,12 @@ Fliplet.Widget.instance({
       slider.swiper = swiper;
 
       swiper.on("slideChange", async function () {
+        if (!validateNextSlide()) {
+          alert('Validation failed! Complete the required steps.');
+          swiper.slideTo(swiper.previousIndex, false); // Force back to the previous slide
+          return;
+        }
+
         $sliderElement.find("video, audio").each(function () {
           this.pause();
         });
