@@ -342,10 +342,17 @@ Fliplet.Widget.instance({
 
       slider.swiper = swiper;
 
+      var isValidationCheckActive = false;
       swiper.on("slideChange", async function () {
-        if (!validateNextSlide()) {
-          alert('Validation failed! Complete the required steps.');
-          swiper.slideTo(swiper.previousIndex, false); // Force back to the previous slide
+        if (!isValidationCheckActive) {
+          isValidationCheckActive = true; // Activate flag to prevent loop
+      
+          if (!validateBeforeSlide()) {
+            alert('Validation failed! Complete the required steps.');
+            swiper.slideTo(swiper.previousIndex, false); // Force back
+          }
+      
+          setTimeout(() => (isValidationCheckActive = false), 200); // Reset flag after a short delay
           return;
         }
 
