@@ -7,11 +7,9 @@ Fliplet.Widget.instance({
       '<div class="swiper-container" role="region" aria-label="Slider container">',
       '<div class="swiper-wrapper" data-view="slides" role="list"></div>',
       '<div class="swiper-pagination" role="tablist"></div>',
-      '<div class="swiper-button-prev" role="button" aria-label="Previous slide" tabindex="0" data-can-swiper="false"></div>',
-      '<div class="swiper-button-next" role="button" aria-label="Next slide" tabindex="0" data-can-swiper="false"></div>',
+      '<div class="swiper-button-prev" role="button" aria-label="Previous slide" tabindex="0"></div>',
+      '<div class="swiper-button-next" role="button" aria-label="Next slide" tabindex="0"></div>',
       '<div class="button-container">',
-      '<input type="button" class="btn btn-secondary focus-outline" value="Secondary button" data-can-swiper="false">',
-      '<input type="button" class="btn btn-primary focus-outline" value="Primary button" data-can-swiper="false">',
       "</div>",
       "</div>",
     ].join(""),
@@ -40,6 +38,22 @@ Fliplet.Widget.instance({
         "decision-tree",
         "iframe",
       ];
+
+      function validateNextSlide() {
+        return (
+          $sliderElement
+            .find("[data-button-action='next-slide']")
+            .attr("data-can-swipe") === "true"
+        );
+      }
+
+      function validatePrevSlide() {
+        return (
+          $sliderElement
+            .find("[data-button-action='prev-slide']")
+            .attr("data-can-swipe") === "true"
+        );
+      }
 
       function errorMessageStructureNotValid($elements, message) {
         $elements.each(function (index) {
@@ -144,9 +158,6 @@ Fliplet.Widget.instance({
           showArrows: true,
           redirectEndScreen: "",
           firstTime: [],
-          sliderNavigation: "button",
-          nextButtonLabel: "Next",
-          backButtonLabel: "Back",
         },
         slider.fields
       );
@@ -207,6 +218,28 @@ Fliplet.Widget.instance({
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         },
+        on: {
+          beforeSlideChangeStart: function (swiper) {
+            // Check if navigation is from next/prev buttons
+            if (swiper.navigationDirection) {
+              // Your validation logic here based on direction
+              let canMovePrev = true;
+              let canMoveNext = true;
+
+              if (swiper.navigationDirection === "next") {
+                // Validate next navigation
+                canMoveNext = validateNextSlide(); // Your next validation logic
+                swiper.allowSlideNext = canMoveNext;
+              } else if (swiper.navigationDirection === "prev") {
+                // Validate previous navigation
+                canMovePrev = validatePrevSlide(); // Your prev validation logic
+                swiper.allowSlidePrev = canMovePrev;
+              }
+            }
+            // Reset navigation direction
+            swiper.navigationDirection = null;
+          },
+        },
         a11y: {
           enabled: true,
           prevSlideMessage: "Previous slide",
@@ -243,8 +276,11 @@ Fliplet.Widget.instance({
         };
       }
 
-      if (
-        this.fields.sliderNavigation != "button" &&
+      if (this.fields.showArrows == "hidden") {
+        $sliderElement.find(".swiper-button-next").hide();
+        $sliderElement.find(".swiper-button-prev").hide();
+        swiperOptions.allowTouchMove = true;
+      } else if (
         !this.fields.showArrows &&
         (Fliplet.Env.get("platform") === "native" ||
           $("body").innerWidth() < 640)
@@ -256,92 +292,51 @@ Fliplet.Widget.instance({
         $sliderElement.find(".swiper-button-next").show();
         $sliderElement.find(".swiper-button-prev").show();
         swiperOptions.allowTouchMove = false;
+
+        // Add click handlers for navigation buttons with direction
+        $sliderElement.find(".swiper-button-next").on("click", function () {
+          swiper.navigationDirection = "next";
+        });
+
+        $sliderElement.find(".swiper-button-prev").on("click", function () {
+          swiper.navigationDirection = "prev";
+        });
       }
 
       let firstSlide = slides[0];
 
       let swiper = new Swiper(firstContainer, swiperOptions);
 
-      if (slider.fields.sliderNavigation === "button") {
-        $sliderElement.find(".btn-primary").show();
-        $sliderElement.find(".btn-secondary").show();
-        $sliderElement.find(".swiper-button-prev").hide();
-        $sliderElement.find(".swiper-button-next").hide();
-        $sliderElement.find(".btn-primary").val(slider.fields.nextButtonLabel);
-        $sliderElement
-          .find(".btn-secondary")
-          .val(slider.fields.backButtonLabel);
-
-          
-        $sliderElement.find(".btn-primary").off('click').on('click', function() {
-          swiper.slideNext();
+      $sliderElement
+        .find("['data-button-action']")
+        .off("click")
+        .on("click", function () {
+          if ($(this).attr("data-can-swipe") === "true") {
+            if ($(this).attr("data-button-action") === "previous-slide") {
+              swiper.slidePrev();
+            } else {
+              swiper.slideNext();
+            }
+          }
         });
-
-        $sliderElement.find(".btn-secondary").off('click').on('click', function() {
-          swiper.slidePrev();
-        });
-      } else {
-        $sliderElement.find(".btn-primary").hide();
-        $sliderElement.find(".btn-secondary").hide();
-        $sliderElement.find(".swiper-button-prev").show();
-        $sliderElement.find(".swiper-button-next").show();
-      }
 
       if (firstSlide.fields.requiredForm) {
         swiper.allowSlidePrev =
           !firstSlide.fields.requiredFormBackwardNavigation;
         swiper.allowSlideNext =
           !firstSlide.fields.requiredFormForwardNavigation;
-
-        $sliderElement
-          .find(".swiper-button-prev")
-          .attr(
-            "data-can-swiper",
-            !firstSlide.fields.requiredFormBackwardNavigation
-          );
-        $sliderElement
-          .find(".swiper-button-next")
-          .attr(
-            "data-can-swiper",
-            !firstSlide.fields.requiredFormForwardNavigation
-          );
-        $sliderElement
-          .find(".btn-primary")
-          .attr(
-            "data-can-swiper",
-            !firstSlide.fields.requiredFormForwardNavigation
-          );
-        $sliderElement
-          .find(".btn-secondary")
-          .attr(
-            "data-can-swiper",
-            !firstSlide.fields.requiredFormBackwardNavigation
-          );
       } else {
         swiper.allowSlidePrev = true;
         swiper.allowSlideNext = true;
-
-        $sliderElement
-          .find(".swiper-button-prev")
-          .attr("data-can-swiper", "true");
-        $sliderElement
-          .find(".swiper-button-next")
-          .attr("data-can-swiper", "true");
-        $sliderElement.find(".btn-primary").attr("data-can-swiper", "true");
-        $sliderElement.find(".btn-secondary").attr("data-can-swiper", "true");
       }
 
       Fliplet.Hooks.on("flListDataBeforeGetData", function (options) {
         let $btnPrev = $sliderElement.find(".swiper-button-prev");
         let $btnNext = $sliderElement.find(".swiper-button-next");
-        let $btnPrimary = $sliderElement.find(".btn-primary");
-        let $btnSecondary = $sliderElement.find(".btn-secondary");
 
         options.config.beforeOpen = function () {
           $btnPrev.hide();
           $btnNext.hide();
-          $btnPrimary.hide();
-          $btnSecondary.hide();
         };
 
         options.config.afterShowDetails = function () {
@@ -350,10 +345,12 @@ Fliplet.Widget.instance({
               ".small-card-detail-overlay-close, .news-feed-detail-overlay-close, .agenda-detail-overlay-close"
             )
             .click(function () {
-              if (this.fields.sliderNavigation === "button") {
-                $btnPrimary.show();
-                $btnSecondary.show();
-              } else {
+              if (
+                slider.fields.showArrows !== "hidden" &&
+                !slider.fields.showArrows &&
+                (Fliplet.Env.get("platform") === "native" ||
+                  $("body").innerWidth() < 640)
+              ) {
                 $btnPrev.show();
                 $btnNext.show();
               }
@@ -375,18 +372,6 @@ Fliplet.Widget.instance({
         );
         let formId = $formElement ? $formElement.data("id") : "";
 
-        if (swiper.realIndex === 0) {
-          $sliderElement.find(".btn-secondary").attr("disabled", "disabled");
-        } else {
-          $sliderElement.find(".btn-secondary").removeAttr("disabled");
-        }
-
-        if (swiper.realIndex === slides.length - 1) {
-          $sliderElement.find(".btn-primary").attr("disabled", "disabled");
-        } else {
-          $sliderElement.find(".btn-primary").removeAttr("disabled");
-        }
-
         if (
           currentSlide &&
           currentSlide.fields.requiredForm &&
@@ -396,43 +381,9 @@ Fliplet.Widget.instance({
             !currentSlide.fields.requiredFormBackwardNavigation;
           swiper.allowSlideNext =
             !currentSlide.fields.requiredFormForwardNavigation;
-
-          $sliderElement
-            .find(".swiper-button-prev")
-            .attr(
-              "data-can-swiper",
-              !currentSlide.fields.requiredFormBackwardNavigation
-            );
-          $sliderElement
-            .find(".swiper-button-next")
-            .attr(
-              "data-can-swiper",
-              !currentSlide.fields.requiredFormForwardNavigation
-            );
-          $sliderElement
-            .find(".btn-primary")
-            .attr(
-              "data-can-swiper",
-              !currentSlide.fields.requiredFormForwardNavigation
-            );
-          $sliderElement
-            .find(".btn-secondary")
-            .attr(
-              "data-can-swiper",
-              !currentSlide.fields.requiredFormBackwardNavigation
-            );
         } else {
           swiper.allowSlidePrev = true;
           swiper.allowSlideNext = true;
-
-          $sliderElement
-            .find(".swiper-button-prev")
-            .attr("data-can-swiper", "true");
-          $sliderElement
-            .find(".swiper-button-next")
-            .attr("data-can-swiper", "true");
-          $sliderElement.find(".btn-primary").attr("data-can-swiper", "true");
-          $sliderElement.find(".btn-secondary").attr("data-can-swiper", "true");
         }
 
         swiper.updateAutoHeight(500);
@@ -454,15 +405,6 @@ Fliplet.Widget.instance({
       Fliplet.Hooks.on("afterFormSubmit", function (response) {
         swiper.allowSlideNext = true;
         swiper.allowSlidePrev = true;
-
-        $sliderElement
-          .find(".swiper-button-prev")
-          .attr("data-can-swiper", "true");
-        $sliderElement
-          .find(".swiper-button-next")
-          .attr("data-can-swiper", "true");
-        $sliderElement.find(".btn-primary").attr("data-can-swiper", "true");
-        $sliderElement.find(".btn-secondary").attr("data-can-swiper", "true");
 
         let $activeSlide = slides[swiper.realIndex].$el;
         let $formElement = $activeSlide.find(
