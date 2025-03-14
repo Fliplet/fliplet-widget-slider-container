@@ -19,11 +19,6 @@ Fliplet.Pages.get().then((pages) => {
         default: true,
       },
       {
-        type: "html",
-        html: `<p class='multi-step-text'>Create multi-step forms by adding forms linked to the same data source to Slides.
-        Add a 'Submit' button on the last slide to save all data.</p>`,
-      },
-      {
         name: "progress",
         type: "dropdown",
         label: "Show progress",

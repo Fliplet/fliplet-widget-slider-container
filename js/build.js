@@ -222,17 +222,19 @@ Fliplet.Widget.instance({
           beforeSlideChangeStart: function (swiper) {
             // Check if navigation is from next/prev buttons
             if (swiper.navigationDirection) {
-              // Your validation logic here based on direction
+              console.log('Navigation direction:', swiper.navigationDirection);
               let canMovePrev = true;
               let canMoveNext = true;
 
               if (swiper.navigationDirection === "next") {
                 // Validate next navigation
-                canMoveNext = validateNextSlide(); // Your next validation logic
+                canMoveNext = validateNextSlide();
+                console.log('Can move next:', canMoveNext);
                 swiper.allowSlideNext = canMoveNext;
               } else if (swiper.navigationDirection === "prev") {
                 // Validate previous navigation
-                canMovePrev = validatePrevSlide(); // Your prev validation logic
+                canMovePrev = validatePrevSlide();
+                console.log('Can move prev:', canMovePrev);
                 swiper.allowSlidePrev = canMovePrev;
               }
             }
