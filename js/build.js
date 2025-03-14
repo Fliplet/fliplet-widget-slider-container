@@ -160,6 +160,15 @@ Fliplet.Widget.instance({
         $sliderElement
           .find(".btn-secondary")
           .val(slider.fields.backButtonLabel);
+
+          
+        $sliderElement.find(".btn-primary").off('click').on('click', function() {
+          swiper.slideNext();
+        });
+
+        $sliderElement.find(".btn-secondary").off('click').on('click', function() {
+          swiper.slidePrev();
+        });
       } else {
         $sliderElement.find(".btn-primary").hide();
         $sliderElement.find(".btn-secondary").hide();
@@ -268,14 +277,6 @@ Fliplet.Widget.instance({
         $sliderElement.find(".swiper-button-next").hide();
         $sliderElement.find(".swiper-button-prev").hide();
         swiperOptions.allowTouchMove = true;
-
-        $sliderElement.find(".btn-primary").off('click').on('click', function() {
-          swiper.slideNext();
-        });
-
-        $sliderElement.find(".btn-secondary").off('click').on('click', function() {
-          swiper.slidePrev();
-        });
       } else {
         $sliderElement.find(".swiper-button-next").show();
         $sliderElement.find(".swiper-button-prev").show();
