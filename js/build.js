@@ -7,8 +7,8 @@ Fliplet.Widget.instance({
       '<div class="swiper-container" role="region" aria-label="Slider container">',
       '<div class="swiper-wrapper" data-view="slides" role="list"></div>',
       '<div class="swiper-pagination" role="tablist"></div>',
-      '<div class="swiper-button-prev" role="button" aria-label="Previous slide" tabindex="0"></div>',
-      '<div class="swiper-button-next" role="button" aria-label="Next slide" tabindex="0"></div>',
+      '<div class="swiper-button-prev" role="button" aria-label="Previous slide" tabindex="0" data-can-swiper="false"></div>',
+      '<div class="swiper-button-next" role="button" aria-label="Next slide" tabindex="0" data-can-swiper="false"></div>',
       "</div>",
     ].join(""),
     ready: async function () {
@@ -94,23 +94,17 @@ Fliplet.Widget.instance({
             $slideInsideSlide,
             "Slide inside slide is not allowed"
           );
-        }
-
-        if ($sliderInsideSlider.length) {
+        } else if ($sliderInsideSlider.length) {
           return errorMessageStructureNotValid(
             $sliderInsideSlider,
             "Slider inside slider is not allowed"
           );
-        }
-
-        if ($notAllowedHelpers.length) {
+        } else if ($notAllowedHelpers.length) {
           return errorMessageStructureNotValid(
             $notAllowedHelpers,
             "Helpers are not supported inside the slider"
           );
-        }
-
-        if ($notAllowedComponents.length) {
+        } else if ($notAllowedComponents.length) {
           return errorMessageStructureNotValid(
             $notAllowedComponents,
             "Only Slide components are allowed inside the slider"
@@ -260,9 +254,17 @@ Fliplet.Widget.instance({
           !firstSlide.fields.requiredFormBackwardNavigation;
         swiper.allowSlideNext =
           !firstSlide.fields.requiredFormForwardNavigation;
+
+        $sliderElement.find(".swiper-button-prev").attr("data-can-swiper", !firstSlide.fields.requiredFormBackwardNavigation);
+        $sliderElement.find(".swiper-button-next").attr("data-can-swiper", !firstSlide.fields.requiredFormForwardNavigation);
       } else {
         swiper.allowSlidePrev = true;
         swiper.allowSlideNext = true;
+
+        $sliderElement.find(".swiper-button-prev").attr("data-can-swiper", "true");
+        $sliderElement.find(".swiper-button-next").attr("data-can-swiper", "true");
+
+
       }
 
       Fliplet.Hooks.on("flListDataBeforeGetData", function (options) {
@@ -304,9 +306,15 @@ Fliplet.Widget.instance({
           swiper.allowSlidePrev =
             !currentSlide.fields.requiredFormBackwardNavigation;
           swiper.allowSlideNext = !currentSlide.fields.requiredFormForwardNavigation;
+
+          $sliderElement.find(".swiper-button-prev").attr("data-can-swiper", !currentSlide.fields.requiredFormBackwardNavigation);
+          $sliderElement.find(".swiper-button-next").attr("data-can-swiper", !currentSlide.fields.requiredFormForwardNavigation);
         } else {
           swiper.allowSlidePrev = true;
           swiper.allowSlideNext = true;
+
+          $sliderElement.find(".swiper-button-prev").attr("data-can-swiper", "true");
+          $sliderElement.find(".swiper-button-next").attr("data-can-swiper", "true");
         }
 
         swiper.updateAutoHeight(500);
@@ -326,6 +334,9 @@ Fliplet.Widget.instance({
       Fliplet.Hooks.on("afterFormSubmit", function (response) {
         swiper.allowSlideNext = true;
         swiper.allowSlidePrev = true;
+
+        $sliderElement.find(".swiper-button-prev").attr("data-can-swiper", "true");
+        $sliderElement.find(".swiper-button-next").attr("data-can-swiper", "true");
 
         let $activeSlide = slides[swiper.realIndex].$el;
         let $formElement = $activeSlide.find(
