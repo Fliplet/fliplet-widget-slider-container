@@ -214,31 +214,14 @@ Fliplet.Widget.instance({
             );
           },
         },
+        on: {
+          beforeSlideChangeStart: function (swiper) {
+            console.log("beforeSlideChangeStart", swiper);
+          },
+        },
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
-        },
-        on: {
-          beforeSlideChangeStart: function () {
-            const isNext = this.activeIndex < this.previousIndex;
-            console.log('Attempting to slide:', isNext ? 'next' : 'prev');
-            
-            if (isNext) {
-              const canMoveNext = validateNextSlide();
-              console.log('Can move next:', canMoveNext);
-              this.allowSlideNext = canMoveNext;
-              if (!canMoveNext) {
-                return false;
-              }
-            } else {
-              const canMovePrev = validatePrevSlide();
-              console.log('Can move prev:', canMovePrev);
-              this.allowSlidePrev = canMovePrev;
-              if (!canMovePrev) {
-                return false;
-              }
-            }
-          }
         },
         a11y: {
           enabled: true,
@@ -297,11 +280,6 @@ Fliplet.Widget.instance({
       let firstSlide = slides[0];
 
       let swiper = new Swiper(firstContainer, swiperOptions);
-      
-      // Remove the click handlers since we're handling everything in beforeSlideChangeStart
-      if (this.fields.showArrows !== "hidden") {
-        $sliderElement.find(".swiper-button-next, .swiper-button-prev").off("click");
-      }
 
       $sliderElement
         .find("[data-button-action]")
