@@ -375,6 +375,18 @@ Fliplet.Widget.instance({
         );
         let formId = $formElement ? $formElement.data("id") : "";
 
+        if (swiper.realIndex === 0) {
+          $sliderElement.find(".btn-secondary").attr("disabled", "disabled");
+        } else {
+          $sliderElement.find(".btn-secondary").removeAttr("disabled");
+        }
+
+        if (swiper.realIndex === slides.length - 1) {
+          $sliderElement.find(".btn-primary").attr("disabled", "disabled");
+        } else {
+          $sliderElement.find(".btn-primary").removeAttr("disabled");
+        }
+
         if (
           currentSlide &&
           currentSlide.fields.requiredForm &&
