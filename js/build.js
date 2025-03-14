@@ -143,6 +143,8 @@ Fliplet.Widget.instance({
           redirectEndScreen: "",
           firstTime: [],
           sliderNavigation: "button",
+          nextButtonLabel: "Next",
+          backButtonLabel: "Back",
         },
         slider.fields
       );
