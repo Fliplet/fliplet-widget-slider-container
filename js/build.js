@@ -144,7 +144,7 @@ Fliplet.Widget.instance({
           firstTime: [],
           sliderNavigation: "button",
           nextButtonLabel: "Next",
-          backButtonLabel: "Back",
+          backButtonLabel: "Back"
         },
         slider.fields
       );
