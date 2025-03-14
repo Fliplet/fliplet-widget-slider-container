@@ -308,7 +308,7 @@ Fliplet.Widget.instance({
       let swiper = new Swiper(firstContainer, swiperOptions);
 
       $sliderElement
-        .find("['data-button-action']")
+        .find("[data-button-action]")
         .off("click")
         .on("click", function () {
           if ($(this).attr("data-can-swipe") === "true") {
