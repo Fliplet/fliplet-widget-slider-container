@@ -9,6 +9,8 @@ Fliplet.Widget.instance({
       '<div class="swiper-pagination" role="tablist"></div>',
       '<div class="swiper-button-prev" role="button" aria-label="Previous slide" tabindex="0" data-can-swiper="false"></div>',
       '<div class="swiper-button-next" role="button" aria-label="Next slide" tabindex="0" data-can-swiper="false"></div>',
+      '<input type="button" class="btn btn-primary focus-outline" value="Primary button">',
+      '<input type="button" class="btn btn-secondary focus-outline" value="Secondary button">',
       "</div>",
     ].join(""),
     ready: async function () {
@@ -145,6 +147,20 @@ Fliplet.Widget.instance({
         slider.fields
       );
 
+      if (slider.fields.sliderNavigation === "button") {
+        $sliderElement.find(".btn-primary").show();
+        $sliderElement.find(".btn-secondary").show();
+        $sliderElement.find(".swiper-button-prev").hide();
+        $sliderElement.find(".swiper-button-next").hide();
+        $sliderElement.find(".btn-primary").val(slider.fields.nextButtonLabel);
+        $sliderElement.find(".btn-secondary").val(slider.fields.backButtonLabel);
+      } else {
+        $sliderElement.find(".btn-primary").hide();
+        $sliderElement.find(".btn-secondary").hide();
+        $sliderElement.find(".swiper-button-prev").show();
+        $sliderElement.find(".swiper-button-next").show();
+      }
+
       if (slider.fields.firstTime.includes(true)) {
         await Fliplet.App.Storage.get(`slider_seen_${pageId}`).then((value) => {
           if (
@@ -232,6 +248,7 @@ Fliplet.Widget.instance({
       }
 
       if (
+        this.fields.sliderNavigation != "button" &&
         !this.fields.showArrows &&
         (Fliplet.Env.get("platform") === "native" ||
           $("body").innerWidth() < 640)
