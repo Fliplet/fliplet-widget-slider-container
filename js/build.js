@@ -39,22 +39,6 @@ Fliplet.Widget.instance({
         "iframe",
       ];
 
-      function validateNextSlide() {
-        return (
-          $sliderElement
-            .find("[data-button-action='next-slide']")
-            .attr("data-can-swipe") === "true"
-        );
-      }
-
-      function validatePrevSlide() {
-        return (
-          $sliderElement
-            .find("[data-button-action='prev-slide']")
-            .attr("data-can-swipe") === "true"
-        );
-      }
-
       function errorMessageStructureNotValid($elements, message) {
         $elements.each(function (index) {
           $(this).addClass("component-error-before");
@@ -276,19 +260,6 @@ Fliplet.Widget.instance({
 
       let swiper = new Swiper(firstContainer, swiperOptions);
 
-      document.querySelector('.swiper-button-next').addEventListener('click', (event) => {
-        event.stopPropagation(); // Stop event bubbling
-        event.preventDefault();  // Prevent default navigation
-      
-        if (validateNextSlide()) {
-          swiper.allowSlideNext = true; // Temporarily enable next slide
-          swiper.slideNext();
-          setTimeout(() => swiper.allowSlideNext = false, 100); // Lock it again after transition
-        } else {
-          alert('Validation failed! Complete the required steps.');
-        }
-      });
-
       $sliderElement
         .find("[data-button-action]")
         .off("click")
@@ -344,18 +315,6 @@ Fliplet.Widget.instance({
 
       var isValidationCheckActive = false;
       swiper.on("slideChange", async function () {
-        if (!isValidationCheckActive) {
-          isValidationCheckActive = true; // Activate flag to prevent loop
-      
-          if (!validateBeforeSlide()) {
-            alert('Validation failed! Complete the required steps.');
-            swiper.slideTo(swiper.previousIndex, false); // Force back
-          }
-      
-          setTimeout(() => (isValidationCheckActive = false), 200); // Reset flag after a short delay
-          return;
-        }
-
         $sliderElement.find("video, audio").each(function () {
           this.pause();
         });
