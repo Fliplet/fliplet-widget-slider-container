@@ -220,13 +220,25 @@ Fliplet.Widget.instance({
             document
               .querySelector(".swiper-button-next")
               .addEventListener("click", (event) => {
-                console.log("next button clicked");
+                if (!validateNextSlide()) {
+                  event.preventDefault(); // Stop default click behavior
+                  swiper.allowSlideNext = false; // Prevent moving to the next slide
+                  alert('Validation failed! Complete the required steps.');
+                } else {
+                  swiper.allowSlideNext = true; // Allow navigation
+                }
               });
 
             document
               .querySelector(".swiper-button-prev")
               .addEventListener("click", (event) => {
-                console.log("prev button clicked");
+                if (!validatePrevSlide()) {
+                  event.preventDefault(); // Stop default click behavior
+                  swiper.allowSlidePrev = false; // Prevent moving to the next slide
+                  alert('Validation failed! Complete the required steps.');
+                } else {
+                  swiper.allowSlidePrev = true; // Allow navigation
+                }
               });
           },
         },
