@@ -294,20 +294,36 @@ Fliplet.Widget.instance({
         $sliderElement.find(".swiper-button-next").show();
         $sliderElement.find(".swiper-button-prev").show();
         swiperOptions.allowTouchMove = false;
-
-        // Add click handlers for navigation buttons with direction
-        $sliderElement.find(".swiper-button-next").on("click", function () {
-          swiper.navigationDirection = "next";
-        });
-
-        $sliderElement.find(".swiper-button-prev").on("click", function () {
-          swiper.navigationDirection = "prev";
-        });
       }
 
       let firstSlide = slides[0];
 
       let swiper = new Swiper(firstContainer, swiperOptions);
+
+      // Move navigation click handlers here, after swiper is initialized
+      if (this.fields.showArrows !== "hidden") {
+        $sliderElement.find(".swiper-button-next").off("click").on("click", function (e) {
+          e.preventDefault();
+          swiper.navigationDirection = "next";
+          if (validateNextSlide()) {
+            swiper.allowSlideNext = true;
+            swiper.slideNext();
+          } else {
+            swiper.allowSlideNext = false;
+          }
+        });
+
+        $sliderElement.find(".swiper-button-prev").off("click").on("click", function (e) {
+          e.preventDefault();
+          swiper.navigationDirection = "prev";
+          if (validatePrevSlide()) {
+            swiper.allowSlidePrev = true;
+            swiper.slidePrev();
+          } else {
+            swiper.allowSlidePrev = false;
+          }
+        });
+      }
 
       $sliderElement
         .find("[data-button-action]")
