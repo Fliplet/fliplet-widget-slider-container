@@ -219,28 +219,26 @@ Fliplet.Widget.instance({
           prevEl: ".swiper-button-prev",
         },
         on: {
-          beforeSlideChangeStart: function (swiper) {
-            // Check if navigation is from next/prev buttons
-            if (swiper.navigationDirection) {
-              console.log('Navigation direction:', swiper.navigationDirection);
-              let canMovePrev = true;
-              let canMoveNext = true;
-
-              if (swiper.navigationDirection === "next") {
-                // Validate next navigation
-                canMoveNext = validateNextSlide();
-                console.log('Can move next:', canMoveNext);
-                swiper.allowSlideNext = canMoveNext;
-              } else if (swiper.navigationDirection === "prev") {
-                // Validate previous navigation
-                canMovePrev = validatePrevSlide();
-                console.log('Can move prev:', canMovePrev);
-                swiper.allowSlidePrev = canMovePrev;
+          beforeSlideChangeStart: function () {
+            const isNext = this.activeIndex < this.previousIndex;
+            console.log('Attempting to slide:', isNext ? 'next' : 'prev');
+            
+            if (isNext) {
+              const canMoveNext = validateNextSlide();
+              console.log('Can move next:', canMoveNext);
+              this.allowSlideNext = canMoveNext;
+              if (!canMoveNext) {
+                return false;
+              }
+            } else {
+              const canMovePrev = validatePrevSlide();
+              console.log('Can move prev:', canMovePrev);
+              this.allowSlidePrev = canMovePrev;
+              if (!canMovePrev) {
+                return false;
               }
             }
-            // Reset navigation direction
-            swiper.navigationDirection = null;
-          },
+          }
         },
         a11y: {
           enabled: true,
@@ -299,30 +297,10 @@ Fliplet.Widget.instance({
       let firstSlide = slides[0];
 
       let swiper = new Swiper(firstContainer, swiperOptions);
-
-      // Move navigation click handlers here, after swiper is initialized
+      
+      // Remove the click handlers since we're handling everything in beforeSlideChangeStart
       if (this.fields.showArrows !== "hidden") {
-        $sliderElement.find(".swiper-button-next").off("click").on("click", function (e) {
-          e.preventDefault();
-          swiper.navigationDirection = "next";
-          if (validateNextSlide()) {
-            swiper.allowSlideNext = true;
-            swiper.slideNext();
-          } else {
-            swiper.allowSlideNext = false;
-          }
-        });
-
-        $sliderElement.find(".swiper-button-prev").off("click").on("click", function (e) {
-          e.preventDefault();
-          swiper.navigationDirection = "prev";
-          if (validatePrevSlide()) {
-            swiper.allowSlidePrev = true;
-            swiper.slidePrev();
-          } else {
-            swiper.allowSlidePrev = false;
-          }
-        });
+        $sliderElement.find(".swiper-button-next, .swiper-button-prev").off("click");
       }
 
       $sliderElement
