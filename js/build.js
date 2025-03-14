@@ -151,31 +151,6 @@ Fliplet.Widget.instance({
         slider.fields
       );
 
-      if (slider.fields.sliderNavigation === "button") {
-        $sliderElement.find(".btn-primary").show();
-        $sliderElement.find(".btn-secondary").show();
-        $sliderElement.find(".swiper-button-prev").hide();
-        $sliderElement.find(".swiper-button-next").hide();
-        $sliderElement.find(".btn-primary").val(slider.fields.nextButtonLabel);
-        $sliderElement
-          .find(".btn-secondary")
-          .val(slider.fields.backButtonLabel);
-
-          
-        $sliderElement.find(".btn-primary").off('click').on('click', function() {
-          swiper.slideNext();
-        });
-
-        $sliderElement.find(".btn-secondary").off('click').on('click', function() {
-          swiper.slidePrev();
-        });
-      } else {
-        $sliderElement.find(".btn-primary").hide();
-        $sliderElement.find(".btn-secondary").hide();
-        $sliderElement.find(".swiper-button-prev").show();
-        $sliderElement.find(".swiper-button-next").show();
-      }
-
       if (slider.fields.firstTime.includes(true)) {
         await Fliplet.App.Storage.get(`slider_seen_${pageId}`).then((value) => {
           if (
@@ -286,6 +261,31 @@ Fliplet.Widget.instance({
       let firstSlide = slides[0];
 
       let swiper = new Swiper(firstContainer, swiperOptions);
+
+      if (slider.fields.sliderNavigation === "button") {
+        $sliderElement.find(".btn-primary").show();
+        $sliderElement.find(".btn-secondary").show();
+        $sliderElement.find(".swiper-button-prev").hide();
+        $sliderElement.find(".swiper-button-next").hide();
+        $sliderElement.find(".btn-primary").val(slider.fields.nextButtonLabel);
+        $sliderElement
+          .find(".btn-secondary")
+          .val(slider.fields.backButtonLabel);
+
+          
+        $sliderElement.find(".btn-primary").off('click').on('click', function() {
+          swiper.slideNext();
+        });
+
+        $sliderElement.find(".btn-secondary").off('click').on('click', function() {
+          swiper.slidePrev();
+        });
+      } else {
+        $sliderElement.find(".btn-primary").hide();
+        $sliderElement.find(".btn-secondary").hide();
+        $sliderElement.find(".swiper-button-prev").show();
+        $sliderElement.find(".swiper-button-next").show();
+      }
 
       if (firstSlide.fields.requiredForm) {
         swiper.allowSlidePrev =
