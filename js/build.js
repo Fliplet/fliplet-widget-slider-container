@@ -9,8 +9,10 @@ Fliplet.Widget.instance({
       '<div class="swiper-pagination" role="tablist"></div>',
       '<div class="swiper-button-prev" role="button" aria-label="Previous slide" tabindex="0" data-can-swiper="false"></div>',
       '<div class="swiper-button-next" role="button" aria-label="Next slide" tabindex="0" data-can-swiper="false"></div>',
+      '<div class="button-container">',
       '<input type="button" class="btn btn-primary focus-outline" value="Primary button">',
       '<input type="button" class="btn btn-secondary focus-outline" value="Secondary button">',
+      '</div>',
       "</div>",
     ].join(""),
     ready: async function () {

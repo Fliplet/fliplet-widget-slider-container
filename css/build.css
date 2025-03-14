@@ -166,3 +166,10 @@ fl-helper[name="slider"]
   top: -2px;
   left: 0px;
 }
+
+fl-helper[name="slider"] .button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
