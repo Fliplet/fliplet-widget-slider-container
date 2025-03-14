@@ -215,8 +215,19 @@ Fliplet.Widget.instance({
           },
         },
         on: {
-          beforeSlideChangeStart: function (swiper) {
-            console.log("beforeSlideChangeStart", swiper);
+          init: function () {
+            // Add click event listener to next button
+            document
+              .querySelector(".swiper-button-next")
+              .addEventListener("click", (event) => {
+                console.log("next button clicked");
+              });
+
+            document
+              .querySelector(".swiper-button-prev")
+              .addEventListener("click", (event) => {
+                console.log("prev button clicked");
+              });
           },
         },
         navigation: {
