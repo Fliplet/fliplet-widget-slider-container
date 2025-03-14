@@ -276,29 +276,18 @@ Fliplet.Widget.instance({
 
       let swiper = new Swiper(firstContainer, swiperOptions);
 
-      document
-        .querySelector(".swiper-button-next")
-        .addEventListener("click", (event) => {
-          if (!validateNextSlide()) {
-            event.preventDefault(); // Stop default click behavior
-            swiper.allowSlideNext = false; // Prevent moving to the next slide
-            alert("Validation failed! Complete the required steps.");
-          } else {
-            swiper.allowSlideNext = true; // Allow navigation
-          }
-        });
-
-      document
-        .querySelector(".swiper-button-prev")
-        .addEventListener("click", (event) => {
-          if (!validatePrevSlide()) {
-            event.preventDefault(); // Stop default click behavior
-            swiper.allowSlidePrev = false; // Prevent moving to the next slide
-            alert("Validation failed! Complete the required steps.");
-          } else {
-            swiper.allowSlidePrev = true; // Allow navigation
-          }
-        });
+      document.querySelector('.swiper-button-next').addEventListener('click', (event) => {
+        event.stopPropagation(); // Stop event bubbling
+        event.preventDefault();  // Prevent default navigation
+      
+        if (validateNextSlide()) {
+          swiper.allowSlideNext = true; // Temporarily enable next slide
+          swiper.slideNext();
+          setTimeout(() => swiper.allowSlideNext = false, 100); // Lock it again after transition
+        } else {
+          alert('Validation failed! Complete the required steps.');
+        }
+      });
 
       $sliderElement
         .find("[data-button-action]")
