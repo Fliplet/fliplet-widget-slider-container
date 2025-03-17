@@ -7,10 +7,8 @@ Fliplet.Widget.instance({
       '<div class="swiper-container" role="region" aria-label="Slider container">',
       '<div class="swiper-wrapper" data-view="slides" role="list"></div>',
       '<div class="swiper-pagination" role="tablist"></div>',
-      '<div class="swiper-button-prev" role="button" aria-label="Previous slide" tabindex="0"></div>',
-      '<div class="swiper-button-next" role="button" aria-label="Next slide" tabindex="0"></div>',
-      '<div class="button-container">',
-      "</div>",
+      '<div class="swiper-button-prev" role="button" aria-label="Previous slide" tabindex="0" data-can-swipe="true"></div>',
+      '<div class="swiper-button-next" role="button" aria-label="Next slide" tabindex="0" data-can-swipe="true"></div>',
       "</div>",
     ].join(""),
     ready: async function () {
