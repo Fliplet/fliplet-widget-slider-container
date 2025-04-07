@@ -312,6 +312,10 @@ Fliplet.Widget.instance({
       slider.swiper = swiper;
 
       swiper.on('slideChangeTransitionStart', async function() {
+        const activeArrow = this.activeIndex > this.previousIndex ? 'next' : 'prev';
+
+        if (activeArrow === 'prev') return;
+
         const forms = await Fliplet.FormBuilder.getAll();
 
         if (!forms.length) {
