@@ -377,7 +377,7 @@ Fliplet.Widget.instance({
 
       Fliplet.Hooks.run('sliderInitialized');
 
-      Fliplet.Hooks.on('afterFormSubmit', function(response) {
+      Fliplet.Hooks.on('afterFormSubmit', function(response, data) {
         swiper.allowSlideNext = true;
         swiper.allowSlidePrev = true;
 
@@ -388,6 +388,10 @@ Fliplet.Widget.instance({
         let formId = $formElement.data('id');
 
         submittedForms.push(formId);
+
+        if (data.$instance.redirect === 'nextSlide') {
+          swiper.slideNext();
+        }
       });
 
       $(firstContainer)
