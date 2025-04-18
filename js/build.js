@@ -356,7 +356,7 @@ Fliplet.Widget.instance({
 
       Fliplet.Hooks.run('sliderInitialized');
 
-      Fliplet.Hooks.on('afterFormSubmit', function(data) {
+      Fliplet.Hooks.on('afterFormSubmit', function(response, data) {
         let $activeSlide = slides[swiper.realIndex].$el;
         let $formElement = $activeSlide.find(
           '[data-widget-package="com.fliplet.form-builder"]'
