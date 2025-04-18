@@ -271,15 +271,9 @@ Fliplet.Widget.instance({
           }
         });
 
-      if (firstSlide.fields.requiredForm) {
-        swiper.allowSlidePrev =
-          !firstSlide.fields.requiredFormBackwardNavigation;
-        swiper.allowSlideNext =
-          !firstSlide.fields.requiredFormForwardNavigation;
-      } else {
-        swiper.allowSlidePrev = true;
-        swiper.allowSlideNext = true;
-      }
+
+      swiper.allowSlidePrev = firstSlide.fields.requiredFormBackwardNavigation;
+      swiper.allowSlideNext = true;
 
       Fliplet.Hooks.on('flListDataBeforeGetData', function(options) {
         let $btnPrev = $sliderElement.find('.swiper-button-prev');
@@ -314,13 +308,11 @@ Fliplet.Widget.instance({
       swiper.on('slideChangeTransitionStart', async function() {
         const activeArrow = this.activeIndex > this.previousIndex ? 'next' : 'prev';
 
-        if (activeArrow === 'prev') return;
+        if (activeArrow === 'prev' || !Fliplet.FormBuilder) return;
 
         const forms = await Fliplet.FormBuilder.getAll();
 
-        if (!forms.length) {
-          return;
-        }
+        if (!forms.length) return;
 
         const previousIndex = swiper.previousIndex;
         const previousSlideId = slides[previousIndex].id;
@@ -341,24 +333,11 @@ Fliplet.Widget.instance({
         });
 
         let currentSlide = slides[swiper.realIndex];
-        let $activeSlide = currentSlide.$el;
-        let $formElement = $activeSlide.find(
-          '[data-widget-package="com.fliplet.form-builder"]'
-        );
-        let formId = $formElement ? $formElement.data('id') : '';
 
         if (
-          currentSlide &&
-          currentSlide.fields.requiredForm &&
-          !submittedForms.includes(formId)
+          currentSlide
         ) {
-          swiper.allowSlidePrev =
-            !currentSlide.fields.requiredFormBackwardNavigation;
-          swiper.allowSlideNext =
-            !currentSlide.fields.requiredFormForwardNavigation;
-        } else {
-          swiper.allowSlidePrev = true;
-          swiper.allowSlideNext = true;
+          swiper.allowSlidePrev = !currentSlide.fields.requiredFormBackwardNavigation;
         }
 
         swiper.updateAutoHeight(500);
@@ -377,10 +356,7 @@ Fliplet.Widget.instance({
 
       Fliplet.Hooks.run('sliderInitialized');
 
-      Fliplet.Hooks.on('afterFormSubmit', function(response, data) {
-        swiper.allowSlideNext = true;
-        swiper.allowSlidePrev = true;
-
+      Fliplet.Hooks.on('afterFormSubmit', function(data) {
         let $activeSlide = slides[swiper.realIndex].$el;
         let $formElement = $activeSlide.find(
           '[data-widget-package="com.fliplet.form-builder"]'
