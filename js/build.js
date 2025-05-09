@@ -258,19 +258,6 @@ Fliplet.Widget.instance({
 
       let swiper = new Swiper(firstContainer, swiperOptions);
 
-      $sliderElement
-        .find('[data-button-action]')
-        .off('click')
-        .on('click', function() {
-          if ($(this).attr('data-can-swipe') === 'true') {
-            if ($(this).attr('data-button-action') === 'previous-slide') {
-              swiper.slidePrev();
-            } else {
-              swiper.slideNext();
-            }
-          }
-        });
-
 
       swiper.allowSlidePrev = firstSlide.fields.requiredFormBackwardNavigation;
       swiper.allowSlideNext = true;
@@ -322,7 +309,11 @@ Fliplet.Widget.instance({
           const canSwipe = currentSlideForm.every(form => form.$instance.isFormValid);
 
           if (!canSwipe) {
+            const allowSlidePrev = swiper.allowSlidePrev;
+
+            swiper.allowSlidePrev = true;
             swiper.slideTo(swiper.previousIndex, 0, false);
+            swiper.allowSlidePrev = allowSlidePrev;
           }
         }, 0);
       });
