@@ -6,12 +6,12 @@ fl-helper[name="slider"] {
 }
 
 fl-helper[name="slider"] .dynamic-list-add-item {
-  position: absolute!important;
+  position: absolute !important;
   bottom: -30px;
 }
 
 fl-helper[name="slider"] .app-list-content .btn-primary.link-button-primary.hidden-xs.login-button {
-  display: none!important;
+  display: none !important;
 }
 
 fl-helper[name="slider"] .agenda-detail-overlay .agenda-detail-overlay-screen {
@@ -34,7 +34,7 @@ fl-helper[name="slider"] * {
 }
 
 .mode-interact fl-helper[name="slider"] * {
-  transform: none!important;
+  transform: none !important;
 }
 
 fl-helper[name="slider"] .swiper-button-next {
@@ -165,4 +165,15 @@ fl-helper[name="slider"]
   background: darkorange;
   top: -2px;
   left: 0px;
+}
+
+fl-helper[name="slider"] .button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+[data-widget-package="com.fliplet.slide"] {
+  min-height: auto !important;
 }
