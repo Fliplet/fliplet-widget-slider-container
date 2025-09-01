@@ -113,15 +113,11 @@ Fliplet.Widget.instance({
       }
 
       function trackEvent(category, action, switchedSlideIndex) {
-        let trackEventOp = Fliplet.App.Analytics.event({
+        Fliplet.App.Analytics.event({
           category,
           action,
           switchedSlideIndex
         });
-
-        if (!(trackEventOp instanceof Promise)) {
-          trackEventOp = Promise.resolve();
-        }
       }
 
       if (interactMode) {
@@ -312,7 +308,11 @@ Fliplet.Widget.instance({
         const forms = await Fliplet.FormBuilder.getAll();
 
         if (!forms.length)  {
-          trackEvent('Slider', 'open', swiper.realIndex);
+          try {
+            trackEvent('Slider', 'open', swiper.realIndex);
+          } catch (error) {
+            console.error('Error tracking event', error);
+          }
 
           return;
         }
@@ -331,7 +331,11 @@ Fliplet.Widget.instance({
             swiper.slideTo(swiper.previousIndex, 0, false);
             swiper.allowSlidePrev = allowSlidePrev;
           } else {
-            trackEvent('Slider', 'open', swiper.realIndex);
+            try {
+              trackEvent('Slider', 'open', swiper.realIndex);
+            } catch (error) {
+              console.error('Error tracking event', error);
+            }
           }
         }, 0);
       });
