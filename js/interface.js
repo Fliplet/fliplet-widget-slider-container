@@ -1,7 +1,7 @@
-Fliplet.Pages.get().then(pages => {
+Fliplet.Pages.get().then((pages) => {
   let appPages = [];
 
-  appPages = pages.map(el => {
+  appPages = pages.map((el) => {
     return { value: el.id, label: el.title };
   });
   Fliplet.Widget.generateInterface({
@@ -10,17 +10,23 @@ Fliplet.Pages.get().then(pages => {
       {
         name: 'showArrows',
         type: 'radio',
-        label: 'Show navigation arrows on',
+        label: 'Navigation controls',
         options: [
-          { value: true, label: 'Mobile & Desktop' },
-          { value: false, label: 'Only on Desktop' }
+          { value: true, label: 'Show arrows' },
+          { value: 'hidden', label: 'Hide arrows' }
         ],
         default: true
       },
       {
+        name: 'navigationNote',
+        type: 'div',
+        html: 'If you hide the arrows, make sure to add a way for users to navigate between slides — such as a custom "Next" or "Previous" button inside your form. <a href="https://developers.fliplet.com/components/slider-navigation.html" target="_blank">Learn more</a> how to add navigation buttons.',
+        className: 'navigation-note'
+      },
+      {
         name: 'progress',
         type: 'dropdown',
-        label: 'Show progress',
+        label: 'Enable progress interface',
         options: [
           { value: 'bullets', label: 'Pagination dots' },
           { value: 'fraction', label: 'Pagination bar' },
@@ -42,13 +48,15 @@ Fliplet.Pages.get().then(pages => {
       {
         name: 'firstTime',
         type: 'checkbox',
-        label: 'Display slides once',
-        description: 'The slides will only be displayed once for first time users',
+        label: 'Show slides only once',
+        description:
+          'The slides will only be displayed once for first time users',
         options: [{ value: true, label: 'Yes' }],
         default: [],
         change: function(value) {
-          Fliplet.Helper.field('redirectEndScreen')
-            .toggle(value.includes(true));
+          Fliplet.Helper.field('redirectEndScreen').toggle(
+            value.includes(true)
+          );
         }
       },
       // IF YES firstTime
@@ -56,18 +64,16 @@ Fliplet.Pages.get().then(pages => {
         name: 'redirectEndScreen',
         type: 'dropdown',
         label: 'Select the screen users will be redirected to',
-        description: 'This only applies to users who have already seen the slides',
+        description:
+          'This only applies to users who have already seen the slides',
         options: appPages,
         default: '',
         ready: function() {
           Fliplet.Helper.field('redirectEndScreen').toggle(
-            Fliplet.Helper.field('firstTime')
-              .get()
-              .includes(true)
+            Fliplet.Helper.field('firstTime').get().includes(true)
           );
         }
       }
     ]
   });
 });
-
