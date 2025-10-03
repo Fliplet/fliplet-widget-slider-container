@@ -112,14 +112,6 @@ Fliplet.Widget.instance({
         }
       }
 
-      function trackEvent(category, action, switchedSlideIndex) {
-        Fliplet.App.Analytics.event({
-          category,
-          action,
-          switchedSlideIndex
-        });
-      }
-
       if (interactMode) {
         const $screen = $(document, '#preview')
           .contents()
@@ -303,27 +295,11 @@ Fliplet.Widget.instance({
       swiper.on('slideChangeTransitionStart', async function() {
         const activeArrow = this.activeIndex > this.previousIndex ? 'next' : 'prev';
 
-        if (activeArrow === 'prev' || !Fliplet.FormBuilder) {
-          try {
-            trackEvent('Slider', 'open', swiper.realIndex);
-          } catch (error) {
-            console.error('Error tracking event', error);
-          }
-
-          return;
-        }
+        if (activeArrow === 'prev' || !Fliplet.FormBuilder) return;
 
         const forms = await Fliplet.FormBuilder.getAll();
 
-        if (!forms.length)  {
-          try {
-            trackEvent('Slider', 'open', swiper.realIndex);
-          } catch (error) {
-            console.error('Error tracking event', error);
-          }
-
-          return;
-        }
+        if (!forms.length) return;
 
         const previousIndex = swiper.previousIndex;
         const previousSlideId = slides[previousIndex].id;
