@@ -340,7 +340,7 @@ Fliplet.Widget.instance({
             swiper.allowSlidePrev = allowSlidePrev;
           } else {
             try {
-              trackEvent('Slider', 'open', swiper.realIndex);
+              trackEvent('Slider', 'open', swiper.realIndex );
             } catch (error) {
               console.error('Error tracking event', error);
             }
