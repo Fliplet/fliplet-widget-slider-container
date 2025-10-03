@@ -295,15 +295,7 @@ Fliplet.Widget.instance({
       swiper.on('slideChangeTransitionStart', async function() {
         const activeArrow = this.activeIndex > this.previousIndex ? 'next' : 'prev';
 
-        if (activeArrow === 'prev' || !Fliplet.FormBuilder) {
-          try {
-            trackEvent('Slider', 'open', swiper.realIndex);
-          } catch (error) {
-            console.error('Error tracking event', error);
-          }
-
-          return;
-        }
+        if (activeArrow === 'prev' || !Fliplet.FormBuilder) return;
 
         const forms = await Fliplet.FormBuilder.getAll();
 
