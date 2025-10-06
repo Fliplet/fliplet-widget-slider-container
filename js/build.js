@@ -315,7 +315,7 @@ Fliplet.Widget.instance({
 
         const forms = await Fliplet.FormBuilder.getAll();
 
-        if (!forms.length)  {
+        if (!forms.length) {
           try {
             trackEvent('Slider', 'open', swiper.realIndex);
           } catch (error) {
