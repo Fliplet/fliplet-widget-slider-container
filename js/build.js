@@ -307,7 +307,7 @@ Fliplet.Widget.instance({
           try {
             trackEvent('Slider', 'open', swiper.realIndex);
           } catch (error) {
-            console.error('Error tracking event', error);
+            console.error('Error tracking event ', error);
           }
 
           return;
@@ -319,7 +319,7 @@ Fliplet.Widget.instance({
           try {
             trackEvent('Slider', 'open', swiper.realIndex);
           } catch (error) {
-            console.error('Error tracking event', error);
+            console.error('Error tracking event ', error);
           }
 
           return;
