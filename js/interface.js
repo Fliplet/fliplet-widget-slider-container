@@ -20,7 +20,7 @@ Fliplet.Pages.get().then((pages) => {
       {
         name: 'navigationNote',
         type: 'div',
-        html: 'If you hide the arrows, make sure to add a way for users to navigate between slides — such as a custom "Next" or "Previous" button inside your form. <a href="https://developers.fliplet.com/components/slider-navigation.html" target="_blank">Learn more</a> how to add navigation buttons.',
+        html: 'If you hide the arrows, make sure to add a way for users to navigate between slides — such as a custom "Next" or "Previous" button inside your form. <a href="https://help.fliplet.com/customizable-slider-component/" target="_blank">Learn more</a> how to add navigation buttons.',
         className: 'navigation-note'
       },
       {
