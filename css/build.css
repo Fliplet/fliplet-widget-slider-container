@@ -1,8 +1,12 @@
 fl-helper[name="slider"] {
   display: block !important;
   position: relative;
-  height: 100vh;
+  height: 100vh; /* Fallback for older browsers */
+  height: 100dvh; /* Dynamic viewport height - accounts for browser UI */
+  height: calc(100dvh + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px)); /* Include safe areas */
   overflow-x: hidden;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 fl-helper[name="slider"] .dynamic-list-add-item {
