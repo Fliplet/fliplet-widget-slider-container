@@ -220,7 +220,7 @@ Fliplet.Widget.instance({
         allowTouchMove: Modernizr.touchevents,
         allowSlideNext: false,
         allowSlidePrev: false,
-        autoHeight: true,
+        autoHeight: false,
         keyboard: {
           enabled: true,
           onlyInViewport: false
@@ -361,7 +361,7 @@ Fliplet.Widget.instance({
           swiper.allowSlidePrev = !currentSlide.fields.requiredFormBackwardNavigation;
         }
 
-        swiper.updateAutoHeight(500);
+        // swiper.updateAutoHeight(500);
 
         if (!interactMode) {
           scrollToTopOfSlide();
