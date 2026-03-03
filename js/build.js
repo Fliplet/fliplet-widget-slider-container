@@ -141,7 +141,7 @@ Fliplet.Widget.instance({
         checkAllowedStructure();
       }
 
-      slider.fields = _.assign(
+      slider.fields = Fliplet.Utils.assign(
         {
           progress: 'progressbar',
           animationStyle: '',
